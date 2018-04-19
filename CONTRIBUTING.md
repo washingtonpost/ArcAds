@@ -1,8 +1,6 @@
 # Contributing to ArcAds
 
-We're happy to have you here!
-
-Here are some important resources:
+Welcome to the contribution guide for ArcAds. Here are some important resources to get you started:
 
   * [Doubleclick for Publishers](http://www.google.com/dfp)
   * [Prebid.js](http://prebid.org/)
