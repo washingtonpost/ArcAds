@@ -1,7 +1,8 @@
 # Contributing to ArcAds
 
 Welcome to the contribution guide for ArcAds. Here are some important resources to get you started:
-
+  
+  * [ArcAds Wiki](https://github.com/washingtonpost/ArcAds/wiki)
   * [Doubleclick for Publishers](http://www.google.com/dfp)
   * [Prebid.js](http://prebid.org/)
   * [Amazon A9](https://www.a9.com/)
