@@ -406,4 +406,4 @@ You can override the slot name of every advertisement on the page by appending `
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
 
 ## Contributing
-If you'd like to contribute to ArcAds please read our [contributing guide](https://github.com/washingtonpost/ArcAds/wiki).
+If you'd like to contribute to ArcAds please read our [contributing guide](https://github.com/washingtonpost/ArcAds/blob/master/CONTRIBUTING.md).
