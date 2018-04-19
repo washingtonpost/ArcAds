@@ -1,4 +1,6 @@
 # ArcAds
+[![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds.svg?style=shield)](https://circleci.com/gh/washingtonpost/ArcAds)
+
 ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) with publishers in mind, using ArcAds you can selectivley make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
 
 ## Getting Started
@@ -402,3 +404,6 @@ There's a series developer tools availble, to get started run `yarn install`.
 You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
 
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
+
+## Contributing
+If you'd like to contribute to ArcAds please read out [contributing guide](https://github.com/washingtonpost/ArcAds/wiki).
