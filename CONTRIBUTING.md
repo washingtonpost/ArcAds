@@ -8,7 +8,7 @@ Welcome to the contribution guide for ArcAds. Here are some important resources 
   * [Amazon A9](https://www.a9.com/)
   
 ## Questions or Issues
-If you have a general question or an issue please refer to our FAQ which we'll update reguarly with questions. If you can't find an answer to your question please open an [issue](https://github.com/washingtonpost/ArcAds/issues).
+If you have a general question or an issue please refer to our [Frequently Asked Questions](https://github.com/washingtonpost/ArcAds/wiki/Frequently-Asked-Questions) section which we'll update reguarly with questions. If you can't find an answer to your question please open an [issue](https://github.com/washingtonpost/ArcAds/issues).
 
 ## Testing
 ArcAds has a series of unit tests built with [Jest](https://facebook.github.io/jest/). We are always looking to improve our testing coverage , and request that if you create new functionality that you also include tests along with it.
