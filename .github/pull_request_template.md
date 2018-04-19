@@ -2,7 +2,7 @@
 _Include a description of changes introduced on branch here_
 
 
-#### To test
+#### Verify
 
 - [ ] Confirm that cross browser testing has been completed.
 
