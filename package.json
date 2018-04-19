@@ -1,0 +1,54 @@
+{
+  "name": "arcads",
+  "version": "1.1.0",
+  "description": "Arc Ads is a DFP wrapper created for Arc client projects",
+  "main": "dist/arcads.js",
+  "scripts": {
+    "test": "jest --config jest.config.js --no-cache",
+    "build": "rm -rf dist && webpack --env.production",
+    "dev": "rm -rf dist && webpack --env.development --watch",
+    "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wapopartners/arcads.git"
+  },
+  "keywords": [
+    "ads",
+    "advertisements",
+    "dfp",
+    "gpt",
+    "prebid",
+    "amazon",
+    "headerbidding",
+    "hb"
+  ],
+  "author": "James Ives",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wapopartners/arcads/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.37",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^22.0.4",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0"
+  },
+  "homepage": "https://github.com/wapopartners/arcads#readme"
+}
