@@ -1,6 +1,6 @@
-# How to contribute
+# Contributing to ArcAds
 
-Welcome to the contribution guide for ArcAds. We're happy to have you here!
+We're happy to have you here!
 
 Here are some important resources:
 
