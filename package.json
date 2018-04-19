@@ -1,17 +1,18 @@
 {
   "name": "arcads",
-  "version": "1.1.0",
-  "description": "Arc Ads is a DFP wrapper created for Arc client projects",
+  "version": "1.0.0",
+  "description": "ArcAds is a DFP wrapper created by Arc Publishing with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
     "test": "jest --config jest.config.js --no-cache",
     "build": "rm -rf dist && webpack --env.production",
     "dev": "rm -rf dist && webpack --env.development --watch",
-    "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html"
+    "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
+    "debug": "node debugging.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wapopartners/arcads.git"
+    "url": "git+https://github.com/washingtonpost/arcads.git"
   },
   "keywords": [
     "ads",
@@ -26,7 +27,7 @@
   "author": "James Ives",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wapopartners/arcads/issues"
+    "url": "https://github.com/washingtonpost/arcads/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.37",
@@ -50,5 +51,5 @@
     "esdoc": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0"
   },
-  "homepage": "https://github.com/wapopartners/arcads#readme"
+  "homepage": "https://github.com/washingtonpost/arcads#readme"
 }

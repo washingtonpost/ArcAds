@@ -1,5 +1,5 @@
 # ArcAds
-ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) for publisher web projects, using ArcAds you can selectivley make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
+ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) with publishers in mind, using ArcAds you can selectivley make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
 
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `yarn install` followed by `yarn build` to compile it yourself incase you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
@@ -38,6 +38,12 @@ arcAds.registerAd({
   dimensions: '[[300, 250], [300, 600]]',
   display: 'desktop'
 })
+```
+
+Along with the `registerAd` call you also need a div on the page with the same id.
+
+```html
+<div id="div-id-123"></div>
 ```
 
 The following table shows all of the possible parameters the `registerAd` method accepts.
@@ -390,7 +396,7 @@ There's a series developer tools availble, to get started run `yarn install`.
 | `yarn build`  | Builds the project into the `dist` directory with minification.  |
 | `yarn docs`  | Generates ESDoc documentation in the `docs` directory on-demand.  |
 | `yarn test`  | Runs a series of unit tests with Jest. Tests are automatically validated during a pull request.  |
-| `node debugging.js`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
+| `yarn debug`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
 
 ### Slot Override
 You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
