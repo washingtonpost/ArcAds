@@ -1,4 +1,4 @@
-/** @desc Utility class that determines the end users browser user agent. **/
+/** @desc Utility class that determines the end user's browser user agent. **/
 export class MobileDetection {
   /**
   * @desc Determines if the user is using an Android device.
