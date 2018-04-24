@@ -60,7 +60,7 @@ The following table shows all of the possible parameters the `registerAd` method
 | `targeting`  | The `targeting` paramter accepts an object containing key/value pairs which should attached to the advertisement request. | `Object` | `Optional` |
 | `sizemap`  | The `sizemap` paramter accepts an object containing information about the advertisements size mapping, for more information refer to the [Size Mapping portion of the readme](https://github.com/washingtonpost/arcads#size-mapping). | `Object` | `Optional` |
 | `bidding`  | The `bidding` paramter accepts an object containing information about the advertisements header bidding vendors, for more information refer to the [Header Bidding portion of the readme](https://github.com/washingtonpost/arcads#header-bidding). | `Object` | `Optional` | 
-| `prerender`  | The `prerender` paramter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` | 
+| `prerender`  | The `prerender` parameter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` | 
 
 ### Out of Page Ads
 If an advertisement has an empty or missing `dimensions` parameter it will be considered as a [DFP Out of Page creative](https://support.google.com/dfp_premium/answer/6088046?hl=en) and rendered as such.
