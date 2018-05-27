@@ -1,3 +1,4 @@
+import 'promise-polyfill/src/polyfill';
 import { MobileDetection } from './util/mobile';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
 import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
