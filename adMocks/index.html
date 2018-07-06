@@ -10,10 +10,18 @@
 
         <script type="text/javascript">
             const arcAds = new ArcAds({
-              dfp: {
-                id: '701'
-              }
+                dfp: {
+                    id: '701'
+                },
+                bidding: {
+                    amazon: {
+                        enabled: true,
+                        id: '3258'
+                    }
+                }
             })
+
+            
 
             arcAds.registerAd({
                 id: 'div-id-123',

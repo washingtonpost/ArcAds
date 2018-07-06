@@ -1,3 +1,4 @@
+import './util/polyfills';
 import { MobileDetection } from './util/mobile';
 import { renamePositionKey } from './util/customTargeting';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
