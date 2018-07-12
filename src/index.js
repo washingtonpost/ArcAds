@@ -1,4 +1,6 @@
+import './util/polyfills';
 import { MobileDetection } from './util/mobile';
+import { renamePositionKey } from './util/customTargeting';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
 import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
 import { queuePrebidCommand, addUnit } from './services/prebid';
@@ -14,7 +16,7 @@ export class ArcAds {
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
-      console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
+      console.warn(`ArcAds: DFP id is missing from the arcads initialization script.
         Documentation: https://github.com/wapopartners/arc-ads#getting-started`);
     } else {
       initializeGPT();
@@ -32,12 +34,17 @@ export class ArcAds {
 
     /* If positional targeting doesn't exist it gets assigned a numeric value
       based on the order and type of the advertisement. This logic is skipped if adType is not defined. */
-    if ((!targeting || !targeting.hasOwnProperty('position')) && adType !== false) {
+
+    if ((!targeting.hasOwnProperty('position') || typeof targeting.position === 'object') && adType !== false) {
       const position = this.positions[adType] + 1 || 1;
       this.positions[adType] = position;
 
-      const positionParam = Object.assign(targeting, { position });
-      Object.assign(params, { targeting: positionParam });
+      if (typeof targeting.position === 'object' && targeting.position.as) {
+        Object.assign(position, renamePositionKey(targeting, position));
+      } else {
+        const positionParam = Object.assign(targeting, { position });
+        Object.assign(params, { targeting: positionParam });
+      }
     }
 
     if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
