@@ -14,7 +14,7 @@ describe('arcads', () => {
         enabled: true
       }
     }
-  })
+  });
 
   describe('#constructor', () => {
     it('should initialize arc ads', () => {
@@ -24,7 +24,7 @@ describe('arcads', () => {
     it('should initialize googletag', () => {
       const { googletag } = global;
       expect(googletag).toBeDefined();
-    })
+    });
 
     it('should initialize header bidding serivces', () => {
       const { arcBiddingReady } = global;
