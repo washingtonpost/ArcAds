@@ -77,7 +77,7 @@ export function fetchBids({
   wrapper,
   bidding,
   correlator = false,
-  prerender
+  prerender,
 }) {
   const adInfo = {
     adUnit: ad,
@@ -89,6 +89,9 @@ export function fetchBids({
   const prebidBids = new Promise((resolve) => {
     if (wrapper.prebid && wrapper.prebid.enabled) {
       const timeout = wrapper.prebid.timeout || 700;
+      if (wrapper.prebid.slotSuffix) {
+        adInfo.adSlot = `${slotName}${wrapper.prebid.slotSuffix}`;
+      }
 
       queuePrebidCommand.bind(this, fetchPrebidBids(ad, id, timeout, adInfo, prerender, () => {
         resolve('Fetched Prebid ads!');
@@ -100,7 +103,9 @@ export function fetchBids({
 
   const amazonBids = new Promise((resolve) => {
     if (wrapper.amazon && wrapper.amazon.enabled) {
-      fetchAmazonBids(id, slotName, dimensions, () => {
+      const targetedSlotName = wrapper.amazon.slotSuffix ? `${slotName}${wrapper.amazon.slotSuffix}` : slotName;
+
+      fetchAmazonBids(id, targetedSlotName, dimensions, () => {
         resolve('Fetched Amazon ads!');
       });
     } else {
