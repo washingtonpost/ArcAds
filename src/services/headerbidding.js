@@ -17,9 +17,10 @@ export function initializeBiddingServices({
 
   const enablePrebid = new Promise((resolve) => {
     if (prebid && prebid.enabled) {
-      const pbjs = pbjs || {};
-      pbjs.que = pbjs.que || [];
-
+      if (!pbjs) {
+        const pbjs = pbjs || {};
+        pbjs.que = pbjs.que || [];
+      }
       resolve('Prebid has been initialized');
     } else {
       resolve('Prebid is not enabled on the wrapper...');

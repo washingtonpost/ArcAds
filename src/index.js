@@ -88,7 +88,7 @@ export class ArcAds {
     prerender = null
   }) {
     const fullSlotName = determineSlotName(this.dfpId, slotName);
-    const parsedDimensions = !dimensions.length ? null : JSON.parse(dimensions);
+    const parsedDimensions = !dimensions.length ? null : dimensions;
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
 

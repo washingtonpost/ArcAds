@@ -17,7 +17,7 @@ export function prepareSizeMaps(dimensions, sizemap) {
   const mapping = [];
   const breakpoints = [];
   const correlators = [];
-  const parsedSizemap = !sizemap.length ? null : JSON.parse(sizemap);
+  const parsedSizemap = !sizemap.length ? null : sizemap;
 
   parsedSizemap.forEach((value, index) => {
     mapping.push([value, dimensions[index]]);
