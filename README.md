@@ -54,7 +54,7 @@ The following table shows all of the possible parameters the `registerAd` method
 | ------------- | ------------- | ------------- | ------------- |
 | `id`  | The `id` parameter corresponds to a div id on the page that the advertisement should render into. | `String` | `Required` | 
 | `slotName`  | The `slotName` parameter is equal to the slot name configured within DFP, for example `sitename/hp/hp-1`. The publisher ID gets attached to the slot name within the ArcAds logic. | `String` | `Required` |
-| `dimensions`  | The `dimensions` parameter should be a string representing an array of arrays containing the advertisement sizes the slot can load. If left empty the advertisement will be considered as an out of page unit. | `String` | `Optional` |
+| `dimensions`  | The `dimensions` parameter should be an array with array of arrays containing the advertisement sizes the slot can load. If left empty the advertisement will be considered as an out of page unit. | `Array` | `Optional` |
 | `adType`  | The `adType` parameter should describe the type of advertisement, for instance `leaderboard` or `cube`.  | `String` | `Optional` |
 | `display`  | The `display` paramter determines which user agents can render the advertisement. The available choices are `desktop`, `mobile`, or `all`. If a value is not provided it will default to `all`. | `String` | `Optional` |
 | `targeting`  | The `targeting` paramter accepts an object containing key/value pairs which should attached to the advertisement request. | `Object` | `Optional` |
@@ -118,7 +118,7 @@ The service will automatically give the advertisement a `position` target key/va
 If `adType` is exluded from the `registerAd` call the automatic position targeting will not be included.
 
 ## Size Mapping
-You can configure DFP size mapped ads with the same registration call by adding a `sizemap` object. To utilize size mapping the `dimensions` key should be updated to include a string representing a nested array of arrays containing the applicable sizes for a specific breakpoint.
+You can configure DFP size mapped ads with the same registration call by adding a `sizemap` object. To utilize size mapping the `dimensions` key should be updated to include an array representing a nested array of arrays containing the applicable sizes for a specific breakpoint.
 
 ```javascript
 [ [[970, 250], [970, 90], [728, 90]],
@@ -141,12 +141,12 @@ arcAds.registerAd({
   id: 'div-id-123',
   slotName: 'hp/hp-1',
   adType: 'cube',
-  dimensions: '[ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ]',
+  dimensions: [ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ],
   targeting: {
     section: 'weather'
   },
   sizemap: {
-    breakpoints: '[ [1280, 0], [800, 0], [0, 0] ]',
+    breakpoints: [ [1280, 0], [800, 0], [0, 0] ],
     refresh: true
   }
 })
@@ -161,7 +161,7 @@ You can setup a function within the `registerAd` call by adding a `prerender` pa
 arcAds.registerAd({
   id: 'div-id-123',
   slotName: 'hp/hp-1',
-  dimensions: '[[300, 250], [300, 600]]',
+  dimensions: [[300, 250], [300, 600]],
   display: 'desktop',
   prerender: window.adFunction
 })
