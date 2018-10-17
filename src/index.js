@@ -31,7 +31,16 @@ export class ArcAds {
   **/
   registerAd(params) {
     const { id, dimensions, adType = false, targeting = {}, display = 'all', bidding = false } = params;
+    const flatDimensions = [];
 
+    if (dimensions.length > 0 && dimensions[0][0][0] === undefined) {
+      flatDimensions.push(...dimensions);
+    } else {
+      dimensions.forEach(set => {
+        flatDimensions.push(...set)
+      });
+    }
+    
     /* If positional targeting doesn't exist it gets assigned a numeric value
       based on the order and type of the advertisement. This logic is skipped if adType is not defined. */
 
