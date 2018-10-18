@@ -37,7 +37,7 @@ You can display an advertisement by calling the `registerAd` method, this can be
 arcAds.registerAd({
   id: 'div-id-123',
   slotName: 'hp/hp-1',
-  dimensions: '[[300, 250], [300, 600]]',
+  dimensions: [[300, 250], [300, 600]],
   display: 'desktop'
 })
 ```
@@ -105,7 +105,7 @@ arcAds.registerAd({
   id: 'div-id-123',
   slotName: 'hp/hp-1',
   adType: 'cube',
-  dimensions: '[[300, 250], [300, 600]]',
+  dimensions: [[300, 250], [300, 600]],
   display: 'all',
   targeting: {
     section: 'weather'
@@ -281,9 +281,9 @@ arcAds.registerAd({
   slotName: 'hp/hp-1',
   adType: 'cube',
   display: 'desktop',
-  dimensions: '[ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ]',
+  dimensions: [ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ],
   sizemap: {
-    breakpoints: '[ [1280, 0], [800, 0], [0, 0] ]',
+    breakpoints: [ [1280, 0], [800, 0], [0, 0] ],
     refresh: 'true'
   },
   bidding: {
