@@ -17,9 +17,10 @@ export function initializeBiddingServices({
 
   const enablePrebid = new Promise((resolve) => {
     if (prebid && prebid.enabled) {
-      const pbjs = pbjs || {};
-      pbjs.que = pbjs.que || [];
-
+      if (!pbjs) {
+        const pbjs = pbjs || {};
+        pbjs.que = pbjs.que || [];
+      }
       resolve('Prebid has been initialized');
     } else {
       resolve('Prebid is not enabled on the wrapper...');
@@ -77,7 +78,7 @@ export function fetchBids({
   wrapper,
   bidding,
   correlator = false,
-  prerender,
+  prerender
 }) {
   const adInfo = {
     adUnit: ad,
@@ -89,9 +90,6 @@ export function fetchBids({
   const prebidBids = new Promise((resolve) => {
     if (wrapper.prebid && wrapper.prebid.enabled) {
       const timeout = wrapper.prebid.timeout || 700;
-      if (bidding.prebid.slotSuffix) {
-        adInfo.adSlot = `${slotName}${bidding.prebid.slotSuffix}`;
-      }
 
       queuePrebidCommand.bind(this, fetchPrebidBids(ad, id, timeout, adInfo, prerender, () => {
         resolve('Fetched Prebid ads!');
@@ -103,9 +101,7 @@ export function fetchBids({
 
   const amazonBids = new Promise((resolve) => {
     if (wrapper.amazon && wrapper.amazon.enabled) {
-      const targetedSlotName = bidding.amazon.slotSuffix ? `${slotName}${bidding.amazon.slotSuffix}` : slotName;
-
-      fetchAmazonBids(id, targetedSlotName, dimensions, () => {
+      fetchAmazonBids(id, slotName, dimensions, () => {
         resolve('Fetched Amazon ads!');
       });
     } else {

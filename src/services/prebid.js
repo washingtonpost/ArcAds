@@ -41,12 +41,13 @@ export function fetchPrebidBids(ad, id, timeout, info, prerender, cb = null) {
 **/
 export function addUnit(code, sizes, bids, wrapper = {}) {
   // Formats the add unit for prebid..
-  const slot = { code, sizes, bids };
+  const slot = { code, bids };
+  slot.mediaTypes = { banner: { sizes } };
   const { sizeConfig } = wrapper;
 
   pbjs.addAdUnits(slot);
 
   if (sizeConfig) {
-    pbjs.setConfig({ sizeConfig: [sizeConfig] });
+    pbjs.setConfig({ sizeConfig });
   }
 }
