@@ -53,7 +53,7 @@ describe('arcads', () => {
         id: 'div-id-123',
         slotName: 'hp/hp-1',
         adType: 'cube',
-        dimensions: '[[300, 250], [300, 600]]',
+        dimensions: [[300, 250], [300, 600]],
         display: 'all',
         targeting: {
           section: 'weather'
@@ -69,7 +69,7 @@ describe('arcads', () => {
         id: 'div-id-123',
         slotName: 'hp/hp-1',
         adType: 'cube',
-        dimensions: '[[300, 250], [300, 600]]',
+        dimensions: [[300, 250], [300, 600]],
         display: 'all',
         targeting: {
           section: 'weather'
@@ -90,12 +90,12 @@ describe('arcads', () => {
         id: 'div-id-123',
         slotName: 'hp/hp-1',
         adType: 'cube',
-        dimensions: '[ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ]',
+        dimensions: [ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ],
         targeting: {
           section: 'weather'
         },
         sizemap: {
-          breakpoints: '[ [1280, 0], [800, 0], [0, 0] ]',
+          breakpoints: [ [1280, 0], [800, 0], [0, 0] ],
           refresh: 'true'
         }
       });
