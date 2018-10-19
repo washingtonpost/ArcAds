@@ -34,8 +34,8 @@ export class ArcAds {
     if (dimensions.length > 0 && dimensions[0][0][0] === undefined) {
       flatDimensions.push(...dimensions);
     } else {
-      dimensions.forEach(set => {
-        flatDimensions.push(...set)
+      dimensions.forEach((set) => {
+        flatDimensions.push(...set);
       });
     }
 
@@ -48,8 +48,6 @@ export class ArcAds {
       const positionParam = Object.assign(targeting, { position });
       Object.assign(params, { targeting: positionParam });
     }
-
-
 
     if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
       // Registers the advertisement with Prebid.js if enabled on both the unit and wrapper.
