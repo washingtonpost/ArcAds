@@ -52,7 +52,7 @@ export class ArcAds {
     if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
       // Registers the advertisement with Prebid.js if enabled on both the unit and wrapper.
       if ((bidding.prebid && bidding.prebid.bids) && (this.wrapper.prebid && this.wrapper.prebid.enabled) && flatDimensions) {
-        if(pbjs && iframeBidders.length > 0){
+        if (pbjs && iframeBidders.length > 0) {
           pbjs.setConfig({
             userSync: {
               iframeEnabled: true,
