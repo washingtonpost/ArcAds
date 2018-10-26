@@ -1,4 +1,3 @@
-import { appendResource } from '../util/resources';
 import { fetchPrebidBids, queuePrebidCommand } from './prebid';
 import { fetchAmazonBids, queueAmazonCommand } from './amazon';
 import { refreshSlot } from './gpt';
