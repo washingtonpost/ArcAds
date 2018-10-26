@@ -302,7 +302,12 @@ arcAds.registerAd({
 ```
 
 ### Amazon TAM/A9
-You can enable Amazon A9/TAM on the service by adding an `amazon` object to the wrapper initialization and then passing it `enabled: true`. You must also provide your publication id that corresponds to the owners Amazon account. Unlike Prebid.js, the Amazon initialization script is included inside of the wrapper.
+You can enable Amazon A9/TAM on the service by adding an `amazon` object to the wrapper initialization and then passing it `enabled: true`. You must also include the `apstag` script on your page with: 
+```
+<script src="https://c.amazon-adsystem.com/aax2/apstag.js"></script>
+```
+
+You must also provide your publication id that corresponds to the owners Amazon account.
 
 ```javascript
 const arcAds = new ArcAds({
