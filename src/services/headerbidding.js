@@ -28,24 +28,22 @@ export function initializeBiddingServices({
   });
 
   const enableAmazon = new Promise((resolve) => {
-    if (amazon && amazon.enabled) {
-      appendResource('script', '//c.amazon-adsystem.com/aax2/apstag.js', true, true, () => {
-        if (amazon.id && amazon.id !== '') {
-          queueAmazonCommand(() => {
-            // Initializes the Amazon APS tag script.
-            window.apstag.init({
-              pubID: amazon.id,
-              adServer: 'googletag'
-            });
-
-            resolve('Amazon scripts have been added onto the page!');
+    if (amazon && amazon.enabled && window.apstag) {
+      if (amazon.id && amazon.id !== '') {
+        queueAmazonCommand(() => {
+          // Initializes the Amazon APS tag script.
+          window.apstag.init({
+            pubID: amazon.id,
+            adServer: 'googletag'
           });
-        } else {
-          console.warn(`ArcAds: Missing Amazon account id. 
-            Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
-          resolve('Amazon is not enabled on the wrapper...');
-        }
-      });
+
+          resolve('Amazon scripts have been added onto the page!');
+        });
+      } else {
+        console.warn(`ArcAds: Missing Amazon account id. 
+          Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
+        resolve('Amazon is not enabled on the wrapper...');
+      }
     } else {
       resolve('Amazon is not enabled on the wrapper...');
     }

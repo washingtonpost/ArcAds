@@ -32,9 +32,5 @@ export function fetchAmazonBids(id, slotName, dimensions, cb = null) {
 export function queueAmazonCommand(cmd) {
   if (window.apstag) {
     cmd();
-  } else {
-    setTimeout(() => {
-      queueAmazonCommand(cmd);
-    }, 200);
   }
 }
