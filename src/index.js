@@ -73,7 +73,6 @@ export class ArcAds {
       if (processDisplayAd) {
         queueGoogletagCommand(processDisplayAd);
       }
-      
     }
   }
 
