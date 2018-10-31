@@ -30,6 +30,7 @@ export class ArcAds {
   registerAd(params) {
     const { id, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'] } = params;
     const flatDimensions = [];
+    let processDisplayAd = false;
 
     if (dimensions.length > 0 && dimensions[0][0][0] === undefined) {
       flatDimensions.push(...dimensions);
@@ -68,7 +69,10 @@ export class ArcAds {
         queuePrebidCommand.bind(this, addUnit(id, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
       }
 
-      queueGoogletagCommand(this.displayAd.bind(this, params));
+      processDisplayAd = this.displayAd.bind(this, params);
+      if (processDisplayAd) {
+        queueGoogletagCommand(processDisplayAd);
+      }
     }
   }
 
@@ -110,7 +114,11 @@ export class ArcAds {
     if (sizemap && sizemap.breakpoints && dimensions) {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
-      ad.defineSizeMapping(mapping);
+      if (ad) {
+        ad.defineSizeMapping(mapping);
+      } else {
+        return false;
+      }
 
       if (sizemap.refresh) {
         setResizeListener({
