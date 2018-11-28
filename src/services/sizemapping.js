@@ -90,7 +90,7 @@ export function runResizeEvents(params) {
       mapping,
       slotName,
       wrapper,
-      prerender } = params;
+      prerender} = params;
 
     const width = window.innerWidth;
     let breakpoint;
@@ -124,7 +124,8 @@ export function runResizeEvents(params) {
             bidding,
             wrapper,
             prerender,
-            correlator: sizemapListeners[id].correlators[i]
+            correlator: sizemapListeners[id].correlators[i],
+            breakpoints: breakpoints
           });
         } else {
           refreshSlot({
