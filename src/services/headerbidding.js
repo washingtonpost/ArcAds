@@ -75,7 +75,8 @@ export function fetchBids({
   wrapper,
   bidding,
   correlator = false,
-  prerender
+  prerender,
+  breakpoints
 }) {
   const adInfo = {
     adUnit: ad,
@@ -98,7 +99,7 @@ export function fetchBids({
 
   const amazonBids = new Promise((resolve) => {
     if (wrapper.amazon && wrapper.amazon.enabled) {
-      fetchAmazonBids(id, slotName, dimensions, () => {
+      fetchAmazonBids(id, slotName, dimensions, breakpoints, () => {
         resolve('Fetched Amazon ads!');
       });
     } else {

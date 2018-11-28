@@ -111,6 +111,7 @@ export class ArcAds {
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
 
+
     if (sizemap && sizemap.breakpoints && dimensions) {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
@@ -139,6 +140,8 @@ export class ArcAds {
 
     setTargeting(ad, targeting);
 
+    const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
+
     if (bidding && dimensions) {
       fetchBids({
         ad,
@@ -147,7 +150,8 @@ export class ArcAds {
         dimensions: parsedDimensions,
         wrapper: this.wrapper,
         prerender,
-        bidding
+        bidding,
+        breakpoints: safebreakpoints
       });
     } else {
       refreshSlot({

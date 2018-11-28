@@ -124,7 +124,8 @@ export function runResizeEvents(params) {
             bidding,
             wrapper,
             prerender,
-            correlator: sizemapListeners[id].correlators[i]
+            correlator: sizemapListeners[id].correlators[i],
+            breakpoints
           });
         } else {
           refreshSlot({
