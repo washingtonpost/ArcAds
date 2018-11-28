@@ -131,8 +131,7 @@ export class ArcAds {
           correlators,
           bidding,
           wrapper: this.wrapper,
-          prerender,
-          dimensions: parsedDimensions
+          prerender
         });
       }
     }
