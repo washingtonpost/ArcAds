@@ -6,53 +6,48 @@
 * @param {function} cb - An optional callback function that should fire whenever the bidding has concluded.
 **/
 export function fetchAmazonBids(id, slotName, dimensions, breakpoints, cb = null) {
-
   // pass in breakpoints array
-  let sizeArray = dimensions
-  
-  if ( breakpoints && typeof window.innerWidth != 'undefined' &&  dimensions[0][0][0] !== undefined) {
-  
-    let viewPortWidth = window.innerWidth
-    let useIndex = -1
-    let breakpointsLength = breakpoints.length
-  
-    for (var ind=0; ind<breakpointsLength; ind++) {
-      if (viewPortWidth >= breakpoints[ind][0]){
+  let sizeArray = dimensions;
+
+  if (breakpoints && typeof window.innerWidth !== 'undefined' && dimensions[0][0][0] !== undefined) {
+    const viewPortWidth = window.innerWidth;
+    let useIndex = -1;
+    const breakpointsLength = breakpoints.length;
+
+    for (let ind = 0; ind < breakpointsLength; ind++) {
+      if (viewPortWidth >= breakpoints[ind][0]) {
         useIndex = ind;
         break;
       }
     }
-    
-    sizeArray = dimensions[useIndex]
+
+    sizeArray = dimensions[useIndex];
   }
-  
-  
+
   queueAmazonCommand(() => {
-      const slot = {
-        slotName,
-        slotID: id,
-        sizes: sizeArray
-      };
-  
-      // Retrieves the bid from Amazon
-      window.apstag.fetchBids({ slots: [slot] }, () => {
-        // Sets the targeting values on the display bid from apstag
-        window.apstag.setDisplayBids();
-  
-        if (cb) {
-          cb();
-        }
-      });
+    const slot = {
+      slotName,
+      slotID: id,
+      sizes: sizeArray
+    };
+
+    // Retrieves the bid from Amazon
+    window.apstag.fetchBids({ slots: [slot] }, () => {
+      // Sets the targeting values on the display bid from apstag
+      window.apstag.setDisplayBids();
+      if (cb) {
+        cb();
+      }
     });
+  });
+}
+
+/**
+* @desc Adds an Amazon command to a callback queue which awaits for window.apstag
+* @param {string} cmd - The function that should wait for window.apstag to be ready.
+**/
+export function queueAmazonCommand(cmd) {
+  if (window.apstag) {
+    cmd();
   }
-  
-  /**
-  * @desc Adds an Amazon command to a callback queue which awaits for window.apstag
-  * @param {string} cmd - The function that should wait for window.apstag to be ready.
-  **/
-  export function queueAmazonCommand(cmd) {
-    if (window.apstag) {
-      cmd();
-    }
-  }
-  
+}
