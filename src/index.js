@@ -32,10 +32,10 @@ export class ArcAds {
     const flatDimensions = [];
     let processDisplayAd = false;
 
-    if (dimensions.length > 0 && dimensions[0][0][0] === undefined) {
+    if (dimensions && dimensions.length > 0 && dimensions[0][0][0] === undefined) {
       flatDimensions.push(...dimensions);
     } else {
-      dimensions.forEach((set) => {
+      dimensions && dimensions.forEach((set) => {
         flatDimensions.push(...set);
       });
     }
@@ -107,7 +107,7 @@ export class ArcAds {
     prerender = null
   }) {
     const fullSlotName = determineSlotName(this.dfpId, slotName);
-    const parsedDimensions = !dimensions.length ? null : dimensions;
+    const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
 
