@@ -32,7 +32,7 @@ export class ArcAds {
     const flatDimensions = [];
     let processDisplayAd = false;
 
-    if (dimensions && dimensions.length > 0 && dimensions[0][0][0] === undefined) {
+    if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensions[0][0][0] === undefined) {
       flatDimensions.push(...dimensions);
     } else {
       dimensions && dimensions.forEach((set) => {
