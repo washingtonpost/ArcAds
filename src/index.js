@@ -35,7 +35,7 @@ export class ArcAds {
     if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensions[0][0][0] === undefined) {
       flatDimensions.push(...dimensions);
     } else if (dimensions) {
-      dimensions.forEach((set) => { // es-lint-disable-line no-unused-expressions
+      dimensions.forEach((set) => {
         flatDimensions.push(...set);
       });
     }
