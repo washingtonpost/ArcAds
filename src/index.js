@@ -142,7 +142,7 @@ export class ArcAds {
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
 
-    if (bidding && dimensions) {
+    if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
       fetchBids({
         ad,
         id,
