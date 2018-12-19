@@ -40,39 +40,43 @@ export class ArcAds {
       });
     }
 
-    /* If positional targeting doesn't exist it gets assigned a numeric value
-      based on the order and type of the advertisement. This logic is skipped if adType is not defined. */
-    if ((!targeting || !targeting.hasOwnProperty('position')) && adType !== false) {
-      const position = this.positions[adType] + 1 || 1;
-      this.positions[adType] = position;
+    try {
+      /* If positional targeting doesn't exist it gets assigned a numeric value
+        based on the order and type of the advertisement. This logic is skipped if adType is not defined. */
+      if ((!targeting || !targeting.hasOwnProperty('position')) && adType !== false) {
+        const position = this.positions[adType] + 1 || 1;
+        this.positions[adType] = position;
 
-      const positionParam = Object.assign(targeting, { position });
-      Object.assign(params, { targeting: positionParam });
-    }
+        const positionParam = Object.assign(targeting, { position });
+        Object.assign(params, { targeting: positionParam });
+      }
 
-    if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
-      // Registers the advertisement with Prebid.js if enabled on both the unit and wrapper.
-      if ((bidding.prebid && bidding.prebid.bids) && (this.wrapper.prebid && this.wrapper.prebid.enabled) && flatDimensions) {
-        if (pbjs && iframeBidders.length > 0) {
-          pbjs.setConfig({
-            userSync: {
-              iframeEnabled: true,
-              filterSettings: {
-                iframe: {
-                  bidders: iframeBidders,
-                  filter: 'include'
+      if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
+        // Registers the advertisement with Prebid.js if enabled on both the unit and wrapper.
+        if ((bidding.prebid && bidding.prebid.bids) && (this.wrapper.prebid && this.wrapper.prebid.enabled) && flatDimensions) {
+          if (pbjs && iframeBidders.length > 0) {
+            pbjs.setConfig({
+              userSync: {
+                iframeEnabled: true,
+                filterSettings: {
+                  iframe: {
+                    bidders: iframeBidders,
+                    filter: 'include'
+                  }
                 }
               }
-            }
-          });
+            });
+          }
+          queuePrebidCommand.bind(this, addUnit(id, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
         }
-        queuePrebidCommand.bind(this, addUnit(id, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
-      }
 
-      processDisplayAd = this.displayAd.bind(this, params);
-      if (processDisplayAd) {
-        queueGoogletagCommand(processDisplayAd);
+        processDisplayAd = this.displayAd.bind(this, params);
+        if (processDisplayAd) {
+          queueGoogletagCommand(processDisplayAd);
+        }
       }
+    } catch (err) {
+      console.error('ads error', err);
     }
   }
 
