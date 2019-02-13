@@ -142,9 +142,10 @@ export class ArcAds {
       }
     }
 
-    ad.addService(window.googletag.pubads());
-
-    setTargeting(ad, targeting);
+    if (ad) {
+      ad.addService(window.googletag.pubads());
+      setTargeting(ad, targeting);
+    }
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
 
