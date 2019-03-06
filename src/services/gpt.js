@@ -99,7 +99,7 @@ export function dfpSettings(handleSlotRenderEnded) {
 export function determineSlotName(dfpCode, slotName) {
   const slotOverride = expandQueryString('adslot');
   if (slotOverride && (slotOverride !== '' || slotOverride !== null)) {
-    return `${dfpCode}/${slotOverride}`;
+    return `/${dfpCode}/${slotOverride}`;
   }
-  return `${dfpCode}/${slotName}`;
+  return `/${dfpCode}/${slotName}`;
 }
