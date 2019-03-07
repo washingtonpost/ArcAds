@@ -89,7 +89,7 @@ export function fetchBids({
     if (wrapper.prebid && wrapper.prebid.enabled) {
       const timeout = wrapper.prebid.timeout || 700;
 
-      queuePrebidCommand.bind(this, fetchPrebidBids(ad, id, timeout, adInfo, prerender, () => {
+      queuePrebidCommand.bind(this, fetchPrebidBids(ad, wrapper.prebid.useSlotForAdUnit ? slotName : id, timeout, adInfo, prerender, () => {
         resolve('Fetched Prebid ads!');
       }));
     } else {
