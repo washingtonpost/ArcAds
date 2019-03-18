@@ -111,7 +111,8 @@ export class ArcAds {
     targeting,
     sizemap = false,
     bidding = false,
-    prerender = null
+    prerender = null,
+    collapseOnEmpty = false,
   }) {
     const fullSlotName = determineSlotName(this.dfpId, slotName);
     const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
@@ -146,6 +147,7 @@ export class ArcAds {
     if (ad) {
       ad.addService(window.googletag.pubads());
       setTargeting(ad, targeting);
+      ad.setCollapseEmptyDiv(collapseOnEmpty);
     }
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
