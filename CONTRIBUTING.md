@@ -14,7 +14,7 @@ If you have a general question or an issue please refer to our [Frequently Asked
 ArcAds has a series of unit tests built with [Jest](https://facebook.github.io/jest/). We are always looking to improve our testing coverage , and request that if you create new functionality that you also include tests along with it.
 
 ## Submitting changes
-Please send a [Pull Request to ArcAds](https://github.com/opengovernment/opengovernment/pull/new/master) with a clear list of what you've done (you read more about [Github pull requests here](http://help.github.com/pull-requests/)). 
+Please send a [Pull Request to ArcAds](https://github.com/washingtonpost/ArcAds/pull/new/master) with a clear list of what you've done (you read more about [Github pull requests here](http://help.github.com/pull-requests/)). 
 Please follow the best practices guide below and make sure all of your commits are atomic (one feature per commit).
 
 Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
