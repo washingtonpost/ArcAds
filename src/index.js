@@ -10,6 +10,7 @@ export class ArcAds {
     this.dfpId = options.dfp.id || '';
     this.wrapper = options.bidding || {};
     this.positions = [];
+    this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
 
     window.isMobile = MobileDetection;
 
