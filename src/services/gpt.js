@@ -44,6 +44,7 @@ export function refreshSlot({
   });
 
   function runRefreshEvent() {
+    if (window.blockArcAdsLoad) return;
     if (window.googletag && googletag.pubadsReady) {
       window.googletag.pubads().refresh([ad], { changeCorrelator: correlator });
     } else {

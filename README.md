@@ -48,6 +48,8 @@ Along with the `registerAd` call you also need a div on the page with the same i
 <div id="div-id-123"></div>
 ```
 
+If you are using an external service to manage initial ad load (like Didomi), set `window.blockArcAdsLoad = true` on page load to block ArcAds from refreshing ads. Set `window.blockArcAdsLoad = false` when you want ArcAds to control refreshing ads again.
+
 The following table shows all of the possible parameters the `registerAd` method accepts.
 
 | Parameter | Description | Type | Requirement |
@@ -226,6 +228,23 @@ const arcAds = new ArcAds({
     prebid: {
       enabled: true,
       timeout: 1000
+    }
+  }
+}
+```
+
+If you want to use the slotName instead of the ad id when registering ads, pass `useSlotForAdUnit: true`.
+
+```javascript
+const arcAds = new ArcAds({
+  dfp: {
+    id: '123'
+  },
+  bidding: {
+    prebid: {
+      enabled: true,
+      timeout: 1000,
+      useSlotForAdUnit: true
     }
   }
 }
