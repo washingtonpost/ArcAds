@@ -38,11 +38,12 @@ export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
  * @param {array} sizes - An array of applicable ad sizes that are available for bidding.
  * @param {object} bids - Contains all of the applicable bid data, such as which vendors to use and their placement ids.
  * @param {object} wrapper - An object containing all enabled services on the Arc Ads.
+ * @param {object} mediaTypes - An object containing custom mediaType definitions, if for instance you have separate sizes in GPT and prebid.
  **/
-export function addUnit(code, sizes, bids, wrapper = {}) {
+export function addUnit(code, sizes, bids, wrapper = {}, mediaTypes = null) {
   // Formats the add unit for prebid..
   const slot = { code, bids };
-  slot.mediaTypes = { banner: { sizes } };
+  slot.mediaTypes = mediaTypes || { banner: { sizes } };
   const { sizeConfig, config } = wrapper;
 
   pbjs.addAdUnits(slot);
