@@ -292,7 +292,7 @@ const arcAds = new ArcAds({
 })
 ```
 
-On the advertisement registration you can then provide information about which bidding services that specific advertisement should use. You can find a list of paramters that Prebid.js accepts for each adapter on the [Prebid.js website](http://prebid.org/dev-docs/publisher-api-reference.html). Additionally you can turn on [Prebid.js debugging](http://prebid.org/dev-docs/toubleshooting-tips.html) by adding `?pbjs_debug=true` to the url.
+On the advertisement registration you can then provide information about which bidding services that specific advertisement should use. You can find a list of parameters that Prebid.js accepts for each adapter on the [Prebid.js website](http://prebid.org/dev-docs/publisher-api-reference.html). Additionally you can turn on [Prebid.js debugging](http://prebid.org/dev-docs/toubleshooting-tips.html) by adding `?pbjs_debug=true` to the url.
 
 ```javascript
 arcAds.registerAd({
@@ -308,6 +308,39 @@ arcAds.registerAd({
   bidding: {
     prebid: {
       enabled: true,
+      bids: [{
+        bidder: 'appnexus',
+        labels: ['desktop', 'tablet', 'phone'],
+        params: {
+          placementId: '10433394' 
+        }
+      }]
+    }
+  }
+})
+```
+
+In certain scenarios you may want to define different sizes for Prebid.js than what you use in GPT. The `registerAd` method will by default use your dimensions to set these for you, but you can override this by adding a `mediaTypes` property to your bidding configuration. You can read more about media types on the [Prebid.js website](http://prebid.org/dev-docs/adunit-reference.html#adunitmediatypes).
+
+```javascript
+arcAds.registerAd({
+  id: 'div-id-123',
+  slotName: 'hp/hp-1',
+  adType: 'cube',
+  display: 'desktop',
+  dimensions: [ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ],
+  sizemap: {
+    breakpoints: [ [1280, 0], [800, 0], [0, 0] ],
+    refresh: 'true'
+  },
+  bidding: {
+    prebid: {
+      enabled: true,
+      mediaTypes: {
+        banner: {
+          sizes: [[980, 300], [970, 250]],
+        },
+      },
       bids: [{
         bidder: 'appnexus',
         labels: ['desktop', 'tablet', 'phone'],

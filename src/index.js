@@ -71,7 +71,7 @@ export class ArcAds {
             });
           }
           const code = this.wrapper.prebid.useSlotForAdUnit ? determineSlotName(this.dfpId, slotName) : id;
-          queuePrebidCommand.bind(this, addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
+          queuePrebidCommand.bind(this, addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid, bidding.prebid.mediaTypes));
         }
 
         processDisplayAd = this.displayAd.bind(this, params);
