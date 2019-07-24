@@ -1,4 +1,6 @@
 /** @desc Utility class that determines the breakpoint based on window width. **/
+import MobileDetection from './mobile';
+
 export class BreakpointDetection {
   /**
    * @desc Constructor.
@@ -6,6 +8,13 @@ export class BreakpointDetection {
    **/
   constructor(desktopBreakpoint) {
     this.desktopBreakpoint = desktopBreakpoint;
+  }
+
+  /**
+   * @desc Determines if the user is using a Retina display.
+   **/
+  Retina() {
+    return MobileDetection.Retina();
   }
 
   /**
