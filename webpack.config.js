@@ -1,7 +1,7 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
-const generatePlugins = function (env) {
+const generatePlugins = (env) => {
   const plugins = [];
   if (env.production) {
     plugins.push(new UglifyJsPlugin({
@@ -11,7 +11,7 @@ const generatePlugins = function (env) {
   return plugins;
 };
 
-module.exports = env => ({
+module.exports = (env) => ({
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),

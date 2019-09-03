@@ -1,11 +1,18 @@
 import { MobileDetection } from './util/mobile';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
-import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
+import {
+  initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName,
+} from './services/gpt';
 import { queuePrebidCommand, addUnit } from './services/prebid';
 import { prepareSizeMaps, setResizeListener } from './services/sizemapping';
 
-/** @desc Displays an advertisement from Google DFP with optional support for Prebid.js and Amazon TAM/A9. **/
-export class ArcAds {
+/* global isMobile, pbjs */
+
+/**
+ * @desc Displays an advertisement from Google DFP with optional support for Prebid.js and
+ * Amazon TAM/A9.
+ * */
+export class ArcAds { // eslint-disable-line import/prefer-default-export
   constructor(options, handleSlotRendered = null) {
     this.dfpId = options.dfp.id || '';
     this.wrapper = options.bidding || {};
@@ -15,6 +22,7 @@ export class ArcAds {
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
+      // eslint-disable-next-line no-console
       console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
         Documentation: https://github.com/wapopartners/arc-ads#getting-started`);
     } else {
@@ -26,10 +34,13 @@ export class ArcAds {
 
   /**
   * @desc Registers an advertisement in the service.
-  * @param {object} params - An object containing all of the advertisement configuration settings such as slot name, id, and position.
-  **/
+  * @param {object} params - An object containing all of the advertisement configuration settings
+  * such as slot name, id, and position.
+  * */
   registerAd(params) {
-    const { id, slotName, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'] } = params;
+    const {
+      id, slotName, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'],
+    } = params;
     const flatDimensions = [];
     let processDisplayAd = false;
 
@@ -45,8 +56,9 @@ export class ArcAds {
 
     try {
       /* If positional targeting doesn't exist it gets assigned a numeric value
-        based on the order and type of the advertisement. This logic is skipped if adType is not defined. */
-      if ((!targeting || !targeting.hasOwnProperty('position')) && adType !== false) {
+        based on the order and type of the advertisement. This logic is skipped if adType is not
+        defined. */
+      if ((!targeting || !Object.prototype.hasOwnProperty.call(targeting, 'position')) && adType !== false) {
         const position = this.positions[adType] + 1 || 1;
         this.positions[adType] = position;
 
@@ -56,7 +68,9 @@ export class ArcAds {
 
       if ((isMobile.any() && display === 'mobile') || (!isMobile.any() && display === 'desktop') || (display === 'all')) {
         // Registers the advertisement with Prebid.js if enabled on both the unit and wrapper.
-        if ((bidding.prebid && bidding.prebid.bids) && (this.wrapper.prebid && this.wrapper.prebid.enabled) && flatDimensions) {
+        if ((bidding.prebid && bidding.prebid.bids)
+        && (this.wrapper.prebid && this.wrapper.prebid.enabled)
+        && flatDimensions) {
           if (pbjs && iframeBidders.length > 0) {
             pbjs.setConfig({
               userSync: {
@@ -64,14 +78,18 @@ export class ArcAds {
                 filterSettings: {
                   iframe: {
                     bidders: iframeBidders,
-                    filter: 'include'
-                  }
-                }
-              }
+                    filter: 'include',
+                  },
+                },
+              },
             });
           }
-          const code = this.wrapper.prebid.useSlotForAdUnit ? determineSlotName(this.dfpId, slotName) : id;
-          queuePrebidCommand.bind(this, addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
+          const code = this.wrapper.prebid.useSlotForAdUnit
+            ? determineSlotName(this.dfpId, slotName) : id;
+          queuePrebidCommand.bind(
+            this,
+            addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid),
+          );
         }
 
         processDisplayAd = this.displayAd.bind(this, params);
@@ -80,14 +98,14 @@ export class ArcAds {
         }
       }
     } catch (err) {
-      console.error('ads error', err);
+      console.error('ads error', err); // eslint-disable-line no-console
     }
   }
 
   /**
   * @desc Registers a collection of advertisements.
   * @param {array} collection - An array containing a list of objects containing advertisement data.
-  **/
+  * */
   registerAdCollection(collection) {
     collection.forEach((advert) => {
       this.registerAd(advert);
@@ -97,14 +115,20 @@ export class ArcAds {
   /**
   * @desc Displays an advertisement and sets up any neccersary event binding.
   * @param {object} params - An object containing all of the function arguments.
-  * @param {string} params.id - A string containing the advertisement id corresponding to the div the advertisement will load into.
-  * @param {string} params.slotName - A string containing the slot name of the advertisement, for instance '1234/news/homepage'.
-  * @param {array} params.dimensions - An array containing all of the applicable sizes the advertisement can use.
-  * @param {object} params.targeting - An object containing all of the advertisements targeting data.
+  * @param {string} params.id - A string containing the advertisement id corresponding to the div
+  * the advertisement will load into.
+  * @param {string} params.slotName - A string containing the slot name of the advertisement, for
+  * instance '1234/news/homepage'.
+  * @param {array} params.dimensions - An array containing all of the applicable sizes the
+  * advertisement can use.
+  * @param {object} params.targeting - An object containing all of the advertisements targeting
+  * data.
   * @param {array} params.sizemap - An array containing optional size mapping information.
-  * @param {object} params.bidding - Contains all of the applicable bid data, such as which vendors to use and their placement ids.
-  * @param {function} params.prerender - An optional function that will run before the advertisement renders.
-  **/
+  * @param {object} params.bidding - Contains all of the applicable bid data, such as which vendors
+  * to use and their placement ids.
+  * @param {function} params.prerender - An optional function that will run before the advertisement
+  * renders.
+  * */
   displayAd({
     id,
     slotName,
@@ -112,21 +136,24 @@ export class ArcAds {
     targeting,
     sizemap = false,
     bidding = false,
-    prerender = null
+    prerender = null,
   }) {
     const fullSlotName = determineSlotName(this.dfpId, slotName);
     const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
 
-
     if (sizemap && sizemap.breakpoints && dimensions) {
-      const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
+      const {
+        mapping,
+        breakpoints,
+        correlators,
+      } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
         ad.defineSizeMapping(mapping);
       } else {
-        return false;
+        return;
       }
 
       if (sizemap.refresh) {
@@ -139,7 +166,7 @@ export class ArcAds {
           correlators,
           bidding,
           wrapper: this.wrapper,
-          prerender
+          prerender,
         });
       }
     }
@@ -151,7 +178,11 @@ export class ArcAds {
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
 
-    if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
+    if (
+      dimensions
+      && bidding
+      && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))
+    ) {
       fetchBids({
         ad,
         id,
@@ -160,7 +191,7 @@ export class ArcAds {
         wrapper: this.wrapper,
         prerender,
         bidding,
-        breakpoints: safebreakpoints
+        breakpoints: safebreakpoints,
       });
     } else {
       refreshSlot({
@@ -170,8 +201,8 @@ export class ArcAds {
           adUnit: ad,
           adSlot: fullSlotName,
           adDimensions: parsedDimensions,
-          adId: id
-        }
+          adId: id,
+        },
       });
     }
   }

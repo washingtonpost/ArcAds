@@ -3,17 +3,17 @@ import { ArcAds } from '../index';
 describe('arcads', () => {
   const arcAds = new ArcAds({
     dfp: {
-      id: '123'
+      id: '123',
     },
     bidding: {
       amazon: {
         enabled: true,
-        id: '123'
+        id: '123',
       },
       prebid: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
 
   describe('#constructor', () => {
