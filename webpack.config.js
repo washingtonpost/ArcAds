@@ -1,24 +1,45 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
-const generatePlugins = (env) => {
-  const plugins = [];
-  if (env.production) {
-    plugins.push(new UglifyJsPlugin({
-      sourceMap: true,
-    }));
+function generateBabelOptions(variation) {
+  if (variation === 'browser') {
+    return {
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            corejs: 2,
+            useBuiltIns: 'usage',
+            targets: '> 1% and not dead, ie 11',
+          },
+        ],
+      ],
+    };
   }
-  return plugins;
-};
 
-module.exports = (env) => ({
+  if (variation === 'node') {
+    return {
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: 2,
+          },
+        ],
+      ],
+    };
+  }
+
+  return {};
+}
+
+module.exports = ['browser', 'node'].map((variation) => ({
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'arcads.js',
+    filename: variation === 'browser' ? 'arcads.js' : 'arcads.node.js',
     libraryTarget: 'umd',
   },
-  devtool: env.development ? 'inline-source-map' : false,
+  devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : false,
   resolve: { extensions: ['.js', '.json'] },
   module: {
     rules: [
@@ -34,13 +55,9 @@ module.exports = (env) => ({
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['env'],
-            plugins: ['transform-decorators-legacy'],
-          },
+          options: generateBabelOptions(variation),
         },
       },
     ],
   },
-  plugins: generatePlugins(env),
-});
+}));
