@@ -10,22 +10,22 @@ describe('arcads', () => {
     refreshSlot: jest.spyOn(gpt, 'refreshSlot'),
     fetchBids: jest.spyOn(headerbidding, 'fetchBids'),
     prepareSizeMaps: jest.spyOn(sizemap, 'prepareSizeMaps'),
-    setResizeListener: jest.spyOn(sizemap, 'setResizeListener')
+    setResizeListener: jest.spyOn(sizemap, 'setResizeListener'),
   };
 
   const arcAds = new ArcAds({
     dfp: {
-      id: '123'
+      id: '123',
     },
     bidding: {
       amazon: {
         enabled: true,
-        id: '123'
+        id: '123',
       },
       prebid: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
 
   global.googletag = {
@@ -36,7 +36,7 @@ describe('arcads', () => {
     setTargeting: () => global.googletag,
     pubads: () => global.googletag,
     refresh: () => global.googletag,
-    cmd: []
+    cmd: [],
   };
 
   describe('google publisher tag', () => {
@@ -56,8 +56,8 @@ describe('arcads', () => {
         dimensions: [[300, 250], [300, 600]],
         display: 'all',
         targeting: {
-          section: 'weather'
-        }
+          section: 'weather',
+        },
       });
 
       expect(methods.setTargeting.mock.calls.length).toBe(1);
@@ -72,13 +72,13 @@ describe('arcads', () => {
         dimensions: [[300, 250], [300, 600]],
         display: 'all',
         targeting: {
-          section: 'weather'
+          section: 'weather',
         },
         bidding: {
           amazon: {
-            enabled: true
-          }
-        }
+            enabled: true,
+          },
+        },
       });
 
       expect(methods.setTargeting.mock.calls.length).toBe(2);
@@ -90,16 +90,16 @@ describe('arcads', () => {
         id: 'div-id-123',
         slotName: 'hp/hp-1',
         adType: 'cube',
-        dimensions: [ [[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]] ],
+        dimensions: [[[970, 250], [970, 90], [728, 90]], [[728, 90]], [[320, 100], [320, 50]]],
         targeting: {
-          section: 'weather'
+          section: 'weather',
         },
         sizemap: {
-          breakpoints: [ [1280, 0], [800, 0], [0, 0] ],
-          refresh: 'true'
-        }
+          breakpoints: [[1280, 0], [800, 0], [0, 0]],
+          refresh: 'true',
+        },
       });
-    
+
       expect(methods.prepareSizeMaps.mock.calls.length).toBe(1);
       expect(methods.setResizeListener.mock.calls.length).toBe(1);
     });

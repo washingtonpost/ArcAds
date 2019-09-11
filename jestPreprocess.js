@@ -1,6 +1,5 @@
 const babelOptions = {
-  presets: ['env', 'stage-2'],
-  plugins: ['transform-decorators-legacy', 'babel-plugin-root-import'],
+  presets: ['@babel/preset-env'],
 };
 
-module.exports = require('babel-jest').createTransformer(babelOptions)
+module.exports = require('babel-jest').createTransformer(babelOptions);

@@ -2,14 +2,18 @@
   "name": "arcads",
   "version": "1.4.5",
   "description": "ArcAds is a DFP wrapper created by Arc Publishing with publishers in mind.",
-  "main": "dist/arcads.js",
+  "main": "dist/arcads.node.js",
+  "files": [
+    "dist/*.js"
+  ],
+  "unpkg": "dist/arcads.js",
   "scripts": {
     "test": "jest --config jest.config.js --no-cache",
-    "build": "rm -rf dist && webpack --env.production",
-    "dev": "rm -rf dist && webpack --env.development --watch",
+    "build": "rm -rf dist && webpack --mode=production",
+    "dev": "rm -rf dist && webpack --mode=development --watch",
     "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
     "debug": "node debugging.js",
-    "mock": "webpack-dev-server --progress --hot --inline && npm run test"
+    "lint": "eslint --ext js ."
   },
   "repository": {
     "type": "git",
@@ -31,28 +35,26 @@
     "url": "https://github.com/washingtonpost/arcads/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.37",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-root-import": "^5.1.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "eslint": "^4.15.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-import-resolver-webpack": "^0.8.4",
-    "eslint-loader": "^1.9.0",
-    "eslint-plugin-import": "^2.8.0",
-    "jest": "^22.0.4",
-    "uglifyjs-webpack-plugin": "^1.1.6",
-    "webpack": "^3.10.0",
-    "webpack-cli": "^3.0.8"
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-root-import": "^6.4.1",
+    "core-js": "^2.6.9",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^24.9.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8"
   },
   "dependencies": {
-    "esdoc": "^1.0.4",
-    "esdoc-standard-plugin": "^1.0.0",
-    "promise-polyfill": "^8.0.0"
+    "@babel/runtime-corejs2": "^7.6.0"
   },
   "homepage": "https://github.com/washingtonpost/arcads#readme"
 }
