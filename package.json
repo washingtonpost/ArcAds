@@ -49,7 +49,7 @@
     "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-loader": "^3.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "jest": "^22.0.4",
+    "jest": "^24.9.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
   },
