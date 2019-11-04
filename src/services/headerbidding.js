@@ -12,11 +12,15 @@ export function initializeBiddingServices({
   prebid = false,
   amazon = false
 }) {
+  if (window.arcBiddingReady) {
+    return;
+  }
+
   window.arcBiddingReady = false;
 
   const enablePrebid = new Promise((resolve) => {
     if (prebid && prebid.enabled) {
-      if (!pbjs) {
+      if (typeof pbjs === 'undefined') {
         const pbjs = pbjs || {};
         pbjs.que = pbjs.que || [];
       }
@@ -82,13 +86,13 @@ export function fetchBids({
     adUnit: ad,
     adSlot: slotName,
     adDimensions: dimensions,
-    adId: id
+    adId: id,
+    bids: bidding,
   };
 
   const prebidBids = new Promise((resolve) => {
     if (wrapper.prebid && wrapper.prebid.enabled) {
       const timeout = wrapper.prebid.timeout || 700;
-
       queuePrebidCommand.bind(this, fetchPrebidBids(ad, wrapper.prebid.useSlotForAdUnit ? slotName : id, timeout, adInfo, prerender, () => {
         resolve('Fetched Prebid ads!');
       }));
@@ -118,17 +122,6 @@ export function fetchBids({
         });
       });
   } else {
-    setTimeout(() => {
-      fetchBids({
-        ad,
-        id,
-        slotName,
-        dimensions,
-        wrapper,
-        bidding,
-        correlator,
-        prerender
-      });
-    }, 200);
+    setTimeout(() => initializeBiddingServices(), 200);
   }
 }
