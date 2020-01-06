@@ -18,10 +18,12 @@ export function queuePrebidCommand(fn) {
  * @param {function} cb - An optional callback function that should fire whenever the bidding has concluded.
  **/
 export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
+  pbjs.addAdUnits(info);
   pbjs.requestBids({
     timeout,
     adUnitCodes: [code],
-    bidsBackHandler: () => {
+    bidsBackHandler: (result) => {
+      console.log('Bid Back Handler', result);
       pbjs.setTargetingForGPTAsync([code]);
       if (cb) {
         cb();
