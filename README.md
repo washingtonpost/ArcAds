@@ -1,7 +1,7 @@
 # ArcAds
 [![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds.svg?style=shield)](https://circleci.com/gh/washingtonpost/ArcAds)
 
-ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) with publishers in mind, using ArcAds you can selectivley make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
+ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) with publishers in mind, using ArcAds you can selectively make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
 
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `yarn install` followed by `yarn build` to compile it yourself incase you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
