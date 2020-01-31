@@ -21,7 +21,7 @@ To get started you must include the script tag for ArcAds in your page header, l
 Additionally you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
 
 ```
-npm install arcads 
+npm install arcads
 ```
 
 You can then include it in your own JavaScript projects like so.
@@ -54,15 +54,15 @@ The following table shows all of the possible parameters the `registerAd` method
 
 | Parameter | Description | Type | Requirement |
 | ------------- | ------------- | ------------- | ------------- |
-| `id`  | The `id` parameter corresponds to a div id on the page that the advertisement should render into. | `String` | `Required` | 
+| `id`  | The `id` parameter corresponds to a div id on the page that the advertisement should render into. | `String` | `Required` |
 | `slotName`  | The `slotName` parameter is equal to the slot name configured within DFP, for example `sitename/hp/hp-1`. The publisher ID gets attached to the slot name within the ArcAds logic. | `String` | `Required` |
 | `dimensions`  | The `dimensions` parameter should be an array with array of arrays containing the advertisement sizes the slot can load. If left empty the advertisement will be considered as an out of page unit. | `Array` | `Optional` |
 | `adType`  | The `adType` parameter should describe the type of advertisement, for instance `leaderboard` or `cube`.  | `String` | `Optional` |
 | `display`  | The `display` paramter determines which user agents can render the advertisement. The available choices are `desktop`, `mobile`, or `all`. If a value is not provided it will default to `all`. | `String` | `Optional` |
 | `targeting`  | The `targeting` paramter accepts an object containing key/value pairs which should attached to the advertisement request. | `Object` | `Optional` |
 | `sizemap`  | The `sizemap` paramter accepts an object containing information about the advertisements size mapping, for more information refer to the [Size Mapping portion of the readme](https://github.com/washingtonpost/arcads#size-mapping). | `Object` | `Optional` |
-| `bidding`  | The `bidding` paramter accepts an object containing information about the advertisements header bidding vendors, for more information refer to the [Header Bidding portion of the readme](https://github.com/washingtonpost/arcads#header-bidding). | `Object` | `Optional` | 
-| `prerender`  | The `prerender` parameter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` | 
+| `bidding`  | The `bidding` paramter accepts an object containing information about the advertisements header bidding vendors, for more information refer to the [Header Bidding portion of the readme](https://github.com/washingtonpost/arcads#header-bidding). | `Object` | `Optional` |
+| `prerender`  | The `prerender` parameter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` |
 
 ### Out of Page Ads
 If an advertisement has an empty or missing `dimensions` parameter it will be considered as a [DFP Out of Page creative](https://support.google.com/dfp_premium/answer/6088046?hl=en) and rendered as such.
@@ -115,7 +115,7 @@ arcAds.registerAd({
 })
 ```
 
-The service will automatically give the advertisement a `position` target key/value pair if either the `targeting` object or `position` key of the targeting object are not present. The position value will incriment by 1 in sequence for each of the same `adType` on the page. This is a common practice between ad traffickers so this behavior is baked in, only if the trafficker makes use of this targeting will it have any effect on the advertisement rendering. 
+The service will automatically give the advertisement a `position` target key/value pair if either the `targeting` object or `position` key of the targeting object are not present. The position value will incriment by 1 in sequence for each of the same `adType` on the page. This is a common practice between ad traffickers so this behavior is baked in, only if the trafficker makes use of this targeting will it have any effect on the advertisement rendering.
 
 If `adType` is exluded from the `registerAd` call the automatic position targeting will not be included.
 
@@ -207,7 +207,7 @@ If you'd like to include Prebid.js you must include the library before `arcads.j
   const arcAds = new ArcAds({
     dfp: {
       id: '123'
-    }, 
+    },
     bidding: {
       prebid: {
         enabled: true
@@ -229,6 +229,16 @@ const arcAds = new ArcAds({
       enabled: true,
       timeout: 1000
     }
+  }
+}
+```
+For GDPR compliance, the `nonPersonalized` DFP option can be set:
+
+```javascript
+const arcAds = new ArcAds({
+  dfp: {
+    id: '123',
+    nonPersonalized: 1
   }
 }
 ```
@@ -270,14 +280,14 @@ const arcAds = new ArcAds({
             [728, 90]
           ],
           'labels': ['desktop']
-        }, 
+        },
         {
           'mediaQuery': '(min-width: 480px) and (max-width: 1023px)',
           'sizesSupported': [
             [728, 90]
           ],
           'labels': ['tablet']
-        }, 
+        },
         {
           'mediaQuery': '(min-width: 0px)',
           'sizesSupported': [
@@ -312,7 +322,7 @@ arcAds.registerAd({
         bidder: 'appnexus',
         labels: ['desktop', 'tablet', 'phone'],
         params: {
-          placementId: '10433394' 
+          placementId: '10433394'
         }
       }]
     }
@@ -321,7 +331,7 @@ arcAds.registerAd({
 ```
 
 ### Amazon TAM/A9
-You can enable Amazon A9/TAM on the service by adding an `amazon` object to the wrapper initialization and then passing it `enabled: true`. You must also include the `apstag` script on your page with: 
+You can enable Amazon A9/TAM on the service by adding an `amazon` object to the wrapper initialization and then passing it `enabled: true`. You must also include the `apstag` script on your page with:
 ```
 <script src="https://c.amazon-adsystem.com/aax2/apstag.js"></script>
 ```
@@ -384,7 +394,7 @@ const ads = [{
           bidder: 'appnexus',
           labels: ['desktop', 'tablet', 'phone'],
           params: {
-            placementId: '10433394' 
+            placementId: '10433394'
           }
         }]
       }
@@ -402,7 +412,7 @@ const ads = [{
           bidder: 'appnexus',
           labels: ['desktop', 'tablet', 'phone'],
           params: {
-            placementId: '10433394' 
+            placementId: '10433394'
           }
         }]
       }
