@@ -3,7 +3,8 @@ import { ArcAds } from '../index';
 describe('arcads', () => {
   const arcAds = new ArcAds({
     dfp: {
-      id: '123'
+      id: '123',
+      personalized: 1
     },
     bidding: {
       amazon: {
@@ -26,7 +27,7 @@ describe('arcads', () => {
       expect(googletag).toBeDefined();
     });
 
-    it('should initialize header bidding serivces', () => {
+    it('should initialize header bidding services', () => {
       const { arcBiddingReady } = global;
       expect(arcBiddingReady).toBeDefined();
     });

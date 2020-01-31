@@ -11,11 +11,12 @@ export class ArcAds {
     this.wrapper = options.bidding || {};
     this.positions = [];
     this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
+    this.nonPersonalized = options.dfp.nonPersonalized || 0;
 
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
-      console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
+      console.warn(`ArcAds: DFP id is missing from the arcads initialization script.
         Documentation: https://github.com/wapopartners/arc-ads#getting-started`);
     } else {
       initializeGPT();
