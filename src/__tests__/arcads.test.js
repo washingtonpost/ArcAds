@@ -4,7 +4,7 @@ describe('arcads', () => {
   const arcAds = new ArcAds({
     dfp: {
       id: '123',
-      personalized: 1
+      nonPersonalized: 1
     },
     bidding: {
       amazon: {
