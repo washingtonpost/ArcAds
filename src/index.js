@@ -6,7 +6,7 @@ import { prepareSizeMaps, setResizeListener } from './services/sizemapping';
 
 function getArrayDepth(array) {
   return Array.isArray(array)
-    ? 1 + Math.max(...array.map((child) => getArrayDepth(child)))
+    ? 1 + Math.max(...array.map(child => getArrayDepth(child)))
     : 0;
 }
 
