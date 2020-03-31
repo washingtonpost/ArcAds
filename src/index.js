@@ -42,7 +42,7 @@ export class ArcAds {
 
     if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
       flatDimensions.push(...dimensions);
-    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 3) {
+    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 2) {
       flatDimensions.push(...dimensions);
     } else if (dimensions) {
       dimensions.forEach((set) => {
