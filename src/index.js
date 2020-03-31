@@ -40,9 +40,9 @@ export class ArcAds {
     let processDisplayAd = false;
     const dimensionsDepth = getArrayDepth(dimensions);
 
-    if (typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
+    if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
       flatDimensions.push(...dimensions);
-    } else if (typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 3) {
+    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 3) {
       flatDimensions.push(...dimensions);
     } else if (dimensions) {
       dimensions.forEach((set) => {
