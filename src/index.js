@@ -29,7 +29,7 @@ export class ArcAds {
   * @param {object} params - An object containing all of the advertisement configuration settings such as slot name, id, and position.
   **/
   registerAd(params) {
-    const { id, slotName, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'] } = params;
+    const { id, slotName, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'], others = {} } = params;
     const flatDimensions = [];
     let processDisplayAd = false;
 
@@ -71,7 +71,7 @@ export class ArcAds {
             });
           }
           const code = this.wrapper.prebid.useSlotForAdUnit ? determineSlotName(this.dfpId, slotName) : id;
-          queuePrebidCommand.bind(this, addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid));
+          queuePrebidCommand.bind(this, addUnit(code, flatDimensions, bidding.prebid.bids, this.wrapper.prebid, others));
         }
 
         processDisplayAd = this.displayAd.bind(this, params);
