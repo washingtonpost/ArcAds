@@ -41,9 +41,9 @@ export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
  * @param {object} bids - Contains all of the applicable bid data, such as which vendors to use and their placement ids.
  * @param {object} wrapper - An object containing all enabled services on the Arc Ads.
  **/
-export function addUnit(code, sizes, bids, wrapper = {}) {
+export function addUnit(code, sizes, bids, wrapper = {}, others = {}) {
   // Formats the add unit for prebid..
-  const slot = { code, bids };
+  const slot = { code, bids, ...others };
   slot.mediaTypes = { banner: { sizes } };
   const { sizeConfig, config } = wrapper;
 
