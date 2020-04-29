@@ -84,6 +84,7 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().disableInitialLoad();
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
+  window.googletag.pubads().setRequestNonPersonalizedAds(this.nonPersonalized);
   if (this.collapseEmptyDivs) {
     window.googletag.pubads().collapseEmptyDivs();
   }

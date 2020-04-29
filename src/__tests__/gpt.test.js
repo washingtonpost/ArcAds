@@ -99,7 +99,7 @@ describe('arcads', () => {
           refresh: 'true'
         }
       });
-    
+
       expect(methods.prepareSizeMaps.mock.calls.length).toBe(1);
       expect(methods.setResizeListener.mock.calls.length).toBe(1);
     });
