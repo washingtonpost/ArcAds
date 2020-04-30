@@ -4,6 +4,12 @@ import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTarg
 import { queuePrebidCommand, addUnit } from './services/prebid';
 import { prepareSizeMaps, setResizeListener } from './services/sizemapping';
 
+function getArrayDepth(array) {
+  return Array.isArray(array)
+    ? 1 + Math.max(...array.map(child => getArrayDepth(child)))
+    : 0;
+}
+
 /** @desc Displays an advertisement from Google DFP with optional support for Prebid.js and Amazon TAM/A9. **/
 export class ArcAds {
   constructor(options, handleSlotRendered = null) {
@@ -32,10 +38,11 @@ export class ArcAds {
     const { id, slotName, dimensions, adType = false, targeting = {}, display = 'all', bidding = false, iframeBidders = ['openx'], others = {} } = params;
     const flatDimensions = [];
     let processDisplayAd = false;
+    const dimensionsDepth = getArrayDepth(dimensions);
 
-    if (dimensions && typeof dimensions !== 'undefined' && typeof dimensions[0] === 'number') {
+    if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
       flatDimensions.push(...dimensions);
-    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensions[0][0][0] === undefined) {
+    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 2) {
       flatDimensions.push(...dimensions);
     } else if (dimensions) {
       dimensions.forEach((set) => {
