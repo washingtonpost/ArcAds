@@ -36,7 +36,7 @@ module.exports = env => ({
           loader: 'babel-loader',
           options: {
             presets: ['env'],
-            plugins: ['transform-decorators-legacy'],
+            plugins: ['transform-decorators-legacy', 'transform-object-rest-spread'],
           },
         },
       },
