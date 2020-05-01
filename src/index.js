@@ -1,4 +1,5 @@
 import { MobileDetection } from './util/mobile';
+import { BreakpointDetection } from './util/breakpoint';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
 import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
 import { queuePrebidCommand, addUnit } from './services/prebid';
@@ -18,7 +19,11 @@ export class ArcAds {
     this.positions = [];
     this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
 
-    window.isMobile = MobileDetection;
+    if (options.desktopBreakpoint) {
+      window.isMobile = new BreakpointDetection(options.desktopBreakpoint);
+    } else {
+      window.isMobile = MobileDetection;
+    }
 
     if (this.dfpId === '') {
       console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
