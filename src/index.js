@@ -102,6 +102,36 @@ export class ArcAds {
   }
 
   /**
+  * @desc Registers a collection of advertisements as single prebid and ad calls
+  * @param {array} collection - An array containing a list of objects containing advertisement data.
+  **/
+  registerAdCollectionSingleCall(collection) {
+
+    window.blockArcAdsLoad = true;
+    window.blockArcAdsPrebid = true;
+
+    collection.forEach((advert) => {
+      this.registerAd(advert);
+    });
+
+    window.blockArcAdsLoad = false;
+    window.blockArcAdsPrebid = false;
+
+    //prebid call
+    pbjs.requestBids({
+      timeout: BIDDER_TIMEOUT || 700,
+      //adUnitCodes: codes,
+      bidsBackHandler: (result) => {
+        console.log('Bid Back Handler', result);
+        pbjs.setTargetingForGPTAsync();
+
+        //ads call
+        window.googletag.pubads().refresh();
+      }
+    });
+  }
+
+  /**
   * @desc Displays an advertisement and sets up any neccersary event binding.
   * @param {object} params - An object containing all of the function arguments.
   * @param {string} params.id - A string containing the advertisement id corresponding to the div the advertisement will load into.
@@ -169,7 +199,7 @@ export class ArcAds {
         bidding,
         breakpoints: safebreakpoints
       });
-    } else {
+    } else if(!window.blockArcAdsPrebid){
       refreshSlot({
         ad,
         prerender,
