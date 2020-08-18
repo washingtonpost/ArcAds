@@ -40,7 +40,7 @@ export function fetchPrebidBidsArray(ad, codes, timeout, info, prerender, cb = n
 export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
   const newInfo = info;
   newInfo.bids = Array.isArray(info.bids) ? info.bids : [info.bids];
-  fetchPrebidBidsArray(ad, [code], timeout, newInfo, prerender, cb = null);
+  fetchPrebidBidsArray(ad, [code], timeout, newInfo, prerender, cb);
 }
 
 /**

@@ -106,7 +106,6 @@ export class ArcAds {
   * @param {array} collection - An array containing a list of objects containing advertisement data.
   **/
   registerAdCollectionSingleCall(collection) {
-
     window.blockArcAdsLoad = true;
     window.blockArcAdsPrebid = true;
 
@@ -199,7 +198,7 @@ export class ArcAds {
         bidding,
         breakpoints: safebreakpoints
       });
-    } else if(!window.blockArcAdsPrebid){
+    } else if (!window.blockArcAdsPrebid) {
       refreshSlot({
         ad,
         prerender,
