@@ -22,8 +22,11 @@ export class ArcAds {
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
-      console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
-        Documentation: https://github.com/wapopartners/arc-ads#getting-started`);
+      console.warn(
+        'ArcAds: DFP id is missing from the arcads initialization script.',
+        '\n',
+        'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
+      );
     } else {
       initializeGPT();
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
