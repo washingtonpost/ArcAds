@@ -144,8 +144,9 @@ export class ArcAds {
   * allowing ads to be saved up for a single ad call to be sent out later.
   **/
   static setAdsBlockGate() {
-    if (typeof window !== 'undefined') {
-      window.blockArcAdsLoad = true;
+    const win = ArcAds.getWindow();
+    if (typeof win !== 'undefined') {
+      win.blockArcAdsLoad = true;
     }
   }
 
@@ -154,8 +155,9 @@ export class ArcAds {
   * allowing ads to be saved up for a single ad call to be sent out later.
   **/
   static releaseAdsBlockGate() {
-    if (typeof window !== 'undefined') {
-      window.blockArcAdsLoad = false;
+    const win = ArcAds.getWindow();
+    if (typeof win !== 'undefined') {
+      win.blockArcAdsLoad = false;
     }
   }
 
@@ -291,5 +293,9 @@ export class ArcAds {
    */
   setPageLeveTargeting(key, value) { //TODO check for pubads
     googletag.pubads().setTargeting(key, value);
+  }
+
+  static  getWindow() {
+    return window;
   }
 }
