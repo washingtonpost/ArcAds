@@ -47,56 +47,7 @@ describe('arcads', () => {
     });
   });
 
-  describe('registerAds', () => {
-    it('should should call prebid setConfig if has bidding configs and prebid lib is present', () => {
-      //ArcAds obj
-      const arcAds = new ArcAds({
-        dfp: {
-          id: '123'
-        },
-        bidding: {
-          amazon: {
-            enabled: true,
-            id: '123'
-          },
-          prebid: {
-            enabled: true
-          }
-        }
-      });
-    
-      //pbjs setConfig mock setup
-      const setConfigMock = jest.fn();
-      global.pbjs = {
-        setConfig: () => setConfigMock,
-      };
-
-      //displayAd mock
-      const displayAdMock = jest.fn();
-      const displayAdBindMock = jest.fn();
-
-      arcAds.displayAds = displayAdMock;
-      arcAds.displayAds.bind = displayAdBindMock;
-      
-
-      //queueGoogletagCommand mock
-      jest.spyOn(gptService, 'queueGoogletagCommand');
-
-      jest.spyOn(prebidService, 'queuePrebidCommand');
-
-      const adParams = {
-        id: "testID",
-        slotname: "testSlotname",
-        dimensions: [[300, 50], [300, 250]]
-      }
-
-      arcAds.registerAd(adParams);
-
-      expect(gptService.queueGoogletagCommand).toHaveBeenCalledTimes(1);
-      expect(prebidService.queuePrebidCommand).toHaveBeenCalledTimes(0);
-
-    });
-  });
+  
 
 
 });

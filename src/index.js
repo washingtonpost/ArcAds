@@ -43,6 +43,7 @@ export class ArcAds {
     const flatDimensions = [];
     let processDisplayAd = false;
     const dimensionsDepth = getArrayDepth(dimensions);
+    console.log('dimensions =',dimensions, ', depth = ', dimensionsDepth);
 
     if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
       flatDimensions.push(...dimensions);
@@ -86,6 +87,7 @@ export class ArcAds {
         }
 
         processDisplayAd = this.displayAd.bind(this, params);
+        console.log('processDisplayAd ', this.displayAd.bind);
         if (processDisplayAd) {
           queueGoogletagCommand(processDisplayAd);
         }
@@ -119,6 +121,9 @@ export class ArcAds {
 
     window.blockArcAdsLoad = false;
     window.blockArcAdsPrebid = false;
+
+    window.googletag.pubads().refresh(window.adsList);
+    window.adsList = [];
 
     //prebid call
     pbjs.requestBids({
@@ -211,6 +216,10 @@ export class ArcAds {
     }
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
+
+    if (window.adsList && ad) {
+      adsList.push(ad);
+    }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
       fetchBids({
