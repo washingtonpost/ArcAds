@@ -53,7 +53,7 @@ describe('registerAds dimensions branches', () => {
         jest.clearAllMocks();
     });
 
-    it.skip('should should call prebid setConfig if has bidding configs and prebid lib is present', () => {
+    it('should should call prebid setConfig if has bidding configs and prebid lib is present', () => {
       //ArcAds obj
         const adParams = {
             id: "testID",
