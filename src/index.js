@@ -91,6 +91,7 @@ export class ArcAds {
         }
       }
     } catch (err) {
+      console.log("err", err)
       console.error('ads error', err);
     }
   }
