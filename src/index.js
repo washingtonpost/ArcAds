@@ -43,7 +43,6 @@ export class ArcAds {
     const flatDimensions = [];
     let processDisplayAd = false;
     const dimensionsDepth = getArrayDepth(dimensions);
-    console.log('dimensions =',dimensions, ', depth = ', dimensionsDepth);
 
     if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
       flatDimensions.push(...dimensions);
@@ -87,7 +86,6 @@ export class ArcAds {
         }
 
         processDisplayAd = this.displayAd.bind(this, params);
-        console.log('processDisplayAd ', this.displayAd.bind);
         if (processDisplayAd) {
           queueGoogletagCommand(processDisplayAd);
         }

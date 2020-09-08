@@ -1,6 +1,7 @@
 import { ArcAds } from '../index';
 import  * as gptService from '../services/gpt.js';
 import  * as prebidService from '../services/prebid.js';
+import * as  mobileDetection from '../util/mobile.js';
 
 
 describe('registerAds dimensions branches', () => {
@@ -136,20 +137,20 @@ describe('registerAds dimensions branches', () => {
             id: "testID",
             slotname: "testSlotname",
             dimensions: [[[100,50]]],
+            targeting:{},
+            adType: true,
+            display: 'mobile',
         }
+
+        const mobileAny = jest.fn().mockReturnValue(true);
+        global.isMobile = {any: mobileAny};
+    
         arcAds.registerAd(adParams);
 
         expect(displayAdBindMock).toHaveBeenCalledTimes(1);
 
-        const expectedArg1 = {"adsList": [],
-            "collapseEmptyDivs": undefined,
-            "dfpId": "123",
-            "displayAd": displayAdMock,
-            "positions": [],
-            "wrapper": {"amazon": {"enabled": true, "id": "123"},
-            "prebid": {"enabled": true}}};
-        const expectedArg2 = {"dimensions": [[[100, 50]]], "id": "testID", "slotname": "testSlotname"};
-        expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
+        const expectedArg2 =  {"adType": true, "dimensions": [[[100, 50]]], "display": "mobile", "id": "testID", "slotname": "testSlotname", "targeting": {"position": 1}};
+        expect(displayAdBindMock.mock.calls[0][1]).toEqual( expectedArg2);
     });
 
 });
