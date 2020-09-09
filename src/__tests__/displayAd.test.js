@@ -3,6 +3,7 @@ import  * as gptService from '../services/gpt.js';
 import  * as prebidService from '../services/prebid.js';
 import * as  mobileDetection from '../util/mobile.js';
 import * as sizemappingService from '../services/sizemapping.js'
+import * as headerBidding from '../services/headerbidding.js';
 
 describe('displayAd ', () => {
 
@@ -20,6 +21,7 @@ describe('displayAd ', () => {
     };
     const refreshSlotSpy = jest.spyOn(gptService, 'refreshSlot');
     const setResizeListenerSpy = jest.spyOn(sizemappingService, 'setResizeListener');
+    const fetchBidsSpy = jest.spyOn(headerBidding, 'fetchBids');
 
 
     const arcAds = new ArcAds({
@@ -129,6 +131,103 @@ describe('displayAd ', () => {
             "wrapper": {"amazon": {"enabled": true, "id": "123"}, "prebid": {"enabled": true}}}
         )
         );
+    });
+
+    it('if no sizemap.refresh, do NOT call resize listener', () => {
+        const adParams = {
+            id: "testID",
+            slotName: 'testSlotname',
+            dimensions: [100,40],
+            targeting: null,
+            sizemap: {breakpoints:[0, 50], refresh: false},
+            bidding: false,
+            prerender: null,
+        };
+
+        window.blockArcAdsPrebid = true;
+
+        const defineSizeMappingMock = jest.fn();
+        defineSlotMock.mockReturnValue({
+            defineSizeMapping: defineSizeMappingMock,
+            addService: jest.fn()
+        });
+        arcAds.displayAd(adParams);
+        expect(setResizeListenerSpy).toHaveBeenCalledTimes(0);
+    });
+
+    it('if has adsList and ad push ad to adsList', () => {
+        const adParams = {
+            id: "testID",
+            slotName: 'testSlotname',
+            dimensions: [100,40],
+            targeting: null,
+            sizemap: {breakpoints:[0, 50], refresh: false},
+            bidding: false,
+            prerender: null,
+        };
+
+        window.blockArcAdsPrebid = true;
+        window.adsList = [];
+
+        const defineSizeMappingMock = jest.fn();
+        defineSlotMock.mockReturnValue({
+            defineSizeMapping: defineSizeMappingMock,
+            addService: jest.fn()
+        });
+        arcAds.displayAd(adParams);
+        expect(window.adsList.length).toEqual(1);
+    });
+
+    it('if has bidding.prebid.enabled call fetchBids', () => {
+        const adParams = {
+            id: "testID",
+            slotName: 'testSlotname',
+            dimensions: [100,40],
+            targeting: null,
+            sizemap: {breakpoints:[0, 50], refresh: false},
+            bidding: {prebid: {enabled: true}},
+            prerender: null,
+        };
+
+        window.blockArcAdsPrebid = false;
+        arcAds.displayAd(adParams);
+
+        expect(refreshSlotSpy).toHaveBeenCalledTimes(0);
+        expect(fetchBidsSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('handles non-null dimnsions length 0 case', () => {
+        const adParams = {
+            id: "testID",
+            slotName: 'testSlotname',
+            dimensions: [],
+            targeting: null,
+            sizemap: {breakpoints:[0, 50], refresh: false},
+            bidding: {prebid: {enabled: true}},
+            prerender: null,
+        };
+
+        const defineSizeMappingMock = jest.fn();
+        defineSlotMock.mockReturnValue({
+            defineSizeMapping: defineSizeMappingMock,
+            addService: jest.fn()
+        });
+
+        const result = arcAds.displayAd(adParams);
+
+        expect(result).toEqual(undefined);
+        expect(defineOutOfPageSlotMock).toHaveBeenCalledTimes(0);
+
+        expect(defineSlotMock).toHaveBeenCalledTimes(1);
+        expect(defineSlotMock).toHaveBeenCalledWith( "/123/testSlotname", null, "testID");
+ 
+        expect(refreshSlotSpy).toHaveBeenCalledTimes(0);
+
+        expect(defineSizeMappingMock).toHaveBeenCalledTimes(1);
+        expect(defineSizeMappingMock).toHaveBeenCalledWith([]);
+
+        expect(setResizeListenerSpy).toHaveBeenCalledTimes(0);
+
     });
 
 });

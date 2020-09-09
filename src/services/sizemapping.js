@@ -19,7 +19,7 @@ export function prepareSizeMaps(dimensions, sizemap) {
   const correlators = [];
   const parsedSizemap = !sizemap.length ? null : sizemap;
 
-  parsedSizemap.forEach((value, index) => {
+  parsedSizemap && dimensions && parsedSizemap.forEach((value, index) => {
     mapping.push([value, dimensions[index]]);
 
     // Filters duplicates from the mapping
