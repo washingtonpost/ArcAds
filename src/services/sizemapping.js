@@ -19,15 +19,17 @@ export function prepareSizeMaps(dimensions, sizemap) {
   const correlators = [];
   const parsedSizemap = !sizemap.length ? null : sizemap;
 
-  parsedSizemap && dimensions && parsedSizemap.forEach((value, index) => {
-    mapping.push([value, dimensions[index]]);
+  if (parsedSizemap && dimensions) {
+    parsedSizemap.forEach((value, index) => {
+      mapping.push([value, dimensions[index]]);
 
-    // Filters duplicates from the mapping
-    if (breakpoints.indexOf(value[0]) === -1) {
-      breakpoints.push(value[0]);
-      correlators.push(false);
-    }
-  });
+      // Filters duplicates from the mapping
+      if (breakpoints.indexOf(value[0]) === -1) {
+        breakpoints.push(value[0]);
+        correlators.push(false);
+      }
+    });
+  }
 
   breakpoints.sort((a, b) => { return a - b; });
 

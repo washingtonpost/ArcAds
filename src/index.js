@@ -91,7 +91,6 @@ export class ArcAds {
         }
       }
     } catch (err) {
-      console.log("err", err)
       console.error('ads error', err);
     }
   }
@@ -254,9 +253,8 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      return;
+      return false;
     }
-
     //ensure library is present and able to send out SRA ads
     if (window && window.googletag && googletag.pubadsReady) { // eslint-disable-line
       window.googletag.pubads().disableInitialLoad();
@@ -295,7 +293,7 @@ export class ArcAds {
     googletag.pubads().setTargeting(key, value);
   }
 
-  static  getWindow() {
+  static getWindow() {
     return window;
   }
 }
