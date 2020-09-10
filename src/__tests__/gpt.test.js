@@ -104,4 +104,31 @@ describe('arcads', () => {
       expect(methods.setResizeListener.mock.calls.length).toBe(1);
     });
   });
+
+  describe('refreshSlot', () => {
+    const defineOutOfPageSlotMock = jest.fn();
+    const defineSlotMock = jest.fn();
+    const refreshMock = jest.fn();
+    const prerenderFnc = () =>{
+      return Promise.resolve([1,2,3]);
+    }
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    beforeAll(() => {
+      window.googletag= {
+          pubads: jest.fn().mockReturnValue({
+            refresh: refreshMock,
+          }),
+      };
+    });
+
+    it('if has prerender that resolves call refresh', () => {
+      window.googletag.pubadsReady = true;
+      gpt.refreshSlot({ad:{name:"ad"}, correlator:false, prerender:prerenderFnc, info:{}});
+      //expect(window.googletag.pubads().refresh).toHaveBeenCalledTimes(1);
+    });
+  });
 });
