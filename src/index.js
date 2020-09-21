@@ -120,9 +120,6 @@ export class ArcAds {
     window.blockArcAdsLoad = false;
     window.blockArcAdsPrebid = false;
 
-    window.googletag.pubads().refresh(window.adsList);
-    window.adsList = [];
-
     //prebid call
     pbjs.requestBids({
       timeout: bidderTimeout,
@@ -131,8 +128,8 @@ export class ArcAds {
         console.log('Bid Back Handler', result);
         pbjs.setTargetingForGPTAsync();
 
-        //ads call
-        window.googletag.pubads().refresh();
+        window.googletag.pubads().refresh(window.adsList);
+        window.adsList = [];
       }
     });
   }

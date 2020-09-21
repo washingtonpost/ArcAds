@@ -4,7 +4,7 @@ describe('appendResource', () => {
     const cbMock = jest.fn();
     const appendChildMock = jest.fn();
     const saveDocument = global.document;
-
+    
     afterAll(() => {
         delete global.document;
         global.document = saveDocument;
@@ -45,5 +45,4 @@ describe('appendResource', () => {
         expect(appendChildMock).toHaveBeenCalledWith(expectedParams);
         expect(cbMock).toHaveBeenCalledTimes(1);
     });
-
-  });
+});

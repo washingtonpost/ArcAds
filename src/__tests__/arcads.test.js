@@ -85,7 +85,7 @@ describe('arcads', () => {
 
 
       expect(registerAdMock).toHaveBeenCalledTimes(2);
-      expect(refreshMock).toHaveBeenCalledTimes(1);
+      expect(refreshMock).toHaveBeenCalledTimes(0);
       expect(requestBidsMock).toHaveBeenCalledTimes(1);
     });
   });

@@ -18,8 +18,7 @@ describe('registerAds dimensions branches', () => {
 
     //queueGoogletagCommand mock
     jest.spyOn(gptService, 'queueGoogletagCommand');
-   // jest.spyOn(prebidService, 'queuePrebidCommand');
-    const queuePrebidCommandMock = jest.fn();
+    //const queuePrebidCommandMock = jest.fn();
         const queuePrebidCommandBindMock = jest.fn();
         prebidService.queuePrebidCommand = queuePrebidCommandBindMock;
         prebidService.queuePrebidCommand.bind = queuePrebidCommandBindMock;
