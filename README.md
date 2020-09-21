@@ -364,7 +364,7 @@ arcAds.registerAd({
 ```
 
 ## Registering Multiple Ads
-You can display multiple ads at once using the `registerAdCollection` method. This is useful if you're initializing multiple advertisements at once in the page header. To do this you can pass an array of advertisement objects similar to the one you would with the `registerAd` call.
+You can display multiple ads at once using the `registerAdCollection` method. This is useful if you're initializing multiple advertisements at once in the page header. To do this you can pass an array of advertisement objects similar to the one you would with the `registerAd` call. Note that when using this fuction, if setAdsBlockGate() has not been called, the calls for each ad will be made individuall.  If you need to acheive Single Request Architecture, see the documentation  below, "SRA Single Request Architecture".
 
 ```javascript
 const ads = [{
@@ -413,6 +413,17 @@ const ads = [{
 arcAds.registerAdCollection(ads)
 ```
 
+## SRA Single Request Architecture
+SRA architecture Functions will allow all ads to go out in one single ad call. The functions are presented in the order they should be called:
+
+1. setPageLevelTargeting(key, value): sets targeting parameters- applied to all ads on the page. Extracting common targetinig values is recommended in order to avoid repeating targeting for each ad in the single ad call.
+1. setAdsBlockGate(): “closes” the gate - as ads are added, calls do not go out.  This allows ads configurations to accumulated to be set out later, together all at once.
+1. reserveAd(params): accumulates ads to be sent out later.  This functions is called once per one ad.
+1. releaseAdsBlockGate(): “opens” the gate - allows an ad call to go out.
+1. sendSingleCallAds(): registers all the ads added via reserveAd(), and sends out a single ad call (SRA call) containing all the ads information that has been added so far via reserveAd().
+
+To add more new ads repeat steps 1-5 as needed.
+
 ## Developer Tools
 There's a series developer tools availble, to get started run `yarn install`.
 
@@ -428,6 +439,7 @@ There's a series developer tools availble, to get started run `yarn install`.
 You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
 
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
+
 
 ## Contributing
 If you'd like to contribute to ArcAds please read our [contributing guide](https://github.com/washingtonpost/ArcAds/blob/master/CONTRIBUTING.md).
