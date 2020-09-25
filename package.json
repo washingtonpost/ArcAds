@@ -7,7 +7,7 @@
     "test": "jest --config jest.config.js --no-cache",
     "build": "rm -rf dist && webpack --env.production",
     "dev": "rm -rf dist && webpack --env.development --watch",
-    "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
+    "docs": "rm -rf docs && ./node_modules/.bin/esdoc2 && open docs/index.html",
     "debug": "node debugging.js",
     "mock": "webpack-dev-server --progress --hot --inline && npm run test"
   },
@@ -50,8 +50,8 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
-    "esdoc": "^1.0.4",
-    "esdoc-standard-plugin": "^1.0.0",
+    "esdoc2": "^2.1.5",
+    "esdoc2-standard-plugin": "^2.1.2",
     "promise-polyfill": "^8.0.0"
   },
   "homepage": "https://github.com/washingtonpost/arcads#readme"
