@@ -18,7 +18,7 @@ To get started you must include the script tag for ArcAds in your page header, l
 </script>
 ```
 
-Additionally you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
+Additionally, you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
 
 ```
 npm install arcads 
@@ -58,17 +58,17 @@ The following table shows all of the possible parameters the `registerAd` method
 | `slotName`  | The `slotName` parameter is equal to the slot name configured within DFP, for example `sitename/hp/hp-1`. The publisher ID gets attached to the slot name within the ArcAds logic. | `String` | `Required` |
 | `dimensions`  | The `dimensions` parameter should be an array with array of arrays containing the advertisement sizes the slot can load. If left empty the advertisement will be considered as an out of page unit. | `Array` | `Optional` |
 | `adType`  | The `adType` parameter should describe the type of advertisement, for instance `leaderboard` or `cube`.  | `String` | `Optional` |
-| `display`  | The `display` paramter determines which user agents can render the advertisement. The available choices are `desktop`, `mobile`, or `all`. If a value is not provided it will default to `all`. | `String` | `Optional` |
-| `targeting`  | The `targeting` paramter accepts an object containing key/value pairs which should attached to the advertisement request. | `Object` | `Optional` |
-| `sizemap`  | The `sizemap` paramter accepts an object containing information about the advertisements size mapping, for more information refer to the [Size Mapping portion of the readme](https://github.com/washingtonpost/arcads#size-mapping). | `Object` | `Optional` |
-| `bidding`  | The `bidding` paramter accepts an object containing information about the advertisements header bidding vendors, for more information refer to the [Header Bidding portion of the readme](https://github.com/washingtonpost/arcads#header-bidding). | `Object` | `Optional` | 
+| `display`  | The `display` parameter determines which user agents can render the advertisement. The available choices are `desktop`, `mobile`, or `all`. If a value is not provided it will default to `all`. | `String` | `Optional` |
+| `targeting`  | The `targeting` parameter accepts an object containing key/value pairs which should attached to the advertisement request. | `Object` | `Optional` |
+| `sizemap`  | The `sizemap` parameter accepts an object containing information about the advertisements size mapping, for more information refer to the [Size Mapping portion of the readme](https://github.com/washingtonpost/arcads#size-mapping). | `Object` | `Optional` |
+| `bidding`  | The `bidding` parameter accepts an object containing information about the advertisements header bidding vendors, for more information refer to the [Header Bidding portion of the readme](https://github.com/washingtonpost/arcads#header-bidding). | `Object` | `Optional` | 
 | `prerender`  | The `prerender` parameter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` | 
 
 ### Out of Page Ads
 If an advertisement has an empty or missing `dimensions` parameter it will be considered as a [DFP Out of Page creative](https://support.google.com/dfp_premium/answer/6088046?hl=en) and rendered as such.
 
 ### Callback
-Whenever an advertisement loads you can access data about the advertisement such as its size and id by passing in an optional callback to the initialization of ArcAds. This ties a handler to the `slotRenderEnded` event that DFP emits and is called everytime an advertisement is about to render, allowing you to make any page layout modifications to accomodate a specific advertisement.
+Whenever an advertisement loads you can access data about the advertisement such as its size and id by passing in an optional callback to the initialization of ArcAds. This ties a handler to the `slotRenderEnded` event that DFP emits and is called every time an advertisement is about to render, allowing you to make any page layout modifications to accommodate a specific advertisement.
 
 ```javascript
 const arcAds = new ArcAds({
@@ -115,9 +115,9 @@ arcAds.registerAd({
 })
 ```
 
-The service will automatically give the advertisement a `position` target key/value pair if either the `targeting` object or `position` key of the targeting object are not present. The position value will incriment by 1 in sequence for each of the same `adType` on the page. This is a common practice between ad traffickers so this behavior is baked in, only if the trafficker makes use of this targeting will it have any effect on the advertisement rendering. 
+The service will automatically give the advertisement a `position` target key/value pair if either the `targeting` object or `position` key of the targeting object are not present. The position value will increment by 1 in sequence for each of the same `adType` on the page. This is a common practice between ad traffickers so this behavior is baked in, only if the trafficker makes use of this targeting will it have any effect on the advertisement rendering. 
 
-If `adType` is exluded from the `registerAd` call the automatic position targeting will not be included.
+If `adType` is excluded from the `registerAd` call the automatic position targeting will not be included.
 
 ## Size Mapping
 You can configure DFP size mapped ads with the same registration call by adding a `sizemap` object. To utilize size mapping the `dimensions` key should be updated to include an array representing a nested array of arrays containing the applicable sizes for a specific breakpoint.
@@ -157,7 +157,7 @@ arcAds.registerAd({
 ## Prerender Hook
 ArcAds provides a way for you to get information about an advertisement before it loads, which is useful for attaching targeting data from third party vendors.
 
-You can setup a function within the `registerAd` call by adding a `prerender` paramter, the value of which being the function you'd like to fire before the advertisement loads. This function will also fire before the advertisement refreshes if you're using sizemapping.
+You can setup a function within the `registerAd` call by adding a `prerender` parameter, the value of which being the function you'd like to fire before the advertisement loads. This function will also fire before the advertisement refreshes if you're using sizemapping.
 
 ```javascript
 arcAds.registerAd({
@@ -217,7 +217,7 @@ If you'd like to include Prebid.js you must include the library before `arcads.j
 </script>
 
 ```
-You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closs out the bidding for the advertisements on the page. By default the timeout will be set to `700`.
+You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closes out the bidding for the advertisements on the page. By default, the timeout will be set to `700`.
 
 ```javascript
 const arcAds = new ArcAds({
@@ -292,7 +292,7 @@ const arcAds = new ArcAds({
 })
 ```
 
-On the advertisement registration you can then provide information about which bidding services that specific advertisement should use. You can find a list of paramters that Prebid.js accepts for each adapter on the [Prebid.js website](http://prebid.org/dev-docs/publisher-api-reference.html). Additionally you can turn on [Prebid.js debugging](http://prebid.org/dev-docs/toubleshooting-tips.html) by adding `?pbjs_debug=true` to the url.
+On the advertisement registration you can then provide information about which bidding services that specific advertisement should use. You can find a list of parameters that Prebid.js accepts for each adapter on the [Prebid.js website](http://prebid.org/dev-docs/publisher-api-reference.html). Additionally you can turn on [Prebid.js debugging](http://prebid.org/dev-docs/toubleshooting-tips.html) by adding `?pbjs_debug=true` to the url.
 
 ```javascript
 arcAds.registerAd({
@@ -366,7 +366,7 @@ arcAds.registerAd({
 NOTE: Currently Amazon A9/TAM is not supported for use with Singe Request Architecture (SRA). 
 
 ## Registering Multiple Ads
-You can display multiple ads at once using the `registerAdCollection` method. This is useful if you're initializing multiple advertisements at once in the page header. To do this you can pass an array of advertisement objects similar to the one you would with the `registerAd` call. Note that when using this fuction, if setAdsBlockGate() has not been called, the calls for each ad will be made individuall.  If you need to acheive Single Request Architecture, see the documentation  below, "SRA Single Request Architecture".
+You can display multiple ads at once using the `registerAdCollection` method. This is useful if you're initializing multiple advertisements at once in the page header. To do this you can pass an array of advertisement objects similar to the one you would with the `registerAd` call. Note that when using this function, if setAdsBlockGate() has not been called, the calls for each ad will be made individually.  If you need to achieve Single Request Architecture, see the documentation below, "SRA Single Request Architecture".
 
 ```javascript
 const ads = [{
@@ -418,20 +418,20 @@ arcAds.registerAdCollection(ads)
 ## SRA Single Request Architecture
 SRA architecture Functions will allow all ads to go out in one single ad call. The functions are presented in the order they should be called:
 
-1. setPageLevelTargeting(key, value): sets targeting parameters- applied to all ads on the page. Extracting common targetinig values is recommended in order to avoid repeating targeting for each ad in the single ad call.
+1. setPageLevelTargeting(key, value): sets targeting parameters- applied to all ads on the page. Extracting common targeting values is recommended in order to avoid repeating targeting for each ad in the single ad call.
 1. setAdsBlockGate(): “closes” the gate - as ads are added, calls do not go out.  This allows ads configurations to accumulated to be set out later, together all at once.
-1. reserveAd(params): accumulates ads to be sent out later.  This functions is called once per one ad.
+1. reserveAd(params): accumulates ads to be sent out later.  This function is called once per one ad.
 1. releaseAdsBlockGate(): “opens” the gate - allows an ad call to go out.
 1. sendSingleCallAds(): registers all the ads added via reserveAd(), and sends out a single ad call (SRA call) containing all the ads information that has been added so far via reserveAd().
 
-To add more new ads repeat steps 1-5 as needed.
+To add more ads, repeat steps 1-5 as needed.
 
 NOTE: Prebid is supported for SRA.  Amazon A9/TAM is not supported for SRA and will need to be implemented at a future date.
 
-NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the inital SRA call is made, an outside lazy loading library may be used to manage the calls for regsterAd, reserveAd and other calls.
+NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the initial SRA call is made, an outside lazy loading library may be used to manage the calls for regsterAd, reserveAd and other calls.
 
 ## Developer Tools
-There's a series developer tools availble, to get started run `yarn install`.
+There's a series developer tools available, to get started run `yarn install`.
 
 | Command  | Description |
 | ------------- | ------------- |
@@ -442,7 +442,7 @@ There's a series developer tools availble, to get started run `yarn install`.
 | `yarn debug`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
 
 ### Slot Override
-You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
+You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example, if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
 
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
 
