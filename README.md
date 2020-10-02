@@ -363,6 +363,8 @@ arcAds.registerAd({
 })
 ```
 
+NOTE: Currently Amazon A9/TAM is not supported for use with Singe Request Architecture (SRA). 
+
 ## Registering Multiple Ads
 You can display multiple ads at once using the `registerAdCollection` method. This is useful if you're initializing multiple advertisements at once in the page header. To do this you can pass an array of advertisement objects similar to the one you would with the `registerAd` call. Note that when using this fuction, if setAdsBlockGate() has not been called, the calls for each ad will be made individuall.  If you need to acheive Single Request Architecture, see the documentation  below, "SRA Single Request Architecture".
 
@@ -423,6 +425,10 @@ SRA architecture Functions will allow all ads to go out in one single ad call. T
 1. sendSingleCallAds(): registers all the ads added via reserveAd(), and sends out a single ad call (SRA call) containing all the ads information that has been added so far via reserveAd().
 
 To add more new ads repeat steps 1-5 as needed.
+
+NOTE: Prebid is supported for SRA.  Amazon A9/TAM is not supported for SRA and will need to be implemented at a future date.
+
+NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the inital SRA call is made, an outside lazy loading library may be used to manage the calls for regsterAd, reserveAd and other calls.
 
 ## Developer Tools
 There's a series developer tools availble, to get started run `yarn install`.
