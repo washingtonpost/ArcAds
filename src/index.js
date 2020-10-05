@@ -17,12 +17,16 @@ export class ArcAds {
     this.wrapper = options.bidding || {};
     this.positions = [];
     this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
+    this.adsList = [];
 
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
-      console.warn(`ArcAds: DFP id is missing from the arcads initialization script. 
-        Documentation: https://github.com/wapopartners/arc-ads#getting-started`);
+      console.warn(
+        'ArcAds: DFP id is missing from the arcads initialization script.',
+        '\n',
+        'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
+      );
     } else {
       initializeGPT();
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
@@ -102,6 +106,58 @@ export class ArcAds {
   }
 
   /**
+  * @desc Registers a collection of advertisements as single prebid and ad calls
+  * @param {array} collection - An array containing a list of objects containing advertisement data.
+  **/
+  registerAdCollectionSingleCall(collection, bidderTimeout = 700) {
+    window.blockArcAdsLoad = true;
+    window.blockArcAdsPrebid = true;
+
+    collection.forEach((advert) => {
+      this.registerAd(advert);
+    });
+
+    window.blockArcAdsLoad = false;
+    window.blockArcAdsPrebid = false;
+
+    //prebid call
+    pbjs.requestBids({
+      timeout: bidderTimeout,
+      //adUnitCodes: codes,
+      bidsBackHandler: (result) => {
+        console.log('Bid Back Handler', result);
+        pbjs.setTargetingForGPTAsync();
+
+        window.googletag.pubads().refresh(window.adsList);
+        window.adsList = [];
+      }
+    });
+  }
+
+
+  /**
+  * @desc Sets blockArcAdsLoad to be true - stops Ad Calls from going out,
+  * allowing ads to be saved up for a single ad call to be sent out later.
+  **/
+  static setAdsBlockGate() {
+    const win = ArcAds.getWindow();
+    if (typeof win !== 'undefined') {
+      win.blockArcAdsLoad = true;
+    }
+  }
+
+  /**
+  * @desc Sets blockArcAdsLoad to be true - stops Ad Calls from going out,
+  * allowing ads to be saved up for a single ad call to be sent out later.
+  **/
+  static releaseAdsBlockGate() {
+    const win = ArcAds.getWindow();
+    if (typeof win !== 'undefined') {
+      win.blockArcAdsLoad = false;
+    }
+  }
+
+  /**
   * @desc Displays an advertisement and sets up any neccersary event binding.
   * @param {object} params - An object containing all of the function arguments.
   * @param {string} params.id - A string containing the advertisement id corresponding to the div the advertisement will load into.
@@ -158,6 +214,10 @@ export class ArcAds {
 
     const safebreakpoints = (sizemap && sizemap.breakpoints) ? sizemap.breakpoints : [];
 
+    if (window.adsList && ad) {
+      adsList.push(ad);
+    }
+
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
       fetchBids({
         ad,
@@ -169,7 +229,7 @@ export class ArcAds {
         bidding,
         breakpoints: safebreakpoints
       });
-    } else {
+    } else if (!window.blockArcAdsPrebid) {
       refreshSlot({
         ad,
         prerender,
@@ -181,5 +241,56 @@ export class ArcAds {
         }
       });
     }
+  }
+
+  /**
+  * @desc Send out ads that have been accumulated for the SRA
+  **/
+  sendSingleCallAds(bidderTimeout = 700) {
+    // if no ads have been accumulated to send out together
+    // do nothing, return
+    if (this.adsList && this.adsList.length < 1) {
+      return false;
+    }
+    //ensure library is present and able to send out SRA ads
+    if (window && window.googletag && googletag.pubadsReady) { // eslint-disable-line
+      window.googletag.pubads().disableInitialLoad();
+      window.googletag.pubads().enableSingleRequest();
+      window.googletag.pubads().enableAsyncRendering();
+
+      this.registerAdCollectionSingleCall(this.adsList, bidderTimeout);
+    } else {
+      setTimeout(() => {
+        this.sendSingleCallAds();
+      }, 2000);
+    }
+  }
+
+  /**
+   * Append this ad information to the list of ads
+   * to be sent out as part of the singleAdCall
+   *
+   * @param {Object} params the ad parameters
+   */
+  reserveAd(params) {
+    ArcAds.setAdsBlockGate();
+    this.adsList.push(params);
+  }
+
+  /**
+   * Page level targeting - any targeting set
+   * using this function will apply to all
+   * ads on the page. This is useful for SRA to
+   * reduce request length.
+   *
+   * @param {string} key Targeting parameter key.
+   * * @param {string} value Targeting parameter value or array of values.
+   */
+  setPageLeveTargeting(key, value) { //TODO check for pubads
+    googletag.pubads().setTargeting(key, value);
+  }
+
+  static getWindow() {
+    return window;
   }
 }

@@ -44,7 +44,7 @@ export function refreshSlot({
   });
 
   function runRefreshEvent() {
-    if (window.blockArcAdsLoad) return;
+    if (window.blockArcAdsLoad) return 'blockArcAdsLoad';
     if (window.googletag && googletag.pubadsReady) {
       window.googletag.pubads().refresh([ad], { changeCorrelator: correlator });
     } else {
@@ -84,6 +84,7 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().disableInitialLoad();
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
+
   if (this.collapseEmptyDivs) {
     window.googletag.pubads().collapseEmptyDivs();
   }

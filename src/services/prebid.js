@@ -17,11 +17,14 @@ export function queuePrebidCommand(fn) {
  * @param {function} prerender - An optional function that will run before the advertisement renders.
  * @param {function} cb - An optional callback function that should fire whenever the bidding has concluded.
  **/
-export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
-  pbjs.addAdUnits(info);
+export function fetchPrebidBidsArray(ad, codes, timeout, info, prerender, cb = null) {
+  pbjs.addAdUnits(info); //eslint-disable-line no-undef
+  if (window.blockArcAdsPrebid) {
+    return;
+  }
   pbjs.requestBids({
     timeout,
-    adUnitCodes: [code],
+    adUnitCodes: codes,
     bidsBackHandler: (result) => {
       console.log('Bid Back Handler', result);
       pbjs.setTargetingForGPTAsync([code]);
@@ -30,8 +33,14 @@ export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
       } else {
         refreshSlot({ ad, info, prerender });
       }
-    }
+    },
   });
+}
+
+export function fetchPrebidBids(ad, code, timeout, info, prerender, cb = null) {
+  const newInfo = info;
+  newInfo.bids = Array.isArray(info.bids) ? info.bids : [info.bids];
+  fetchPrebidBidsArray(ad, [code], timeout, newInfo, prerender, cb);
 }
 
 /**
