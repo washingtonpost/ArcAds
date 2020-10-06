@@ -220,7 +220,7 @@ If you'd like to include Prebid.js you must include the library before `arcads.j
 </script>
 
 ```
-You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closes out the bidding for the advertisements on the page. By default, the timeout will be set to `700`.
+You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. If `enabled` is `undefined`, `prebid` can still be used by providing a valid `bids` object. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closes out the bidding for the advertisements on the page. By default, the timeout will be set to `700`.
 
 ```javascript
 const arcAds = new ArcAds({
