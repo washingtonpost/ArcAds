@@ -12,11 +12,14 @@ To get started you must include the script tag for ArcAds in your page header, l
 <script type="text/javascript">
   const arcAds = new ArcAds({
     dfp: {
-      id: '123'
+      id: '123',
+      collapseEmptyDivs: true
     }
   })
 </script>
 ```
+
+`collapseEmptyDivs` is an optional parameter that directly toggles `googletag.pubads().collapseEmptyDivs()`
 
 Additionally, you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
 
