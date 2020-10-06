@@ -12,11 +12,14 @@ To get started you must include the script tag for ArcAds in your page header, l
 <script type="text/javascript">
   const arcAds = new ArcAds({
     dfp: {
-      id: '123'
+      id: '123',
+      collapseEmptyDivs: true
     }
   })
 </script>
 ```
+
+`collapseEmptyDivs` is an optional parameter that directly toggles `googletag.pubads().collapseEmptyDivs()`
 
 Additionally, you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
 
@@ -217,7 +220,7 @@ If you'd like to include Prebid.js you must include the library before `arcads.j
 </script>
 
 ```
-You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closes out the bidding for the advertisements on the page. By default, the timeout will be set to `700`.
+You can enable Prebid.js on the wrapper by adding a `prebid` object to the wrapper initialization and setting `enabled: true`. If `enabled` is `undefined`, `prebid` can still be used by providing a valid `bids` object. You can also optionally pass it a `timeout` value which corresponds in milliseconds how long Prebid.js will wait until it closes out the bidding for the advertisements on the page. By default, the timeout will be set to `700`.
 
 ```javascript
 const arcAds = new ArcAds({
