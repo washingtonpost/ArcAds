@@ -27,7 +27,7 @@ export function fetchPrebidBidsArray(ad, codes, timeout, info, prerender, cb = n
     adUnitCodes: codes,
     bidsBackHandler: (result) => {
       console.log('Bid Back Handler', result);
-      pbjs.setTargetingForGPTAsync([code]);
+      pbjs.setTargetingForGPTAsync(codes);
       if (cb) {
         cb();
       } else {

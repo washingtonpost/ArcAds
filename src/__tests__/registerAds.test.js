@@ -90,7 +90,7 @@ describe('registerAds dimensions branches', () => {
         expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
 
     });
-
+    
     it('should add two level dimensions appropriately', () => {
 
         const adParams = {
@@ -145,7 +145,7 @@ describe('registerAds dimensions branches', () => {
             targeting:{},
             adType: true,
             display: 'mobile',
-            bidding:{prebid:{bids:['bid1']}}
+            bidding:{prebid:{enabled: true, bids:['bid1']}}
         }
 
         const mobileAny = jest.fn().mockReturnValue(true);
@@ -169,7 +169,7 @@ describe('registerAds dimensions branches', () => {
         expect(displayAdBindMock).toHaveBeenCalledTimes(1);
         const expectedArg2 = {
             "adType": true,
-            "bidding": {"prebid": {"bids": ["bid1"]}},
+            "bidding": {"prebid": {"enabled": true, "bids": ["bid1"]}},
             "dimensions": [[[100, 50]]],
             "display": "mobile",
             "id": "testID",
@@ -178,6 +178,21 @@ describe('registerAds dimensions branches', () => {
         };
         expect(displayAdBindMock.mock.calls[0][1]).toEqual( expectedArg2);
     });
+
+    it('prebid should not be called', () => {
+      const adParams = {
+          id: "testID",
+          slotname: "testSlotname",
+          dimensions: [[[100,50]]],
+          targeting:{},
+          adType: true,
+          display: 'mobile',
+          bidding:{prebid:{enabled: false, bids:['bid1']}}
+      }
+  
+      arcAds.registerAd(adParams);
+      expect(addUnitMock).toHaveBeenCalledTimes(0);
+  });
 
     it('wrapper has useSlotForAdUnit for caclulating prebid code', () => {
         arcAds.wrapper = { 
@@ -197,7 +212,7 @@ describe('registerAds dimensions branches', () => {
             targeting:{},
             adType: true,
             display: 'mobile',
-            bidding:{prebid:{bids:['bid1']}}
+            bidding:{prebid:{enabled: true, bids:['bid1']}}
         }
 
         const mobileAny = jest.fn().mockReturnValue(true);
