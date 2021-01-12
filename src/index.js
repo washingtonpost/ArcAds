@@ -1,8 +1,11 @@
+import ulog from 'ulog';
 import { MobileDetection } from './util/mobile';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
 import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
 import { queuePrebidCommand, addUnit } from './services/prebid';
 import { prepareSizeMaps, setResizeListener } from './services/sizemapping';
+
+const log = ulog('index');
 
 function getArrayDepth(array) {
   return Array.isArray(array)
@@ -32,6 +35,10 @@ export class ArcAds {
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
       initializeBiddingServices(this.wrapper);
     }
+    console.log('here comes log...');
+    log('i am a log');
+    log.log('i am a log dot log');
+    log.info('i am a log dot info');
   }
 
   /**
