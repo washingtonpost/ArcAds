@@ -12,7 +12,6 @@ function getArrayDepth(array) {
     : 0;
 }
 
-let timestamp;
 const log = anylogger('arcads.js');
 
 /** @desc Displays an advertisement from Google DFP with optional support for Prebid.js and Amazon TAM/A9. **/
@@ -32,10 +31,9 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      timestamp = new Date();
       log({
         service: 'ArcAds',
-        timestamp,
+        timestamp: `${new Date()}`,
         description: 'warning: DFP id missing from arcads initialization script'
       });
     } else {
@@ -102,10 +100,9 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          timestamp = new Date();
           log({
             service: 'ArcAds',
-            timestamp,
+            timestamp: `${new Date()}`,
             description: 'process display ad'
           });
           queueGoogletagCommand(processDisplayAd);
@@ -208,28 +205,25 @@ export class ArcAds {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
-        timestamp = new Date();
         log({
           service: 'ArcAds',
-          timestamp,
+          timestamp: `${new Date()}`,
           description: 'there is an ad to display'
         });
         ad.defineSizeMapping(mapping);
       } else {
-        timestamp = new Date();
         log({
           service: 'ArcAds',
-          timestamp,
+          timestamp: `${new Date()}`,
           description: 'there is no ad to display'
         });
         return false;
       }
 
       if (sizemap.refresh) {
-        timestamp = new Date();
         log({
           service: 'ArcAds',
-          timestamp,
+          timestamp: `${new Date()}`,
           description: 'refresh the size map'
         });
         setResizeListener({
@@ -258,10 +252,9 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      timestamp = new Date();
       log({
         service: 'ArcAds',
-        timestamp,
+        timestamp: `${new Date()}`,
         description: 'call fetch bids'
       });
       fetchBids({
@@ -275,10 +268,9 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      timestamp = new Date();
       log({
         service: 'ArcAds',
-        timestamp,
+        timestamp: `${new Date()}`,
         description: 'call refresh slot'
       });
       refreshSlot({
@@ -301,10 +293,9 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      timestamp = new Date();
       log({
         service: 'ArcAds',
-        timestamp,
+        timestamp: `${new Date()}`,
         description: 'no ads in the ad list'
       });
       return false;
