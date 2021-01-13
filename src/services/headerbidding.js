@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import anylogger from 'anylogger';
 import 'anylogger-console';
 import { fetchPrebidBids, queuePrebidCommand } from './prebid';
@@ -16,8 +17,10 @@ export function initializeBiddingServices({
   prebid = false,
   amazon = false
 }) {
+  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
+
   if (window.arcBiddingReady) {
-    log({
+    debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
       description: 'arcbidding is already ready'
@@ -35,7 +38,7 @@ export function initializeBiddingServices({
       }
       resolve('Prebid has been initialized');
     } else {
-      log({
+      debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'prebid is not enabled on this wrapper'
@@ -59,7 +62,7 @@ export function initializeBiddingServices({
       } else {
         console.warn(`ArcAds: Missing Amazon account id. 
           Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
-        log({
+        debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'amazon is not enabled on this wrapper'

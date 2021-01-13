@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import anylogger from 'anylogger';
 import 'anylogger-console';
 import { MobileDetection } from './util/mobile';
@@ -22,7 +23,7 @@ export class ArcAds {
     this.positions = [];
     this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
     this.adsList = [];
-
+    this.debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
@@ -31,15 +32,15 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      log({
+      this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'warning: DFP id missing from arcads initialization script'
       });
     } else {
-      initializeGPT();
-      queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
-      initializeBiddingServices(this.wrapper);
+      initializeGPT(this.debugTrue);
+      queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered), this.debugTrue);
+      initializeBiddingServices(this.wrapper, this.debugTrue);
     }
   }
 
@@ -100,7 +101,7 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          log({
+          this.debugTrue && log({
             service: 'ArcAds',
             timestamp: `${new Date()}`,
             description: 'process display ad'
@@ -205,14 +206,14 @@ export class ArcAds {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
-        log({
+        this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'there is an ad to display'
         });
         ad.defineSizeMapping(mapping);
       } else {
-        log({
+        this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'there is no ad to display'
@@ -221,7 +222,7 @@ export class ArcAds {
       }
 
       if (sizemap.refresh) {
-        log({
+        this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'refresh the size map'
@@ -252,7 +253,7 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      log({
+      this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'call fetch bids'
@@ -268,7 +269,7 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      log({
+      this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'call refresh slot'
@@ -293,7 +294,7 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      log({
+      this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'no ads in the ad list'

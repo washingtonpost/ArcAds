@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import anylogger from 'anylogger';
 import 'anylogger-console';
 import { appendResource } from '../util/resources';
@@ -8,12 +9,12 @@ const log = anylogger('arcads.js');
 /**
 * @desc Initializes the Google Publisher tag scripts.
 **/
-export function initializeGPT() {
+export function initializeGPT(debugTrue) {
   window.googletag = window.googletag || {};
   window.googletag.cmd = window.googletag.cmd || [];
 
   appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
-  log({
+  debugTrue && log({
     service: 'ArcAds',
     timestamp: `${new Date()}`,
     description: 'appended googletag script to head'
@@ -68,8 +69,8 @@ export function refreshSlot({
 * @desc Queues a command inside of GPT.
 * @param {function} fn - Accepts a function to push into the Prebid command queue.
 **/
-export function queueGoogletagCommand(fn) {
-  log({
+export function queueGoogletagCommand(fn, debugTrue) {
+  debugTrue && log({
     service: 'ArcAds',
     timestamp: `${new Date()}`,
     description: `function passed to queueGoogleTagCommand was ${fn}`
@@ -94,13 +95,13 @@ export function setTargeting(ad, options) {
 * @desc Configures the GPT configuration options.
 * @param {function} handleSlotRenderEnded - Callback function that gets fired whenever a GPT ad slot has finished rendering.
 **/
-export function dfpSettings(handleSlotRenderEnded) {
+export function dfpSettings(handleSlotRenderEnded, debugTrue) {
   window.googletag.pubads().disableInitialLoad();
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
 
   if (this.collapseEmptyDivs) {
-    log({
+    debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
       description: 'ArcAds: collapse empty divs'
@@ -110,7 +111,7 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.enableServices();
 
   if (handleSlotRenderEnded) {
-    log({
+    debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
       description: 'ArcAds: slot render ended'
