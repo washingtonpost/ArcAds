@@ -50,6 +50,8 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "anylogger": "^1.0.10",
+    "anylogger-console": "^1.0.0",
     "esdoc": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "promise-polyfill": "^8.0.0"
