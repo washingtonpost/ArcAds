@@ -1,5 +1,10 @@
+import anylogger from 'anylogger';
+import 'anylogger-console';
 import { appendResource } from '../util/resources';
 import { expandQueryString } from '../util/query';
+
+let timestamp;
+const log = anylogger('arcads.js');
 
 /**
 * @desc Initializes the Google Publisher tag scripts.
@@ -9,6 +14,12 @@ export function initializeGPT() {
   window.googletag.cmd = window.googletag.cmd || [];
 
   appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
+  timestamp = new Date();
+  log({
+    service: 'ArcAds',
+    timestamp,
+    description: 'appended googletag script to head'
+  });
 }
 
 /**
@@ -60,6 +71,12 @@ export function refreshSlot({
 * @param {function} fn - Accepts a function to push into the Prebid command queue.
 **/
 export function queueGoogletagCommand(fn) {
+  timestamp = new Date();
+  log({
+    service: 'ArcAds',
+    timestamp,
+    description: `function passed to queueGoogleTagCommand was ${fn}`
+  });
   window.googletag.cmd.push(fn);
 }
 
@@ -86,11 +103,23 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().enableAsyncRendering();
 
   if (this.collapseEmptyDivs) {
+    timestamp = new Date();
+    log({
+      service: 'ArcAds',
+      timestamp,
+      description: 'ArcAds: collapse empty divs'
+    });
     window.googletag.pubads().collapseEmptyDivs();
   }
   window.googletag.enableServices();
 
   if (handleSlotRenderEnded) {
+    timestamp = new Date();
+    log({
+      service: 'ArcAds',
+      timestamp,
+      description: 'ArcAds: slot render ended'
+    });
     window.googletag.pubads().addEventListener('slotRenderEnded', handleSlotRenderEnded);
   }
 }
