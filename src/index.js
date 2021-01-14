@@ -27,7 +27,7 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      sendLog('The DFP id missing from arcads initialization script. ArcAds cannot proceed.');
+      sendLog('The DFP id missing from the arcads initialization script. ArcAds cannot proceed.');
     } else {
       initializeGPT();
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
@@ -260,7 +260,7 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      sendLog('There no ads in the ad list so return false.');
+      sendLog('There are no ads in the ad list so return false.');
       return false;
     }
     //ensure library is present and able to send out SRA ads
