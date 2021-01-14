@@ -17,7 +17,7 @@ export function initializeGPT(debugTrue) {
   debugTrue && log({
     service: 'ArcAds',
     timestamp: `${new Date()}`,
-    description: 'appended googletag script to head'
+    description: 'Appended googletag script to the head tag of the page.'
   });
 }
 
@@ -73,7 +73,7 @@ export function queueGoogletagCommand(fn, debugTrue) {
   debugTrue && log({
     service: 'ArcAds',
     timestamp: `${new Date()}`,
-    description: `function passed to queueGoogleTagCommand was ${fn}`
+    description: `The function about to be pushed to window.googletag.cmd is ${fn}`
   });
   window.googletag.cmd.push(fn);
 }
@@ -104,7 +104,7 @@ export function dfpSettings(handleSlotRenderEnded, debugTrue) {
     debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
-      description: 'ArcAds: collapse empty divs'
+      description: 'This wrapper is set to collapse any empty divs.'
     });
     window.googletag.pubads().collapseEmptyDivs();
   }
@@ -114,7 +114,7 @@ export function dfpSettings(handleSlotRenderEnded, debugTrue) {
     debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
-      description: 'ArcAds: slot render ended'
+      description: 'This wrapper has a function to call upon the slot render ending.'
     });
     window.googletag.pubads().addEventListener('slotRenderEnded', handleSlotRenderEnded);
   }

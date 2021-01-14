@@ -23,7 +23,7 @@ export function initializeBiddingServices({
     debugTrue && log({
       service: 'ArcAds',
       timestamp: `${new Date()}`,
-      description: 'arcbidding is already ready'
+      description: 'Arcbidding is already ready; return without initializing bidding services again.'
     });
     return;
   }
@@ -41,7 +41,7 @@ export function initializeBiddingServices({
       debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
-        description: 'prebid is not enabled on this wrapper'
+        description: 'Prebid is not enabled on this wrapper.'
       });
       resolve('Prebid is not enabled on the wrapper...');
     }
@@ -65,7 +65,7 @@ export function initializeBiddingServices({
         debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
-          description: 'amazon is not enabled on this wrapper'
+          description: 'Amazon is not enabled on this wrapper.'
         });
         resolve('Amazon is not enabled on the wrapper...');
       }

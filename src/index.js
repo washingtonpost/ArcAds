@@ -35,7 +35,7 @@ export class ArcAds {
       this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
-        description: 'warning: DFP id missing from arcads initialization script'
+        description: 'The DFP id missing from arcads initialization script. ArcAds cannot proceed.'
       });
     } else {
       initializeGPT(this.debugTrue);
@@ -104,7 +104,7 @@ export class ArcAds {
           this.debugTrue && log({
             service: 'ArcAds',
             timestamp: `${new Date()}`,
-            description: 'process display ad'
+            description: 'processDisplayAd is true, meaning that displayAd returned truthy; there is an ad with an id.'
           });
           queueGoogletagCommand(processDisplayAd);
         }
@@ -209,14 +209,14 @@ export class ArcAds {
         this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
-          description: 'there is an ad to display'
+          description: 'There is an ad to display; it has been defined with or without dimensions.'
         });
         ad.defineSizeMapping(mapping);
       } else {
         this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
-          description: 'there is no ad to display'
+          description: 'There is no ad to display; an ad was not defined.'
         });
         return false;
       }
@@ -225,7 +225,7 @@ export class ArcAds {
         this.debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
-          description: 'refresh the size map'
+          description: 'Ad should have its sizemap refreshed, so refresh the size map by calling setResizeListener.'
         });
         setResizeListener({
           ad,
@@ -256,7 +256,7 @@ export class ArcAds {
       this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
-        description: 'call fetch bids'
+        description: 'Dimensions are present and bidding is enabled for amazon or prebid, so call fetchBids.'
       });
       fetchBids({
         ad,
@@ -272,7 +272,7 @@ export class ArcAds {
       this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
-        description: 'call refresh slot'
+        description: 'There are no dimensions and/or bidding is not enabled; if we are NOT blocking prebid, call refreshSlot.'
       });
       refreshSlot({
         ad,
@@ -297,7 +297,7 @@ export class ArcAds {
       this.debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
-        description: 'no ads in the ad list'
+        description: 'There no ads in the ad list so return false.'
       });
       return false;
     }
