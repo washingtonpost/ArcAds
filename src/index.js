@@ -23,7 +23,6 @@ export class ArcAds {
     this.positions = [];
     this.collapseEmptyDivs = options.dfp.collapseEmptyDivs;
     this.adsList = [];
-    this.debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
     window.isMobile = MobileDetection;
 
     if (this.dfpId === '') {
@@ -32,15 +31,16 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      this.debugTrue && log({
+      const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
+      debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'The DFP id missing from arcads initialization script. ArcAds cannot proceed.'
       });
     } else {
-      initializeGPT(this.debugTrue);
-      queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered), this.debugTrue);
-      initializeBiddingServices(this.wrapper, this.debugTrue);
+      initializeGPT();
+      queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
+      initializeBiddingServices(this.wrapper);
     }
   }
 
@@ -101,7 +101,8 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          this.debugTrue && log({
+          const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
+          debugTrue && log({
             service: 'ArcAds',
             timestamp: `${new Date()}`,
             description: 'processDisplayAd is true, meaning that displayAd returned truthy; there is an ad with an id.'
@@ -200,20 +201,20 @@ export class ArcAds {
     const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
-
+    const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
     if (sizemap && sizemap.breakpoints && dimensions) {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
-        this.debugTrue && log({
+        debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'There is an ad to display; it has been defined with or without dimensions.'
         });
         ad.defineSizeMapping(mapping);
       } else {
-        this.debugTrue && log({
+        debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'There is no ad to display; an ad was not defined.'
@@ -222,7 +223,7 @@ export class ArcAds {
       }
 
       if (sizemap.refresh) {
-        this.debugTrue && log({
+        debugTrue && log({
           service: 'ArcAds',
           timestamp: `${new Date()}`,
           description: 'Ad should have its sizemap refreshed, so refresh the size map by calling setResizeListener.'
@@ -253,7 +254,7 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      this.debugTrue && log({
+      debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'Dimensions are present and bidding is enabled for amazon or prebid, so call fetchBids.'
@@ -269,7 +270,7 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      this.debugTrue && log({
+      debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'There are no dimensions and/or bidding is not enabled; if we are NOT blocking prebid, call refreshSlot.'
@@ -291,10 +292,11 @@ export class ArcAds {
   * @desc Send out ads that have been accumulated for the SRA
   **/
   sendSingleCallAds(bidderTimeout = 700) {
+    const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      this.debugTrue && log({
+      debugTrue && log({
         service: 'ArcAds',
         timestamp: `${new Date()}`,
         description: 'There no ads in the ad list so return false.'

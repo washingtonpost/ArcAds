@@ -9,9 +9,10 @@ const log = anylogger('arcads.js');
 /**
 * @desc Initializes the Google Publisher tag scripts.
 **/
-export function initializeGPT(debugTrue) {
+export function initializeGPT() {
   window.googletag = window.googletag || {};
   window.googletag.cmd = window.googletag.cmd || [];
+  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
   appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
   debugTrue && log({
@@ -69,7 +70,8 @@ export function refreshSlot({
 * @desc Queues a command inside of GPT.
 * @param {function} fn - Accepts a function to push into the Prebid command queue.
 **/
-export function queueGoogletagCommand(fn, debugTrue) {
+export function queueGoogletagCommand(fn) {
+  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
   debugTrue && log({
     service: 'ArcAds',
     timestamp: `${new Date()}`,
@@ -95,10 +97,11 @@ export function setTargeting(ad, options) {
 * @desc Configures the GPT configuration options.
 * @param {function} handleSlotRenderEnded - Callback function that gets fired whenever a GPT ad slot has finished rendering.
 **/
-export function dfpSettings(handleSlotRenderEnded, debugTrue) {
+export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().disableInitialLoad();
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
+  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
   if (this.collapseEmptyDivs) {
     debugTrue && log({
