@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-expressions */
-import anylogger from 'anylogger';
-import 'anylogger-console';
 import { MobileDetection } from './util/mobile';
+import { sendLog } from './util/log';
 import { fetchBids, initializeBiddingServices } from './services/headerbidding';
 import { initializeGPT, queueGoogletagCommand, refreshSlot, dfpSettings, setTargeting, determineSlotName } from './services/gpt';
 import { queuePrebidCommand, addUnit } from './services/prebid';
@@ -12,8 +10,6 @@ function getArrayDepth(array) {
     ? 1 + Math.max(...array.map(child => getArrayDepth(child)))
     : 0;
 }
-
-const log = anylogger('arcads.js');
 
 /** @desc Displays an advertisement from Google DFP with optional support for Prebid.js and Amazon TAM/A9. **/
 export class ArcAds {
@@ -31,12 +27,7 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
-      debugTrue && log({
-        service: 'ArcAds',
-        timestamp: `${new Date()}`,
-        description: 'The DFP id missing from arcads initialization script. ArcAds cannot proceed.'
-      });
+      sendLog('The DFP id missing from arcads initialization script. ArcAds cannot proceed.');
     } else {
       initializeGPT();
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
@@ -101,12 +92,7 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
-          debugTrue && log({
-            service: 'ArcAds',
-            timestamp: `${new Date()}`,
-            description: 'processDisplayAd is true, meaning that displayAd returned truthy; there is an ad with an id.'
-          });
+          sendLog('processDisplayAd is true, meaning that displayAd returned truthy; there is an ad with an id.');
           queueGoogletagCommand(processDisplayAd);
         }
       }
@@ -201,33 +187,20 @@ export class ArcAds {
     const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
       : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
-    const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
     if (sizemap && sizemap.breakpoints && dimensions) {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
-        debugTrue && log({
-          service: 'ArcAds',
-          timestamp: `${new Date()}`,
-          description: 'There is an ad to display; it has been defined with or without dimensions.'
-        });
+        sendLog('There is an ad to display; it has been defined with or without dimensions.');
         ad.defineSizeMapping(mapping);
       } else {
-        debugTrue && log({
-          service: 'ArcAds',
-          timestamp: `${new Date()}`,
-          description: 'There is no ad to display; an ad was not defined.'
-        });
+        sendLog('There is no ad to display; an ad was not defined.');
         return false;
       }
 
       if (sizemap.refresh) {
-        debugTrue && log({
-          service: 'ArcAds',
-          timestamp: `${new Date()}`,
-          description: 'Ad should have its sizemap refreshed, so refresh the size map by calling setResizeListener.'
-        });
+        sendLog('Ad should have its sizemap refreshed, so refresh the size map by calling setResizeListener.');
         setResizeListener({
           ad,
           slotName: fullSlotName,
@@ -254,11 +227,7 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      debugTrue && log({
-        service: 'ArcAds',
-        timestamp: `${new Date()}`,
-        description: 'Dimensions are present and bidding is enabled for amazon or prebid, so call fetchBids.'
-      });
+      sendLog('Dimensions are present and bidding is enabled for amazon or prebid, so call fetchBids.');
       fetchBids({
         ad,
         id,
@@ -270,11 +239,7 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      debugTrue && log({
-        service: 'ArcAds',
-        timestamp: `${new Date()}`,
-        description: 'There are no dimensions and/or bidding is not enabled; if we are NOT blocking prebid, call refreshSlot.'
-      });
+      sendLog('There are no dimensions and/or bidding is not enabled; if we are NOT blocking prebid, call refreshSlot.');
       refreshSlot({
         ad,
         prerender,
@@ -292,15 +257,10 @@ export class ArcAds {
   * @desc Send out ads that have been accumulated for the SRA
   **/
   sendSingleCallAds(bidderTimeout = 700) {
-    const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      debugTrue && log({
-        service: 'ArcAds',
-        timestamp: `${new Date()}`,
-        description: 'There no ads in the ad list so return false.'
-      });
+      sendLog('There no ads in the ad list so return false.');
       return false;
     }
     //ensure library is present and able to send out SRA ads

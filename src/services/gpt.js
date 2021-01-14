@@ -1,10 +1,6 @@
-/* eslint-disable no-unused-expressions */
-import anylogger from 'anylogger';
-import 'anylogger-console';
 import { appendResource } from '../util/resources';
 import { expandQueryString } from '../util/query';
-
-const log = anylogger('arcads.js');
+import { sendLog } from '../util/log';
 
 /**
 * @desc Initializes the Google Publisher tag scripts.
@@ -12,14 +8,9 @@ const log = anylogger('arcads.js');
 export function initializeGPT() {
   window.googletag = window.googletag || {};
   window.googletag.cmd = window.googletag.cmd || [];
-  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
   appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
-  debugTrue && log({
-    service: 'ArcAds',
-    timestamp: `${new Date()}`,
-    description: 'Appended googletag script to the head tag of the page.'
-  });
+  sendLog('Appended googletag script to the head tag of the page.');
 }
 
 /**
@@ -71,12 +62,7 @@ export function refreshSlot({
 * @param {function} fn - Accepts a function to push into the Prebid command queue.
 **/
 export function queueGoogletagCommand(fn) {
-  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
-  debugTrue && log({
-    service: 'ArcAds',
-    timestamp: `${new Date()}`,
-    description: `The function about to be pushed to window.googletag.cmd is ${fn}`
-  });
+  sendLog(`The function about to be pushed to window.googletag.cmd is ${fn}`);
   window.googletag.cmd.push(fn);
 }
 
@@ -101,24 +87,15 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().disableInitialLoad();
   window.googletag.pubads().enableSingleRequest();
   window.googletag.pubads().enableAsyncRendering();
-  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
 
   if (this.collapseEmptyDivs) {
-    debugTrue && log({
-      service: 'ArcAds',
-      timestamp: `${new Date()}`,
-      description: 'This wrapper is set to collapse any empty divs.'
-    });
+    sendLog('This wrapper is set to collapse any empty divs.');
     window.googletag.pubads().collapseEmptyDivs();
   }
   window.googletag.enableServices();
 
   if (handleSlotRenderEnded) {
-    debugTrue && log({
-      service: 'ArcAds',
-      timestamp: `${new Date()}`,
-      description: 'This wrapper has a function to call upon the slot render ending.'
-    });
+    sendLog('This wrapper has a function to call upon the slot render ending.');
     window.googletag.pubads().addEventListener('slotRenderEnded', handleSlotRenderEnded);
   }
 }

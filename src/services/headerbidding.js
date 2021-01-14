@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-expressions */
-import anylogger from 'anylogger';
-import 'anylogger-console';
 import { fetchPrebidBids, queuePrebidCommand } from './prebid';
 import { fetchAmazonBids, queueAmazonCommand } from './amazon';
 import { refreshSlot } from './gpt';
-
-const log = anylogger('arcads.js');
+import { sendLog } from '../util/log';
 
 /**
 * @desc Initializes all header bidding services and appends the applicable scripts to the page.
@@ -17,14 +13,8 @@ export function initializeBiddingServices({
   prebid = false,
   amazon = false
 }) {
-  const debugTrue = (new URLSearchParams(window.location.search)).get('debug') === 'true';
-
   if (window.arcBiddingReady) {
-    debugTrue && log({
-      service: 'ArcAds',
-      timestamp: `${new Date()}`,
-      description: 'Arcbidding is already ready; return without initializing bidding services again.'
-    });
+    sendLog('Arcbidding is already ready; return without initializing bidding services again.');
     return;
   }
 
@@ -38,11 +28,7 @@ export function initializeBiddingServices({
       }
       resolve('Prebid has been initialized');
     } else {
-      debugTrue && log({
-        service: 'ArcAds',
-        timestamp: `${new Date()}`,
-        description: 'Prebid is not enabled on this wrapper.'
-      });
+      sendLog('Prebid is not enabled on this wrapper.');
       resolve('Prebid is not enabled on the wrapper...');
     }
   });
@@ -62,11 +48,7 @@ export function initializeBiddingServices({
       } else {
         console.warn(`ArcAds: Missing Amazon account id. 
           Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
-        debugTrue && log({
-          service: 'ArcAds',
-          timestamp: `${new Date()}`,
-          description: 'Amazon is not enabled on this wrapper.'
-        });
+        sendLog('Amazon is not enabled on this wrapper.');
         resolve('Amazon is not enabled on the wrapper...');
       }
     } else {
