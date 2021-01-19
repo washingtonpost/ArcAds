@@ -92,7 +92,7 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          sendLog('processDisplayAd is true, meaning that displayAd returned truthy; there is an ad with an id.');
+          sendLog(`registerAd(): Queuing Google Tag command for ad: ${slotName}`);
           queueGoogletagCommand(processDisplayAd);
         }
       }
@@ -192,15 +192,14 @@ export class ArcAds {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
 
       if (ad) {
-        sendLog('There is an ad to display; it has been defined with or without dimensions.');
         ad.defineSizeMapping(mapping);
       } else {
-        sendLog('There is no ad to display; an ad was not defined.');
+        sendLog(`displayAd(): No ad available to display - the div was either not defined or an ad with the following slot name already exists on the page: ${slotName}`);
         return false;
       }
 
       if (sizemap.refresh) {
-        sendLog('Ad should have its sizemap refreshed, so refresh the size map by calling setResizeListener.');
+        sendLog(`displayAd(): Attaching resize listener to the ad with the following slot name and sizemap defined: ${slotName}`);
         setResizeListener({
           ad,
           slotName: fullSlotName,
@@ -227,7 +226,7 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      sendLog('Dimensions are present and bidding is enabled for amazon or prebid, so call fetchBids.');
+      sendLog(`displayAd(): Fetching bids for ad with slot name: ${slotName}`);
       fetchBids({
         ad,
         id,
@@ -239,7 +238,7 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      sendLog('There are no dimensions and/or bidding is not enabled; if we are NOT blocking prebid, call refreshSlot.');
+      sendLog(`displayAd(): Refreshing ad with slot name: ${slotName}`);
       refreshSlot({
         ad,
         prerender,
@@ -260,7 +259,7 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      sendLog('There are no ads in the ad list so return false.');
+      sendLog('sendSingleCallAds(): No ads have been reserved on the page');
       return false;
     }
     //ensure library is present and able to send out SRA ads

@@ -14,7 +14,7 @@ export function initializeBiddingServices({
   amazon = false
 }) {
   if (window.arcBiddingReady) {
-    sendLog('Arcbidding is already ready; return without initializing bidding services again.');
+    sendLog('fetchBids(): Header bidding has been previously initialized');
     return;
   }
 

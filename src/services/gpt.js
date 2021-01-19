@@ -62,8 +62,8 @@ export function refreshSlot({
 * @param {function} fn - Accepts a function to push into the Prebid command queue.
 **/
 export function queueGoogletagCommand(fn) {
-  sendLog(`The function about to be pushed to window.googletag.cmd is ${fn}`);
   window.googletag.cmd.push(fn);
+  sendLog(`queueGoogletagCommand(${fn}): function pushed to window.googletag.cmd`);
 }
 
 /**
