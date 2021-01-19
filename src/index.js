@@ -27,7 +27,7 @@ export class ArcAds {
         '\n',
         'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
       );
-      sendLog('The DFP id missing from the arcads initialization script. ArcAds cannot proceed.');
+      sendLog('constructor()', 'The DFP id missing from the arcads initialization script. ArcAds cannot proceed.', null);
     } else {
       initializeGPT();
       queueGoogletagCommand(dfpSettings.bind(this, handleSlotRendered));
@@ -92,7 +92,7 @@ export class ArcAds {
 
         processDisplayAd = this.displayAd.bind(this, params);
         if (processDisplayAd) {
-          sendLog(`registerAd(): Queuing Google Tag command for ad: ${slotName}`);
+          sendLog('registerAd()', 'Queuing Google Tag command for ad', slotName);
           queueGoogletagCommand(processDisplayAd);
         }
       }
@@ -194,12 +194,12 @@ export class ArcAds {
       if (ad) {
         ad.defineSizeMapping(mapping);
       } else {
-        sendLog(`displayAd(): No ad available to display - the div was either not defined or an ad with the following slot name already exists on the page: ${slotName}`);
+        sendLog('displayAd()', 'No ad available to display - the div was either not defined or an ad with the same slot name already exists on the page', slotName);
         return false;
       }
 
       if (sizemap.refresh) {
-        sendLog(`displayAd(): Attaching resize listener to the ad with the following slot name and sizemap defined: ${slotName}`);
+        sendLog('displayAd()', 'Attaching resize listener to the ad with this slot name and sizemap defined', slotName);
         setResizeListener({
           ad,
           slotName: fullSlotName,
@@ -226,7 +226,7 @@ export class ArcAds {
     }
 
     if (dimensions && bidding && ((bidding.amazon && bidding.amazon.enabled) || (bidding.prebid && bidding.prebid.enabled))) {
-      sendLog(`displayAd(): Fetching bids for ad with slot name: ${slotName}`);
+      sendLog('displayAd()', 'Fetching bids for ad with this slot name', slotName);
       fetchBids({
         ad,
         id,
@@ -238,7 +238,7 @@ export class ArcAds {
         breakpoints: safebreakpoints
       });
     } else if (!window.blockArcAdsPrebid) {
-      sendLog(`displayAd(): Refreshing ad with slot name: ${slotName}`);
+      sendLog('displayAd()', 'Refreshing ad with this slot name', slotName);
       refreshSlot({
         ad,
         prerender,
@@ -259,7 +259,7 @@ export class ArcAds {
     // if no ads have been accumulated to send out together
     // do nothing, return
     if (this.adsList && this.adsList.length < 1) {
-      sendLog('sendSingleCallAds(): No ads have been reserved on the page');
+      sendLog('sendSingleCallAds()', 'No ads have been reserved on the page', null);
       return false;
     }
     //ensure library is present and able to send out SRA ads

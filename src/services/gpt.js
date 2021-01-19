@@ -10,7 +10,7 @@ export function initializeGPT() {
   window.googletag.cmd = window.googletag.cmd || [];
 
   appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
-  sendLog('Appended googletag script to the head tag of the page.');
+  sendLog('initializeGPT()', 'Appended googletag script to the head tag of the page.', null);
 }
 
 /**
@@ -63,7 +63,6 @@ export function refreshSlot({
 **/
 export function queueGoogletagCommand(fn) {
   window.googletag.cmd.push(fn);
-  sendLog(`queueGoogletagCommand(${fn}): function pushed to window.googletag.cmd`);
 }
 
 /**
@@ -89,13 +88,13 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().enableAsyncRendering();
 
   if (this.collapseEmptyDivs) {
-    sendLog('This wrapper is set to collapse any empty divs.');
+    sendLog('dfpSettings()', 'This wrapper is set to collapse any empty divs.', null);
     window.googletag.pubads().collapseEmptyDivs();
   }
   window.googletag.enableServices();
 
   if (handleSlotRenderEnded) {
-    sendLog('This wrapper has a function to call upon the slot render ending.');
+    sendLog('dfpSettings()', 'This wrapper has a function to call upon the slot render ending.', null);
     window.googletag.pubads().addEventListener('slotRenderEnded', handleSlotRenderEnded);
   }
 }

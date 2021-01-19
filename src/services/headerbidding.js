@@ -14,7 +14,7 @@ export function initializeBiddingServices({
   amazon = false
 }) {
   if (window.arcBiddingReady) {
-    sendLog('fetchBids(): Header bidding has been previously initialized');
+    sendLog('initializeBiddingServices()', 'Header bidding has been previously initialized', null);
     return;
   }
 
@@ -28,7 +28,7 @@ export function initializeBiddingServices({
       }
       resolve('Prebid has been initialized');
     } else {
-      sendLog('Prebid is not enabled on this wrapper.');
+      sendLog('initializeBiddingServices()', 'Prebid is not enabled on this wrapper.', null);
       resolve('Prebid is not enabled on the wrapper...');
     }
   });
@@ -48,7 +48,7 @@ export function initializeBiddingServices({
       } else {
         console.warn(`ArcAds: Missing Amazon account id. 
           Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
-        sendLog('Amazon is not enabled on this wrapper.');
+        sendLog('initializeBiddingServices()', 'Amazon is not enabled on this wrapper.', null);
         resolve('Amazon is not enabled on the wrapper...');
       }
     } else {
