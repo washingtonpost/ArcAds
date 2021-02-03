@@ -1,5 +1,7 @@
 import { renamePositionKey } from '../util/customTargeting';
 import {debounce} from '../util/debounce.js';
+import {sendLog} from '../util/log.js';
+import anylogger from 'anylogger';
 
 describe('The CustomTargeting.js functions', () => {
   it('should take targeting and position value, and rename the key as posn', () => {
@@ -46,5 +48,22 @@ describe('debounce', () => {
 
     // Verify debounced function was only called once
     expect(func).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('sendLog', () => {
+  const location = {
+    ...window.location,
+    search: '?debug=true'
+  };
+
+  Object.defineProperty(window, 'location', {
+    writable: true,
+    value: location
+  });
+
+  test('sendLog', () => {
+    expect(sendLog()).toBe();
+    const buggy = new URLSearchParams(window.location.search).get('debug');
   });
 });

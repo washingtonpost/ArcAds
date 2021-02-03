@@ -15,4 +15,5 @@ export function sendLog(parentFunc, description, slotName) {
       slotName
     });
   }
+  return;
 }
