@@ -116,6 +116,9 @@ export class ArcAds {
   * @param {array} collection - An array containing a list of objects containing advertisement data.
   **/
   registerAdCollectionSingleCall(collection, bidderTimeout = 700) {
+    sendLog('registerAdCollectionSingleCall()', 'Registering all reserved ads', null);
+
+
     window.blockArcAdsLoad = true;
     window.blockArcAdsPrebid = true;
 

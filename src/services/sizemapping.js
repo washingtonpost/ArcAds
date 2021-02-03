@@ -1,6 +1,7 @@
 import { debounce } from '../util/debounce';
 import { fetchBids } from './headerbidding';
 import { refreshSlot } from './gpt';
+import { sendLog } from '../util/log';
 
 /** @desc An object containing all of the size map refresh event listeners and correlators for size mapping. **/
 export const sizemapListeners = {};
@@ -69,6 +70,7 @@ export function parseSizeMappings(sizeMappings) {
 
     return result;
   } catch (e) {
+    sendLog('parseSizeMappings()', 'invalid size mapping', null);
     // Fallback to last size mapping supplied if there's an invalid mapping provided
     return sizeMappings[sizeMappings.length - 1][1];
   }
