@@ -63,8 +63,10 @@ describe('sendLog', () => {
   });
 
   test('sendLog', () => {
+    const DATE_TO_USE = new Date('Thu Feb 04 2021 11:04:05 GMT-0500');
+    global.Date = jest.fn(() => DATE_TO_USE);
     global.console.log = jest.fn();
     sendLog('testFunc()', 'a test of the send log', null);
-    expect(console.log).toHaveBeenCalledWith(expect.objectContaining({"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null}));
+    expect(console.log).toHaveBeenCalledWith({"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null, "timestamp": "Thu Feb 04 2021 11:04:05 GMT-0500 (Eastern Standard Time)"});
   });
 });
