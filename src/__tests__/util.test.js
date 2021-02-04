@@ -68,6 +68,8 @@ test('sendLog', () => {
     global.Date = jest.fn(() => DATE_TO_USE);
     anylogger.log = jest.fn();
     sendLog('testFunc()', 'a test of the send log', null);
-    expect(anylogger.log).toHaveBeenCalledWith('arcads.js', [{"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null, "timestamp": "Thu Feb 04 2021 11:04:05 GMT-0500 (Eastern Standard Time)"}]);
+    setTimeout(() => {
+      expect(anylogger.log).toHaveBeenCalledWith('arcads.js', [{"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null, "timestamp": "Thu Feb 04 2021 11:04:05 GMT-0500 (Eastern Standard Time)"}]);
+    }, 500);
   });
 });
