@@ -63,7 +63,8 @@ describe('sendLog', () => {
   });
 
   test('sendLog', () => {
-    expect(sendLog()).toBe();
-    const buggy = new URLSearchParams(window.location.search).get('debug');
+    global.console.log = jest.fn();
+    sendLog('testFunc()', 'a test of the send log', null);
+    expect(console.log).toHaveBeenCalledWith(expect.objectContaining({"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null}));
   });
 });
