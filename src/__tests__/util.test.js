@@ -53,23 +53,32 @@ describe('debounce', () => {
 });
 
 describe('sendLog', () => {
-  const location = {
-    ...window.location,
-    search: '?debug=true'
-  };
 
-  Object.defineProperty(window, 'location', {
-    writable: true,
-    value: location
-  });
-
-test('sendLog', () => {
+  test('sendLog', () => {
+    const location = {
+      ...window.location,
+      search: '?debug=true'
+    };
+  
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: location
+    });
+  
     const DATE_TO_USE = new Date('Thu Feb 04 2021 11:04:05 GMT-0500');
     global.Date = jest.fn(() => DATE_TO_USE);
     anylogger.log = jest.fn();
     sendLog('testFunc()', 'a test of the send log', null);
     setTimeout(() => {
       expect(anylogger.log).toHaveBeenCalledWith('arcads.js', [{"description": "a test of the send log", "logging from": "testFunc()", "service": "ArcAds", "slotName": null, "timestamp": "Thu Feb 04 2021 11:04:05 GMT-0500 (Eastern Standard Time)"}]);
+    }, 500);
+  });
+
+  test('sendLog if window undefined', () => {
+    delete global.window; 
+    sendLog('testFunc()', 'a test of the send log', null);
+    setTimeout(() => {
+      expect(console.error).toHaveBeenCalled();
     }, 500);
   });
 });

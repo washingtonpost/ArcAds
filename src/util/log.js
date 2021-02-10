@@ -5,14 +5,18 @@ import 'anylogger-console';
 * @param {string} description - The description that should go in the log.
 **/
 export function sendLog(parentFunc, description, slotName) {
-  if ((new URLSearchParams(window.location.search)).get('debug') === 'true') {
-    const log = anylogger('arcads.js');
-    log({
-      service: 'ArcAds',
-      timestamp: `${new Date()}`,
-      'logging from': parentFunc,
-      description,
-      slotName
-    });
+  try {
+    if ((new URLSearchParams(window.location.search)).get('debug') === 'true') {
+      const log = anylogger('arcads.js');
+      log({
+        service: 'ArcAds',
+        timestamp: `${new Date()}`,
+        'logging from': parentFunc,
+        description,
+        slotName
+      });
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
