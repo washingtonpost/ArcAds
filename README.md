@@ -434,21 +434,23 @@ NOTE: Prebid is supported for SRA.  Amazon A9/TAM is not supported for SRA and w
 NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the initial SRA call is made, an outside lazy loading library may be used to manage the calls for regsterAd, reserveAd and other calls.
 
 ## Developer Tools
-There's a series developer tools available, to get started run `yarn install`.
+There's a series developer tools available, to get started run `npm install`.
 
 | Command  | Description |
 | ------------- | ------------- |
-| `yarn dev`  | Runs the development command, watches for changes and compiles the changes down to the `dist` directory.  |
-| `yarn build`  | Builds the project into the `dist` directory with minification.  |
-| `yarn docs`  | Generates ESDoc documentation in the `docs` directory on-demand.  |
-| `yarn test`  | Runs a series of unit tests with Jest. Tests are automatically validated during a pull request.  |
-| `yarn debug`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
+| `npm run dev`  | Runs the development command, watches for changes and compiles the changes down to the `dist` directory.  |
+| `npm run build`  | Builds the project into the `dist` directory with minification.  |
+| `npm run docs`  | Generates ESDoc documentation in the `docs` directory on-demand.  |
+| `npm run test`  | Runs a series of unit tests with Jest. Tests are automatically validated during a pull request.  |
+| `npm run debug`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
 
 ### Slot Override
 You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example, if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
 
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
 
+### Logging
+To inspect the funtion calls taking place within the ArcAds library, you can include the `debug=true` query parameter on your page.
 
 ## Contributing
 If you'd like to contribute to ArcAds please read our [contributing guide](https://github.com/washingtonpost/ArcAds/blob/master/CONTRIBUTING.md).
