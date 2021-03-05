@@ -1,6 +1,6 @@
 {
   "name": "arcads",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "ArcAds is a DFP wrapper created by Arc Publishing with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
@@ -50,6 +50,8 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "anylogger": "^1.0.10",
+    "anylogger-console": "^1.0.0",
     "esdoc": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "promise-polyfill": "^8.0.0"

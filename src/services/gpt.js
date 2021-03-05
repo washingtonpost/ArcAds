@@ -1,5 +1,6 @@
 import { appendResource } from '../util/resources';
 import { expandQueryString } from '../util/query';
+import { sendLog } from '../util/log';
 
 /**
 * @desc Initializes the Google Publisher tag scripts.
@@ -8,7 +9,8 @@ export function initializeGPT() {
   window.googletag = window.googletag || {};
   window.googletag.cmd = window.googletag.cmd || [];
 
-  appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
+  appendResource('script', '//securepubads.g.doubleclick.net/tag/js/gpt.js', true, true);
+  sendLog('initializeGPT()', 'Appended googletag script to the head tag of the page.', null);
 }
 
 /**
@@ -86,11 +88,13 @@ export function dfpSettings(handleSlotRenderEnded) {
   window.googletag.pubads().enableAsyncRendering();
 
   if (this.collapseEmptyDivs) {
+    sendLog('dfpSettings()', 'This wrapper is set to collapse any empty divs.', null);
     window.googletag.pubads().collapseEmptyDivs();
   }
   window.googletag.enableServices();
 
   if (handleSlotRenderEnded) {
+    sendLog('dfpSettings()', 'This wrapper has a function to call upon the slot render ending.', null);
     window.googletag.pubads().addEventListener('slotRenderEnded', handleSlotRenderEnded);
   }
 }
