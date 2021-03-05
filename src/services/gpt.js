@@ -9,7 +9,7 @@ export function initializeGPT() {
   window.googletag = window.googletag || {};
   window.googletag.cmd = window.googletag.cmd || [];
 
-  appendResource('script', '//www.googletagservices.com/tag/js/gpt.js', true, true);
+  appendResource('script', '//securepubads.g.doubleclick.net/tag/js/gpt.js', true, true);
   sendLog('initializeGPT()', 'Appended googletag script to the head tag of the page.', null);
 }
 
