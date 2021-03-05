@@ -1,6 +1,6 @@
 {
   "name": "arcads",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.0",
   "description": "ArcAds is a DFP wrapper created by Arc Publishing with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
