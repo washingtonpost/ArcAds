@@ -82,13 +82,19 @@ export function parseSizeMappings(sizeMappings) {
 * @param {object} params - An object containing all of the advertisement configuration settings such as slot name, id, and position.
 **/
 export function runResizeEvents(params) {
+  const { breakpoints } = params;
   let lastBreakpoint;
+  if (breakpoints) {
+    // Initially set lastBreakpoint to be the largest breakpoint
+    // that's smaller than the current window width
+    const initialWidth = window.innerWidth;
+    lastBreakpoint = breakpoints.filter(bp => bp < initialWidth).pop() || breakpoints[0];
+  }
   let initialLoad = false;
 
   return () => {
     const {
       ad,
-      breakpoints,
       id,
       bidding,
       mapping,
@@ -104,7 +110,7 @@ export function runResizeEvents(params) {
       breakpoint = breakpoints[i];
       nextBreakpoint = breakpoints[i + 1];
 
-      if ((width > breakpoint && (width < nextBreakpoint || !nextBreakpoint) && lastBreakpoint !== breakpoint) || (width === breakpoint && !initialLoad)) {
+      if (lastBreakpoint !== breakpoint && ((width > breakpoint && (width < nextBreakpoint || !nextBreakpoint)) || (width === breakpoint && !initialLoad))) {
         lastBreakpoint = breakpoint;
         initialLoad = true;
 
@@ -160,4 +166,3 @@ export function setResizeListener(params) {
   // Adds the listener to an object with the id as the key so we can unbind it later.
   sizemapListeners[id] = { listener: resizeListeners[id], correlators };
 }
-
