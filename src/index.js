@@ -25,7 +25,7 @@ export class ArcAds {
       console.warn(
         'ArcAds: DFP id is missing from the arcads initialization script.',
         '\n',
-        'Documentation: https://github.com/wapopartners/arc-ads#getting-started'
+        'Documentation: https://github.com/washingtonpost/arcads#getting-started'
       );
       sendLog('constructor()', 'The DFP id missing from the arcads initialization script. ArcAds cannot proceed.', null);
     } else {

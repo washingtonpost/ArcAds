@@ -50,7 +50,7 @@ describe('arcads', () => {
 
       expect(consoleMock).toHaveBeenCalledTimes(1);
       expect(consoleMock).toHaveBeenCalledWith("ArcAds: DFP id is missing from the arcads initialization script.", '\n',
-      "Documentation: https://github.com/wapopartners/arc-ads#getting-started");
+      "Documentation: https://github.com/washingtonpost/arcads#getting-started");
     });
   });
 

@@ -35,7 +35,7 @@ export function refreshSlot({
         });
       } catch (error) {
         console.warn(`ArcAds: Prerender function did not return a promise or there was an error.
-          Documentation: https://github.com/wapopartners/arc-ads/wiki/Utilizing-a-Prerender-Hook`);
+          Documentation: https://github.com/washingtonpost/arcads/wiki/Utilizing-a-Prerender-Hook`);
         resolve('Prerender function did not return a promise or there was an error, ignoring.');
       }
     } else {

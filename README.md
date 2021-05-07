@@ -1,7 +1,7 @@
 # ArcAds
 [![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds.svg?style=shield)](https://circleci.com/gh/washingtonpost/ArcAds)
 
-ArcAds is a [DFP](https://www.google.com/dfp) wrapper created by [Arc Publishing](https://www.arcpublishing.com/) with publishers in mind, using ArcAds you can selectively make use of many Google Publisher Tag (GPT) features such as size mapping, refreshing, and slot targeting. In addition you can also make use of a series of header bidding vendors such as [Prebid.js](http://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by passing in some optional parameters.
+ArcAds is a [GPT (Google Publisher Tag)](https://developers.google.com/doubleclick-gpt/) wrapper created by [Arc Publishing](https://www.arcpublishing.com/). Using ArcAds you can make use of many GPT features such as size mapping, refreshing, and targeting. In addition you can also make use of header bidding vendors such as [Prebid.js](https://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by using the appropriate configuration.
 
 ## Getting Started
 To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `yarn install` followed by `yarn build` to compile it yourself incase you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
@@ -21,7 +21,7 @@ To get started you must include the script tag for ArcAds in your page header, l
 
 `collapseEmptyDivs` is an optional parameter that directly toggles `googletag.pubads().collapseEmptyDivs()`
 
-Additionally, you can install the package with npm. This is mostly useful for when you're integrating ArcAds into a single page application or a JavaScript heavy project. Most implementations should just include the script in the page header.
+Alternatively, if you're using a bundler you can use the library as a module.
 
 ```
 npm install arcads 
@@ -58,7 +58,7 @@ The following table shows all of the possible parameters the `registerAd` method
 | Parameter | Description | Type | Requirement |
 | ------------- | ------------- | ------------- | ------------- |
 | `id`  | The `id` parameter corresponds to a div id on the page that the advertisement should render into. | `String` | `Required` | 
-| `slotName`  | The `slotName` parameter is equal to the slot name configured within DFP, for example `sitename/hp/hp-1`. The publisher ID gets attached to the slot name within the ArcAds logic. | `String` | `Required` |
+| `slotName`  | The `slotName` parameter is equal to the slot name configured within GPT, for example `sitename/hp/hp-1`. The publisher ID gets attached to the slot name within the ArcAds logic. | `String` | `Required` |
 | `dimensions`  | The `dimensions` parameter should be an array with array of arrays containing the advertisement sizes the slot can load. If left empty the advertisement will be considered as an out of page unit. | `Array` | `Optional` |
 | `adType`  | The `adType` parameter should describe the type of advertisement, for instance `leaderboard` or `cube`.  | `String` | `Optional` |
 | `display`  | The `display` parameter determines which user agents can render the advertisement. The available choices are `desktop`, `mobile`, or `all`. If a value is not provided it will default to `all`. | `String` | `Optional` |
@@ -68,10 +68,10 @@ The following table shows all of the possible parameters the `registerAd` method
 | `prerender`  | The `prerender` parameter accepts an a function that should fire before the advertisement loads, for more information refer to the [Prerender Hook portion of the readme](https://github.com/washingtonpost/arcads/tree/master#prerender-hook). | `Function` | `Optional` | 
 
 ### Out of Page Ads
-If an advertisement has an empty or missing `dimensions` parameter it will be considered as a [DFP Out of Page creative](https://support.google.com/dfp_premium/answer/6088046?hl=en) and rendered as such.
+If an advertisement has an empty or missing `dimensions` parameter it will be considered as a [GPT Out of Page creative](https://support.google.com/admanager/answer/6088046?hl=en) and rendered as such.
 
 ### Callback
-Whenever an advertisement loads you can access data about the advertisement such as its size and id by passing in an optional callback to the initialization of ArcAds. This ties a handler to the `slotRenderEnded` event that DFP emits and is called every time an advertisement is about to render, allowing you to make any page layout modifications to accommodate a specific advertisement.
+Whenever an advertisement loads you can access data about the advertisement such as its size and id by passing in an optional callback to the initialization of ArcAds. This ties a handler to the `slotRenderEnded` event that GPT emits and is called every time an advertisement is about to render, allowing you to make any page layout modifications to accommodate a specific advertisement.
 
 ```javascript
 const arcAds = new ArcAds({
@@ -123,7 +123,7 @@ The service will automatically give the advertisement a `position` target key/va
 If `adType` is excluded from the `registerAd` call the automatic position targeting will not be included.
 
 ## Size Mapping
-You can configure DFP size mapped ads with the same registration call by adding a `sizemap` object. To utilize size mapping the `dimensions` key should be updated to include an array representing a nested array of arrays containing the applicable sizes for a specific breakpoint.
+You can configure GPT size mapped ads with the same registration call by adding a `sizemap` object. To utilize size mapping the `dimensions` key should be updated to include an array representing a nested array of arrays containing the applicable sizes for a specific breakpoint.
 
 ```javascript
 [ [[970, 250], [970, 90], [728, 90]],
@@ -445,7 +445,7 @@ There's a series developer tools available, to get started run `npm install`.
 | `npm run debug`  | Starts a local http server so you can link directly to the script during development. For example `<script src="http://localhost:9000/dist/arcads.js"></script> |
 
 ### Slot Override
-You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example, if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your DFP id followed by the value: `123/homepage/myad`.
+You can override the slot name of every advertisement on the page by appending `?adslot=` to the URL. This will override whatever is placed inside of the `slotName` field when invoking the `registerAd` method. For example, if you hit the URL `arcpublishing.com/?adslot=homepage/myad`, the full ad slot path will end up being your GPT id followed by the value: `123/homepage/myad`.
 
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
 
