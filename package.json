@@ -1,7 +1,7 @@
 {
   "name": "arcads",
-  "version": "3.0.0",
-  "description": "ArcAds is a DFP wrapper created by Arc Publishing with publishers in mind.",
+  "version": "4.0.0",
+  "description": "ArcAds is a GPT wrapper created by Arc Publishing with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
     "test": "jest --config jest.config.js --no-cache --coverage",
