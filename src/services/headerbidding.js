@@ -47,7 +47,7 @@ export function initializeBiddingServices({
         });
       } else {
         console.warn(`ArcAds: Missing Amazon account id. 
-          Documentation: https://github.com/wapopartners/arc-ads#amazon-tama9`);
+          Documentation: https://github.com/washingtonpost/arcads#amazon-tama9`);
         sendLog('initializeBiddingServices()', 'Amazon is not enabled on this wrapper.', null);
         resolve('Amazon is not enabled on the wrapper...');
       }
