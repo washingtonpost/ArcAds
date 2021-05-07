@@ -85,6 +85,15 @@ export function runResizeEvents(params) {
   let lastBreakpoint;
   let initialLoad = false;
 
+  if (params.breakpoints) {
+    /**
+    * Initially set lastBreakpoint to be the largest breakpoint
+    * that's smaller than the current window width
+    **/
+    const initialWidth = window.innerWidth;
+    lastBreakpoint = params.breakpoints.sort().filter(bp => bp < initialWidth).pop() || params.breakpoints[0];
+  }
+
   return () => {
     const {
       ad,
@@ -104,7 +113,7 @@ export function runResizeEvents(params) {
       breakpoint = breakpoints[i];
       nextBreakpoint = breakpoints[i + 1];
 
-      if ((width > breakpoint && (width < nextBreakpoint || !nextBreakpoint) && lastBreakpoint !== breakpoint) || (width === breakpoint && !initialLoad)) {
+      if (lastBreakpoint !== breakpoint && ((width > breakpoint && (width < nextBreakpoint || !nextBreakpoint)) || (width === breakpoint && !initialLoad))) {
         lastBreakpoint = breakpoint;
         initialLoad = true;
 
