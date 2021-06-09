@@ -91,7 +91,7 @@ export function runResizeEvents(params) {
     * that's smaller than the current window width
     **/
     const initialWidth = window.innerWidth;
-    lastBreakpoint = params.breakpoints.sort().filter(bp => bp < initialWidth).pop() || params.breakpoints[0];
+    lastBreakpoint = params.breakpoints.filter(bp => bp < initialWidth).pop() || params.breakpoints[0];
   }
 
   return () => {
