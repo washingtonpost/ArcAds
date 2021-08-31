@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { ArcAds } from '../index';
 import  * as gptService from '../services/gpt.js';
 import * as sizemappingService from '../services/sizemapping.js'

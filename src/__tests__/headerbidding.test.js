@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
     initializeBiddingServices
   } from '../services/headerbidding';

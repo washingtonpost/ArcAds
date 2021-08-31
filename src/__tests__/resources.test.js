@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {appendResource} from '../util/resources.js';
 
 describe('appendResource', () => {

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import anylogger from 'anylogger';
 import 'anylogger-console';
 import { renamePositionKey } from '../util/customTargeting';
