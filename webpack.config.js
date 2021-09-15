@@ -38,6 +38,7 @@ module.exports = env => ({
     path: path.resolve(__dirname, 'dist'),
     filename: 'arcads.js',
     libraryTarget: 'umd',
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
   devtool: env.development ? 'inline-source-map' : false,
   resolve: { extensions: ['.js', '.json'] },
