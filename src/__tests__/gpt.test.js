@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { ArcAds } from '../index';
 import * as gpt from '../services/gpt';
 import * as headerbidding from '../services/headerbidding';

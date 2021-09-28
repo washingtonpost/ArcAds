@@ -1,5 +1,8 @@
-import { expandQueryString } from '../util/query.js';
+/**
+ * @jest-environment jsdom
+ */
 
+import { expandQueryString } from '../util/query.js';
 
 describe('expandQueryString', () => {
 

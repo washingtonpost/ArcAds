@@ -1,8 +1,11 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { ArcAds } from '../index';
 import  * as gptService from '../services/gpt.js';
 import  * as prebidService from '../services/prebid.js';
 import * as  mobileDetection from '../util/mobile.js';
-
 
 describe('registerAds dimensions branches', () => {
 

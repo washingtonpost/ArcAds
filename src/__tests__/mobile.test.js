@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 
 import {MobileDetection} from '../util/mobile.js';
 
