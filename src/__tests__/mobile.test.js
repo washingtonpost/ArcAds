@@ -1,7 +1,7 @@
-/* eslint-disable no-restricted-properties, no-underscore-dangle */
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable no-restricted-properties, no-underscore-dangle */
 
 import { MobileDetection } from '../util/mobile';
 

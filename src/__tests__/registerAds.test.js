@@ -1,9 +1,8 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable quotes */
-/* eslint-disable indent */
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable function-paren-newline */
+
 
 import { ArcAds } from '../index';
 import * as gptService from '../services/gpt';
@@ -18,16 +17,16 @@ describe('registerAds dimensions branches', () => {
     requestBids: () => jest.fn().mockName('requestBids'),
     setConfig: () => jest.fn().mockName('setConfig'),
     setTargetingForGPTAsync: jest.fn().mockName('setTargetingForGPTAsync'),
-    };
+  };
 
   const setConfigSpy = jest.spyOn(pbjs, 'setConfig');
 
   //queueGoogletagCommand mock
   jest.spyOn(gptService, 'queueGoogletagCommand');
   //const queuePrebidCommandMock = jest.fn();
-    const queuePrebidCommandBindMock = jest.fn();
-    prebidService.queuePrebidCommand = queuePrebidCommandBindMock;
-    prebidService.queuePrebidCommand.bind = queuePrebidCommandBindMock;
+  const queuePrebidCommandBindMock = jest.fn();
+  prebidService.queuePrebidCommand = queuePrebidCommandBindMock;
+  prebidService.queuePrebidCommand.bind = queuePrebidCommandBindMock;
 
   //   prebidService.queuePrebidCommand.bind = queuePrebidCommandBindMock;
   const addUnitMock = jest.fn();
@@ -39,14 +38,14 @@ describe('registerAds dimensions branches', () => {
     },
     bidding: {
       amazon: {
-      enabled: true,
-      id: '123'
+        enabled: true,
+        id: '123'
       },
       prebid: {
-      enabled: true
+        enabled: true
       }
     }
-    });
+  });
 
   //displayAd mock
   const displayAdMock = jest.fn();
@@ -61,8 +60,8 @@ describe('registerAds dimensions branches', () => {
   it('should should call prebid setConfig if has bidding configs and prebid lib is present', () => {
     //ArcAds obj
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[300, 50], [300, 250]]
     };
 
@@ -74,8 +73,8 @@ describe('registerAds dimensions branches', () => {
 
   it('should add single level dimensions appropriately', () => {
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [300, 50],
     };
     arcAds.registerAd(adParams);
@@ -88,17 +87,17 @@ describe('registerAds dimensions branches', () => {
       displayAd: displayAdMock,
       positions: [],
       wrapper: { amazon: { enabled: true, id: '123' },
-      prebid: { enabled: true } }
+        prebid: { enabled: true } }
     };
-    const expectedArg2 = { dimensions: [300, 50], id: "testID", slotname: "testSlotname" };
+    const expectedArg2 = { dimensions: [300, 50], id: 'testID', slotname: 'testSlotname' };
 
     expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
   });
 
   it('should add two level dimensions appropriately', () => {
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[300, 50], [250, 100]],
     };
 
@@ -108,20 +107,20 @@ describe('registerAds dimensions branches', () => {
 
     const expectedArg1 = { adsList: [],
       collapseEmptyDivs: undefined,
-      dfpId: "123",
+      dfpId: '123',
       displayAd: displayAdMock,
       positions: [],
-      wrapper: { amazon: { enabled: true, id: "123" },
-      prebid: { enabled: true } }
+      wrapper: { amazon: { enabled: true, id: '123' },
+        prebid: { enabled: true } }
     };
-    const expectedArg2 = { dimensions: [[300, 50], [250, 100]], id: "testID", slotname: "testSlotname" };
+    const expectedArg2 = { dimensions: [[300, 50], [250, 100]], id: 'testID', slotname: 'testSlotname' };
     expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
   });
 
   it('should add no dimensions appropriately', () => {
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: undefined,
     };
     arcAds.registerAd(adParams);
@@ -130,19 +129,19 @@ describe('registerAds dimensions branches', () => {
 
     const expectedArg1 = { adsList: [],
       collapseEmptyDivs: undefined,
-      dfpId: "123",
+      dfpId: '123',
       displayAd: displayAdMock,
       positions: [],
-      wrapper: { amazon: { enabled: true, id: "123" },
-      prebid: { enabled: true } } };
-    const expectedArg2 = { dimensions: undefined, id: "testID", slotname: "testSlotname" };
+      wrapper: { amazon: { enabled: true, id: '123' },
+        prebid: { enabled: true } } };
+    const expectedArg2 = { dimensions: undefined, id: 'testID', slotname: 'testSlotname' };
     expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
   });
 
   it('should add non 1 or 2 level dimensions appropriately', () => {
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -157,24 +156,24 @@ describe('registerAds dimensions branches', () => {
 
     expect(setConfigSpy).toHaveBeenCalledTimes(1);
     expect(setConfigSpy.mock.calls[0][0]).toEqual(expect.objectContaining({
-        userSync: {
-          filterSettings: {
-            iframe: {
-              bidders: ["openx"], filter: "include" }
-            },
-          iframeEnabled: true
-          }
-      })
+      userSync: {
+        filterSettings: {
+          iframe: {
+            bidders: ['openx'], filter: 'include' }
+        },
+        iframeEnabled: true
+      }
+    })
     );
 
     expect(displayAdBindMock).toHaveBeenCalledTimes(1);
     const expectedArg2 = {
       adType: true,
-      bidding: { prebid: { enabled: true, bids: ["bid1"] } },
+      bidding: { prebid: { enabled: true, bids: ['bid1'] } },
       dimensions: [[[100, 50]]],
-      display: "mobile",
-      id: "testID",
-      slotname: "testSlotname",
+      display: 'mobile',
+      id: 'testID',
+      slotname: 'testSlotname',
       targeting: { position: 1 }
     };
     expect(displayAdBindMock.mock.calls[0][1]).toEqual(expectedArg2);
@@ -182,8 +181,8 @@ describe('registerAds dimensions branches', () => {
 
   it('prebid should not be called', () => {
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -197,18 +196,18 @@ describe('registerAds dimensions branches', () => {
 
   it('wrapper has useSlotForAdUnit for caclulating prebid code', () => {
     arcAds.wrapper = {
-        amazon: {
+      amazon: {
         enabled: true,
         id: '123'
-        },
-        prebid: {
+      },
+      prebid: {
         enabled: true,
         useSlotForAdUnit: true,
-        }
+      }
     };
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -222,25 +221,25 @@ describe('registerAds dimensions branches', () => {
     arcAds.registerAd(adParams);
 
     expect(addUnitMock).toHaveBeenCalledTimes(1);
-    expect(addUnitMock.mock.calls[0][0]).toEqual("/123/undefined");
+    expect(addUnitMock.mock.calls[0][0]).toEqual('/123/undefined');
 
     expect(queuePrebidCommandBindMock).toHaveBeenCalledTimes(1);
   });
 
   it('handles no display case', () => {
     arcAds.wrapper = {
-        amazon: {
+      amazon: {
         enabled: true,
         id: '123'
-        },
-        prebid: {
+      },
+      prebid: {
         enabled: true,
         useSlotForAdUnit: true,
-        }
+      }
     };
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -259,18 +258,18 @@ describe('registerAds dimensions branches', () => {
 
   it('handles iframeBidders case', () => {
     arcAds.wrapper = {
-        amazon: {
+      amazon: {
         enabled: true,
         id: '123'
-        },
-        prebid: {
+      },
+      prebid: {
         enabled: true,
         useSlotForAdUnit: true,
-        }
+      }
     };
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -289,18 +288,18 @@ describe('registerAds dimensions branches', () => {
 
   it('if no processDisplayAd do not call queueGoogletagCommand', () => {
     arcAds.wrapper = {
-        amazon: {
+      amazon: {
         enabled: true,
         id: '123'
-        },
-        prebid: {
+      },
+      prebid: {
         enabled: true,
         useSlotForAdUnit: true,
-        }
+      }
     };
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
@@ -317,18 +316,18 @@ describe('registerAds dimensions branches', () => {
 
   it('if try error write console error', () => {
     arcAds.wrapper = {
-        amazon: {
+      amazon: {
         enabled: true,
         id: '123'
-        },
-        prebid: {
+      },
+      prebid: {
         enabled: true,
         useSlotForAdUnit: true,
-        }
+      }
     };
     const adParams = {
-      id: "testID",
-      slotname: "testSlotname",
+      id: 'testID',
+      slotname: 'testSlotname',
       dimensions: [[[100, 50]]],
       targeting: {},
       adType: true,
