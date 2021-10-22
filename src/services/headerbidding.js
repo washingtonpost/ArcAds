@@ -60,6 +60,9 @@ export function initializeBiddingServices({
   Promise.all([enablePrebid, enableAmazon])
     .then(() => {
       window.arcBiddingReady = true;
+    })
+    .catch((error)=>{
+      sendLog('header bidding', 'init error', error);
     });
 }
 
@@ -124,6 +127,9 @@ export function fetchBids({
           prerender,
           info: adInfo
         });
+      })
+      .catch((error)=>{
+        sendLog('header bidding', 'init error', error);
       });
   } else {
     setTimeout(() => initializeBiddingServices(), 200);

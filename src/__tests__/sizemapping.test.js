@@ -51,7 +51,7 @@ import {
     });
   });
   describe('runResizeEvents', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       global.runResizeEvents = {
         fetchBids: () => jest.fn().mockName('fetchBids'),
         refreshSlot: () => jest.fn().mockName('fetchBids'),
@@ -59,8 +59,11 @@ import {
       };
       Object.assign(sizemapListeners, { abc: { correlators: [1, 2, 3] } });
     });
-    afterEach(() => {
-      global = {};
+    afterAll(() => {
+      //console.log('********* global', global);
+      delete global.runResizeEvents;
+      delete global.window;
+      //global = {};
     });
     const mockParams = {
       ad: {},
@@ -80,6 +83,16 @@ import {
       prerender: false,
     };
     it('set ad correlators to true', () => {
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        value: 1024,
+      });
+      const result = runResizeEvents(mockParams);
+      const resultFn = result();
+      expect(sizemapListeners.abc.correlators[0]).toEqual(true);
+    });
+
+    it('another second test', () => {
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         value: 1024,

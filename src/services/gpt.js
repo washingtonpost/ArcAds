@@ -43,6 +43,9 @@ export function refreshSlot({
     }
   }).then(() => {
     runRefreshEvent();
+  })
+  .catch((error)=>{
+    sendLog('header bidding', 'init error', error);
   });
 
   function runRefreshEvent() {
