@@ -61,7 +61,7 @@ export function initializeBiddingServices({
     .then(() => {
       window.arcBiddingReady = true;
     })
-    .catch((error)=>{
+    .catch((error) => {
       sendLog('header bidding', 'init error', error);
     });
 }
@@ -128,7 +128,7 @@ export function fetchBids({
           info: adInfo
         });
       })
-      .catch((error)=>{
+      .catch((error) => {
         sendLog('header bidding', 'init error', error);
       });
   } else {
