@@ -1,14 +1,17 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable quotes */
+/* eslint-disable indent */
 /**
  * @jest-environment jsdom
  */
 
 import { ArcAds } from '../index';
-import  * as gptService from '../services/gpt.js';
-import  * as prebidService from '../services/prebid.js';
-import * as  mobileDetection from '../util/mobile.js';
+import * as gptService from '../services/gpt';
+import * as prebidService from '../services/prebid';
+// eslint-disable-next-line no-unused-vars
+import * as mobileDetection from '../util/mobile';
 
 describe('registerAds dimensions branches', () => {
-
     global.pbjs = {
         que: [],
         addAdUnits: () => jest.fn().mockName('addAdUnits'),
@@ -43,7 +46,7 @@ describe('registerAds dimensions branches', () => {
             enabled: true
             }
         }
-        }); 
+        });
 
     //displayAd mock
     const displayAdMock = jest.fn();
@@ -61,13 +64,12 @@ describe('registerAds dimensions branches', () => {
             id: "testID",
             slotname: "testSlotname",
             dimensions: [[300, 50], [300, 250]]
-        }
+        };
 
         arcAds.registerAd(adParams);
 
         expect(gptService.queueGoogletagCommand).toHaveBeenCalledTimes(1);
         expect(prebidService.queuePrebidCommand).toHaveBeenCalledTimes(0);
-
     });
 
     it('should add single level dimensions appropriately', () => {
@@ -75,48 +77,45 @@ describe('registerAds dimensions branches', () => {
             id: "testID",
             slotname: "testSlotname",
             dimensions: [300, 50],
-        }
+        };
         arcAds.registerAd(adParams);
 
         expect(arcAds.displayAd.bind).toHaveBeenCalledTimes(1);
 
-        const expectedArg1 = {"adsList": [],
-            "collapseEmptyDivs": undefined,
-            "dfpId": "123",
-            "displayAd": displayAdMock,
-            "positions": [],
-            "wrapper": {"amazon": {"enabled": true, "id": "123"},
-            "prebid": {"enabled": true}}
+        const expectedArg1 = { adsList: [],
+            collapseEmptyDivs: undefined,
+            dfpId: '123',
+            displayAd: displayAdMock,
+            positions: [],
+            wrapper: { amazon: { enabled: true, id: '123' },
+            prebid: { enabled: true } }
         };
-        const expectedArg2 = {"dimensions": [300, 50], "id": "testID", "slotname": "testSlotname"};
+        const expectedArg2 = { dimensions: [300, 50], id: "testID", slotname: "testSlotname" };
 
         expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
-
     });
-    
-    it('should add two level dimensions appropriately', () => {
 
+    it('should add two level dimensions appropriately', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
             dimensions: [[300, 50], [250, 100]],
-        }
+        };
 
         arcAds.registerAd(adParams);
 
         expect(displayAdBindMock).toHaveBeenCalledTimes(1);
 
-        const expectedArg1 = {"adsList": [],
-            "collapseEmptyDivs": undefined,
-            "dfpId": "123",
-            "displayAd": displayAdMock,
-            "positions": [],
-            "wrapper": {"amazon": {"enabled": true, "id": "123"},
-            "prebid": {"enabled": true}}
+        const expectedArg1 = { adsList: [],
+            collapseEmptyDivs: undefined,
+            dfpId: "123",
+            displayAd: displayAdMock,
+            positions: [],
+            wrapper: { amazon: { enabled: true, id: "123" },
+            prebid: { enabled: true } }
         };
-        const expectedArg2 = {"dimensions": [[300, 50], [250, 100]], "id": "testID", "slotname": "testSlotname"};
+        const expectedArg2 = { dimensions: [[300, 50], [250, 100]], id: "testID", slotname: "testSlotname" };
         expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
-
     });
 
     it('should add no dimensions appropriately', () => {
@@ -124,19 +123,19 @@ describe('registerAds dimensions branches', () => {
             id: "testID",
             slotname: "testSlotname",
             dimensions: undefined,
-        }
+        };
         arcAds.registerAd(adParams);
 
         expect(displayAdBindMock).toHaveBeenCalledTimes(1);
 
-        const expectedArg1 = {"adsList": [],
-            "collapseEmptyDivs": undefined,
-            "dfpId": "123",
-            "displayAd": displayAdMock,
-            "positions": [],
-            "wrapper": {"amazon": {"enabled": true, "id": "123"},
-            "prebid": {"enabled": true}}};
-        const expectedArg2 = {"dimensions": undefined, "id": "testID", "slotname": "testSlotname"};
+        const expectedArg1 = { adsList: [],
+            collapseEmptyDivs: undefined,
+            dfpId: "123",
+            displayAd: displayAdMock,
+            positions: [],
+            wrapper: { amazon: { enabled: true, id: "123" },
+            prebid: { enabled: true } } };
+        const expectedArg2 = { dimensions: undefined, id: "testID", slotname: "testSlotname" };
         expect(displayAdBindMock).toHaveBeenCalledWith(expectedArg1, expectedArg2);
     });
 
@@ -144,61 +143,60 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'mobile',
-            bidding:{prebid:{enabled: true, bids:['bid1']}}
-        }
+            bidding: { prebid: { enabled: true, bids: ['bid1'] } }
+        };
 
         const mobileAny = jest.fn().mockReturnValue(true);
-        global.isMobile = {any: mobileAny};
-    
+        global.isMobile = { any: mobileAny };
+
         arcAds.registerAd(adParams);
-        
+
         expect(setConfigSpy).toHaveBeenCalledTimes(1);
-        expect(setConfigSpy.mock.calls[0][0]).toEqual(
-            expect.objectContaining({
-                "userSync": {
-                    "filterSettings": {
-                        "iframe": {
-                            "bidders": ["openx"], "filter": "include"}
-                        }, 
-                    "iframeEnabled": true
+        expect(setConfigSpy.mock.calls[0][0]).toEqual(expect.objectContaining({
+                userSync: {
+                    filterSettings: {
+                        iframe: {
+                            bidders: ["openx"], filter: "include" }
+                        },
+                    iframeEnabled: true
                     }
             })
         );
 
         expect(displayAdBindMock).toHaveBeenCalledTimes(1);
         const expectedArg2 = {
-            "adType": true,
-            "bidding": {"prebid": {"enabled": true, "bids": ["bid1"]}},
-            "dimensions": [[[100, 50]]],
-            "display": "mobile",
-            "id": "testID",
-            "slotname": "testSlotname",
-            "targeting": {"position": 1}
+            adType: true,
+            bidding: { prebid: { enabled: true, bids: ["bid1"] } },
+            dimensions: [[[100, 50]]],
+            display: "mobile",
+            id: "testID",
+            slotname: "testSlotname",
+            targeting: { position: 1 }
         };
-        expect(displayAdBindMock.mock.calls[0][1]).toEqual( expectedArg2);
+        expect(displayAdBindMock.mock.calls[0][1]).toEqual(expectedArg2);
     });
 
     it('prebid should not be called', () => {
       const adParams = {
           id: "testID",
           slotname: "testSlotname",
-          dimensions: [[[100,50]]],
-          targeting:{},
+          dimensions: [[[100, 50]]],
+          targeting: {},
           adType: true,
           display: 'mobile',
-          bidding:{prebid:{enabled: false, bids:['bid1']}}
-      }
-  
+          bidding: { prebid: { enabled: false, bids: ['bid1'] } }
+      };
+
       arcAds.registerAd(adParams);
       expect(addUnitMock).toHaveBeenCalledTimes(0);
   });
 
     it('wrapper has useSlotForAdUnit for caclulating prebid code', () => {
-        arcAds.wrapper = { 
+        arcAds.wrapper = {
                 amazon: {
                 enabled: true,
                 id: '123'
@@ -211,16 +209,16 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'mobile',
-            bidding:{prebid:{enabled: true, bids:['bid1']}}
-        }
+            bidding: { prebid: { enabled: true, bids: ['bid1'] } }
+        };
 
         const mobileAny = jest.fn().mockReturnValue(true);
-        global.isMobile = {any: mobileAny};
-    
+        global.isMobile = { any: mobileAny };
+
         arcAds.registerAd(adParams);
 
         expect(addUnitMock).toHaveBeenCalledTimes(1);
@@ -230,7 +228,7 @@ describe('registerAds dimensions branches', () => {
     });
 
     it('handles no display case', () => {
-        arcAds.wrapper = { 
+        arcAds.wrapper = {
                 amazon: {
                 enabled: true,
                 id: '123'
@@ -243,16 +241,16 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'other',
-            bidding:{prebid:{bids:['bid1']}}
-        }
+            bidding: { prebid: { bids: ['bid1'] } }
+        };
 
         const mobileAny = jest.fn().mockReturnValue(true);
-        global.isMobile = {any: mobileAny};
-    
+        global.isMobile = { any: mobileAny };
+
         arcAds.registerAd(adParams);
 
         expect(queuePrebidCommandBindMock).toHaveBeenCalledTimes(0);
@@ -260,7 +258,7 @@ describe('registerAds dimensions branches', () => {
     });
 
     it('handles iframeBidders case', () => {
-        arcAds.wrapper = { 
+        arcAds.wrapper = {
                 amazon: {
                 enabled: true,
                 id: '123'
@@ -273,24 +271,24 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'all',
-            bidding:{prebid:{bids:['bid1']}},
-            iframeBidders:[],
-        }
+            bidding: { prebid: { bids: ['bid1'] } },
+            iframeBidders: [],
+        };
 
         const mobileAny = jest.fn().mockReturnValue(true);
-        global.isMobile = {any: mobileAny};
-    
+        global.isMobile = { any: mobileAny };
+
         arcAds.registerAd(adParams);
 
         expect(setConfigSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('if no processDisplayAd do not call queueGoogletagCommand' , () => {
-        arcAds.wrapper = { 
+    it('if no processDisplayAd do not call queueGoogletagCommand', () => {
+        arcAds.wrapper = {
                 amazon: {
                 enabled: true,
                 id: '123'
@@ -303,13 +301,13 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'all',
-            bidding:{prebid:{bids:['bid1']}},
-            iframeBidders:[],
-        }
+            bidding: { prebid: { bids: ['bid1'] } },
+            iframeBidders: [],
+        };
         arcAds.displayAd.bind = jest.fn().mockReturnValue(null);
 
         arcAds.registerAd(adParams);
@@ -317,8 +315,8 @@ describe('registerAds dimensions branches', () => {
         expect(gptService.queueGoogletagCommand).toHaveBeenCalledTimes(0);
     });
 
-    it('if try error write console error' , () => {
-        arcAds.wrapper = { 
+    it('if try error write console error', () => {
+        arcAds.wrapper = {
                 amazon: {
                 enabled: true,
                 id: '123'
@@ -331,13 +329,13 @@ describe('registerAds dimensions branches', () => {
         const adParams = {
             id: "testID",
             slotname: "testSlotname",
-            dimensions: [[[100,50]]],
-            targeting:{},
+            dimensions: [[[100, 50]]],
+            targeting: {},
             adType: true,
             display: 'all',
-            bidding:{prebid:{bids:['bid1']}},
-            iframeBidders:[],
-        }
+            bidding: { prebid: { bids: ['bid1'] } },
+            iframeBidders: [],
+        };
         arcAds.displayAd.bind.mockImplementation(() => {
             throw new Error('test error msg');
         });
@@ -350,5 +348,4 @@ describe('registerAds dimensions branches', () => {
         expect(errorMock).toHaveBeenCalledTimes(1);
         expect(errorMock.mock.calls[0][0]).toEqual('ads error');
     });
-
 });
