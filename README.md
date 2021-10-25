@@ -1,5 +1,5 @@
 # ArcAds
-[![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds.svg?style=shield)](https://circleci.com/gh/washingtonpost/ArcAds)
+[![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds/tree/master.svg?style=svg)](https://circleci.com/gh/washingtonpost/ArcAds/tree/master)
 
 ArcAds is a [GPT (Google Publisher Tag)](https://developers.google.com/doubleclick-gpt/) wrapper created by [Arc Publishing](https://www.arcpublishing.com/). Using ArcAds you can make use of many GPT features such as size mapping, refreshing, and targeting. In addition you can also make use of header bidding vendors such as [Prebid.js](https://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by using the appropriate configuration.
 
