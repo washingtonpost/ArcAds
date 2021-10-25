@@ -1,7 +1,6 @@
 version: 2
 jobs:
-  # TODO: Should this be a test and build?
-  test:
+  build:
     docker:
       - image: circleci/node:12.22.5
     working_directory: ~/arcads
