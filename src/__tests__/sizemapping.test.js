@@ -62,10 +62,8 @@ describe('runResizeEvents', () => {
     Object.assign(sizemapListeners, { abc: { correlators: [1, 2, 3] } });
   });
   afterAll(() => {
-    //console.log('********* global', global);
     delete global.runResizeEvents;
     delete global.window;
-    //global = {};
   });
   const mockParams = {
     ad: {},
