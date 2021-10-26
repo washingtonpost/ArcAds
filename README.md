@@ -1,10 +1,10 @@
 # ArcAds
 [![CircleCI](https://circleci.com/gh/washingtonpost/ArcAds/tree/master.svg?style=svg)](https://circleci.com/gh/washingtonpost/ArcAds/tree/master)
 
-ArcAds is a [GPT (Google Publisher Tag)](https://developers.google.com/doubleclick-gpt/) wrapper created by [Arc Publishing](https://www.arcpublishing.com/). Using ArcAds you can make use of many GPT features such as size mapping, refreshing, and targeting. In addition you can also make use of header bidding vendors such as [Prebid.js](https://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by using the appropriate configuration.
+ArcAds is a [GPT (Google Publisher Tag)](https://developers.google.com/doubleclick-gpt/) wrapper created by [Arc XP](https://www.arcxp.com/). Using ArcAds you can make use of many GPT features such as size mapping, refreshing, and targeting. In addition you can also make use of header bidding vendors such as [Prebid.js](https://prebid.org/) and [Amazon A9/TAM](https://www.a9.com/) by using the appropriate configuration.
 
 ## Getting Started
-To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `npm install` followed by `npm run build` to compile it yourself incase you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
+To get started you must include the script tag for ArcAds in your page header, located [here](dist/arcads.js). You can also optionally run `npm install` followed by `npm run build` to compile it yourself in case you need to make any modifications. Once included you can initialize the ArcAds wrapper class like so in your page header.
 
 ```javascript
 <script src="path/to/arcads.js"></script>
@@ -177,7 +177,7 @@ Your `prerender` function must return a promise. Once it's resolved the advertis
 ```javascript
 window.adFunction = function(ad) {
   return new Promise(function(resolve, reject) {
-    // The 'ad' arguement will provide information about the unit
+    // The 'ad' argument will provide information about the unit
     console.log(ad)
     // If you do not resolve the promise the advertisement will not display
     resolve()
@@ -431,7 +431,7 @@ To add more ads, repeat steps 1-5 as needed.
 
 NOTE: Prebid is supported for SRA.  Amazon A9/TAM is not supported for SRA and will need to be implemented at a future date.
 
-NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the initial SRA call is made, an outside lazy loading library may be used to manage the calls for regsterAd, reserveAd and other calls.
+NOTE: ArcAds SRA implementation calls enableSingleRequest() which means that when using pubads lazyLoad functions together with SRA, when the first ad slot comes within the viewport specified by the fetchMarginPercent parameter, the call for that ad and all other ad slots is made. If different behavior is desired after the initial SRA call is made, an outside lazy loading library may be used to manage the calls for registerAd, reserveAd and other calls.
 
 ## Developer Tools
 There's a series developer tools available, to get started run `npm install`.
@@ -450,7 +450,7 @@ You can override the slot name of every advertisement on the page by appending `
 You can also debug slot names and GPT in general by typing `window.googletag.openConsole()` into the browsers developer console.
 
 ### Logging
-To inspect the funtion calls taking place within the ArcAds library, you can include the `debug=true` query parameter on your page.
+To inspect the function calls taking place within the ArcAds library, you can include the `debug=true` query parameter on your page.
 
 ## Contributing
 If you'd like to contribute to ArcAds please read our [contributing guide](https://github.com/washingtonpost/ArcAds/blob/master/CONTRIBUTING.md).
