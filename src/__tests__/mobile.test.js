@@ -1,8 +1,9 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable no-restricted-properties, no-underscore-dangle */
 
-import {MobileDetection} from '../util/mobile.js';
+import { MobileDetection } from '../util/mobile';
 
 describe('MobileDetection', () => {
   afterAll(() => {
@@ -21,11 +22,10 @@ describe('MobileDetection', () => {
     window.__defineGetter__('devicePixelRatio', function () {
       return 0;
     });
-
   });
 
   describe('Android()', () => {
-    it ('returns true if user agent contains Android', () => {
+    it('returns true if user agent contains Android', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Android';
       });
@@ -34,8 +34,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contains Android', () => {
-
+    it('returns false if user agent does not contains Android', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -43,13 +42,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.Android();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('AndroidOld()', () => {
-
-    it ('returns true if user agent contains Android 2.3.3', () => {
-
+    it('returns true if user agent contains Android 2.3.3', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Android 2.3.3';
       });
@@ -58,8 +54,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain Android 2.3.3', () => {
-
+    it('returns false if user agent does not contain Android 2.3.3', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -67,13 +62,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.AndroidOld();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('AndroidTablet()', () => {
-
-    it ('returns true if user agent contains Android Mobile', () => {
-
+    it('returns true if user agent contains Android Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Android';
       });
@@ -82,8 +74,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain Android Mobile', () => {
-
+    it('returns false if user agent does not contain Android Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -91,13 +82,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.AndroidTablet();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('Kindle()', () => {
-
-    it ('returns true if user agent contains Kindle', () => {
-
+    it('returns true if user agent contains Kindle', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Kindle';
       });
@@ -106,8 +94,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain Kindle', () => {
-
+    it('returns false if user agent does not contain Kindle', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -115,13 +102,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.Kindle();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('KindleFire()', () => {
-
-    it ('returns true if user agent contains KFOT', () => {
-
+    it('returns true if user agent contains KFOT', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'KFOT';
       });
@@ -130,8 +114,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain Kindle', () => {
-
+    it('returns false if user agent does not contain Kindle', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -139,14 +122,11 @@ describe('MobileDetection', () => {
       const result = MobileDetection.KindleFire();
       expect(result).toEqual(false);
     });
-
   });
 
 
   describe('Silk()', () => {
-
-    it ('returns true if user agent contains Silk', () => {
-
+    it('returns true if user agent contains Silk', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Silk';
       });
@@ -155,8 +135,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain Silk', () => {
-
+    it('returns false if user agent does not contain Silk', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -164,13 +143,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.Silk();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('BlackBerry()', () => {
-
-    it ('returns true if user agent contains BlackBerry', () => {
-
+    it('returns true if user agent contains BlackBerry', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'BlackBerry';
       });
@@ -179,8 +155,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain BlackBerry', () => {
-
+    it('returns false if user agent does not contain BlackBerry', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -188,13 +163,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.BlackBerry();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('iOS()', () => {
-
-    it ('returns true if user agent contains iPhone', () => {
-
+    it('returns true if user agent contains iPhone', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPhone';
       });
@@ -203,8 +175,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains iPad', () => {
-
+    it('returns true if user agent contains iPad', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPad';
       });
@@ -213,8 +184,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains iPod', () => {
-
+    it('returns true if user agent contains iPod', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPod';
       });
@@ -223,8 +193,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain iPhone/iPad/iPod', () => {
-
+    it('returns false if user agent does not contain iPhone/iPad/iPod', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -232,13 +201,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.iOS();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('iPhone()', () => {
-
-    it ('returns true if user agent contains iPhone', () => {
-
+    it('returns true if user agent contains iPhone', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPhone';
       });
@@ -247,10 +213,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-
-
-    it ('returns true if user agent contains iPod', () => {
-
+    it('returns true if user agent contains iPod', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPod';
       });
@@ -259,8 +222,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain iPhone/iPad/iPod', () => {
-
+    it('returns false if user agent does not contain iPhone/iPad/iPod', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPad';
       });
@@ -268,13 +230,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.iPhone();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('iPad()', () => {
-
-    it ('returns true if user agent contains iPad', () => {
-
+    it('returns true if user agent contains iPad', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPad';
       });
@@ -283,8 +242,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain iPad', () => {
-
+    it('returns false if user agent does not contain iPad', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -292,13 +250,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.iPad();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('Windows()', () => {
-
-    it ('returns true if user agent contains IEMobile', () => {
-
+    it('returns true if user agent contains IEMobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'IEMobile';
       });
@@ -307,8 +262,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent does not contain IEMobile', () => {
-
+    it('returns false if user agent does not contain IEMobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -316,13 +270,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.Windows();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('FirefoxOS()', () => {
-
-    it ('returns true if user agent contains Mozilla and Mobile', () => {
-
+    it('returns true if user agent contains Mozilla and Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Mozilla Mobile';
       });
@@ -331,8 +282,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent contains Mozilla and not Mobile', () => {
-
+    it('returns false if user agent contains Mozilla and not Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Mozilla';
       });
@@ -341,8 +291,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(false);
     });
 
-    it ('returns false if user agent contains not Mozilla but Mobile', () => {
-
+    it('returns false if user agent contains not Mozilla but Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Mobile';
       });
@@ -351,8 +300,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(false);
     });
 
-    it ('returns false if user agent contains neither Mozilla or Mobile', () => {
-
+    it('returns false if user agent contains neither Mozilla or Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'that which shall not be named';
       });
@@ -360,13 +308,10 @@ describe('MobileDetection', () => {
       const result = MobileDetection.FirefoxOS();
       expect(result).toEqual(false);
     });
-
   });
 
   describe('any()', () => {
-
-    it ('returns true if user agent contains Android', () => {
-
+    it('returns true if user agent contains Android', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Android';
       });
@@ -375,8 +320,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains Kindle', () => {
-
+    it('returns true if user agent contains Kindle', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Kindle';
       });
@@ -385,8 +329,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains KindleFire', () => {
-
+    it('returns true if user agent contains KindleFire', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'KFOT';
       });
@@ -395,8 +338,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains Silk', () => {
-
+    it('returns true if user agent contains Silk', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Silk';
       });
@@ -405,8 +347,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains BlackBerry', () => {
-
+    it('returns true if user agent contains BlackBerry', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'BlackBerry';
       });
@@ -415,8 +356,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains iPad', () => {
-
+    it('returns true if user agent contains iPad', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPad';
       });
@@ -425,8 +365,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains iPod', () => {
-
+    it('returns true if user agent contains iPod', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPod';
       });
@@ -435,8 +374,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains iPhone', () => {
-
+    it('returns true if user agent contains iPhone', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'iPhone';
       });
@@ -445,8 +383,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains IEMobile', () => {
-
+    it('returns true if user agent contains IEMobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'IEMobile';
       });
@@ -455,8 +392,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns true if user agent contains Mozilla Mobile', () => {
-
+    it('returns true if user agent contains Mozilla Mobile', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'Mozilla Mobile';
       });
@@ -465,8 +401,7 @@ describe('MobileDetection', () => {
       expect(result).toEqual(true);
     });
 
-    it ('returns false if user agent contains invalid mobile userAgent', () => {
-
+    it('returns false if user agent contains invalid mobile userAgent', () => {
       window.navigator.__defineGetter__('userAgent', function () {
         return 'no no no';
       });
@@ -474,9 +409,5 @@ describe('MobileDetection', () => {
       const result = MobileDetection.any();
       expect(result).toEqual(false);
     });
-
-
-
   });
-
 });

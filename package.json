@@ -1,7 +1,7 @@
 {
   "name": "arcads",
-  "version": "5.0.0",
-  "description": "ArcAds is a GPT wrapper created by Arc Publishing with publishers in mind.",
+  "version": "6.1.0",
+  "description": "ArcAds is a GPT wrapper created by Arc XP with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
     "test": "jest --config jest.config.js --no-cache --coverage",
@@ -9,7 +9,8 @@
     "dev": "rm -rf dist && webpack --env development --mode development --watch",
     "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
     "debug": "node debugging.js",
-    "mock": "webpack-dev-server --progress --hot --inline && npm run test"
+    "mock": "webpack-dev-server --progress --hot --inline && npm run test",
+    "lint": "eslint --config .eslintrc.js ./src/**/*.js"
   },
   "repository": {
     "type": "git",

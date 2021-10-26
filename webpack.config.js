@@ -4,30 +4,24 @@ const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
 const generateOptimizations = (env) => {
-  let optimizations = {
-    minimize: false
-  };
+  const optimizations = { minimize: false };
   if (env.production) {
     optimizations.minimize = true;
     optimizations.minimizer = [
       new TerserPlugin({
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-        },
+        terserOptions: { format: { comments: false }, },
         extractComments: false,
-      }),
-    ]
+      })
+    ];
   }
   return optimizations;
 };
 
 const generatePlugins = (env) => {
-  let plugins = [];
+  const plugins = [];
 
   if (env.production) {
-    plugins.push(new ESLintPlugin())
+    plugins.push(new ESLintPlugin());
   }
   return plugins;
 };
