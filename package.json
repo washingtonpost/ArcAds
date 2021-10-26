@@ -3,6 +3,9 @@
   "version": "6.1.0",
   "description": "ArcAds is a GPT wrapper created by Arc XP with publishers in mind.",
   "main": "dist/arcads.js",
+  "files": [
+    "dist/arcads.js"
+  ],
   "scripts": {
     "test": "jest --config jest.config.js --no-cache --coverage",
     "build": "rm -rf dist && webpack --env production --mode development",
