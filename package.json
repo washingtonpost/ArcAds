@@ -9,7 +9,9 @@
     "dev": "rm -rf dist && webpack --env.development --watch",
     "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
     "debug": "node debugging.js",
-    "mock": "webpack-dev-server --progress --hot --inline && npm run test"
+    "mock": "webpack-dev-server --progress --hot --inline && npm run test",
+    "lint": "eslint --config .eslintrc.js ./src/**/*.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,8 @@
 import { ArcAds } from '../index';
-import  * as gptService from '../services/gpt.js';
-import  * as prebidService from '../services/prebid.js';
+import * as gptService from '../services/gpt.js';
+import * as prebidService from '../services/prebid.js';
 
 describe('arcads', () => {
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -49,14 +48,15 @@ describe('arcads', () => {
       });
 
       expect(consoleMock).toHaveBeenCalledTimes(1);
-      expect(consoleMock).toHaveBeenCalledWith("ArcAds: DFP id is missing from the arcads initialization script.", '\n',
-      "Documentation: https://github.com/washingtonpost/arcads#getting-started");
+      expect(consoleMock).toHaveBeenCalledWith(
+        'ArcAds: DFP id is missing from the arcads initialization script.', '\n',
+        'Documentation: https://github.com/washingtonpost/arcads#getting-started'
+      );
     });
   });
 
   describe('registerAdCollection', () => {
     it('calls registerAd for each advert in the collection param', () => {
-
       const registerAdMock = jest.fn();
       arcAds.registerAd = registerAdMock;
 
@@ -69,18 +69,17 @@ describe('arcads', () => {
 
   describe('registerAdCollectionSingleCall', () => {
     it('calls registerAd, requestBids, refresh', () => {
-
       const registerAdMock = jest.fn();
       arcAds.registerAd = registerAdMock;
 
       const refreshMock = jest.fn();
-      window.googletag.pubads = jest.fn().mockReturnValue({refresh: refreshMock});
+      window.googletag.pubads = jest.fn().mockReturnValue({ refresh: refreshMock });
 
       const requestBidsMock = jest.fn();
-      global.pbjs = {requestBids: requestBidsMock};
+      global.pbjs = { requestBids: requestBidsMock };
 
       const adCollection = ['ad1', 'ad2'];
-      
+
       arcAds.registerAdCollectionSingleCall(adCollection);
 
 
@@ -91,7 +90,6 @@ describe('arcads', () => {
   });
 
   describe('setAdsBlockGate', () => {
-
     it('sets blockArcAdsLoad to true if has window', () => {
       ArcAds.setAdsBlockGate();
       expect(window.blockArcAdsLoad).toEqual(true);
@@ -109,7 +107,6 @@ describe('arcads', () => {
   });
 
   describe('releaseAdsBlockGate', () => {
-
     it('sets blockArcAdsLoad to false if has window', () => {
       ArcAds.releaseAdsBlockGate();
       expect(window.blockArcAdsLoad).toEqual(false);
@@ -126,7 +123,6 @@ describe('arcads', () => {
   });
 
   describe('sendSingleCallAds', () => {
-
     beforeAll(() => {
       registerAdCollectionSingleCallMock = jest.fn();
       arcAds.registerAdCollectionSingleCall = registerAdCollectionSingleCallMock;
@@ -141,12 +137,12 @@ describe('arcads', () => {
     it('if has adsList elems and pubads do SRA call', () => {
       arcAds.adsList = ['ad1', 'ad2'];
       window.googletag.pubadsReady = true;
-      window.googletag.pubads =jest.fn().mockReturnValue({
+      window.googletag.pubads = jest.fn().mockReturnValue({
         disableInitialLoad: jest.fn(),
         enableSingleRequest: jest.fn(),
         enableAsyncRendering: jest.fn(),
       });
-      
+
       arcAds.sendSingleCallAds();
       expect(registerAdCollectionSingleCallMock).toHaveBeenCalledTimes(1);
     });
@@ -156,7 +152,7 @@ describe('arcads', () => {
     it('sets block and adds ad to adsList', () => {
       const gateSetSpy = jest.spyOn(ArcAds, 'setAdsBlockGate');
       arcAds.adsList = [];
-      arcAds.reserveAd({example: true});
+      arcAds.reserveAd({ example: true });
       expect(gateSetSpy).toHaveBeenCalledTimes(1);
       expect(arcAds.adsList.length).toEqual(1);
     });
@@ -166,7 +162,7 @@ describe('arcads', () => {
     it('sets block and adds ad to adsList', () => {
       const setTargetingMock = jest.fn();
 
-      window.googletag.pubads =jest.fn().mockReturnValue({
+      window.googletag.pubads = jest.fn().mockReturnValue({
         setTargeting: setTargetingMock,
       });
 
@@ -175,5 +171,4 @@ describe('arcads', () => {
       expect(setTargetingMock).toHaveBeenCalledWith('testKey', 'testValue');
     });
   });
-
 });
