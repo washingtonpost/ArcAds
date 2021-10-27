@@ -10,7 +10,7 @@
     "docs": "rm -rf docs && ./node_modules/.bin/esdoc && open docs/index.html",
     "debug": "node debugging.js",
     "mock": "webpack-dev-server --progress --hot --inline && npm run test",
-    "lint": "eslint --config .eslintrc.js ./src/**/*.js",
+    "lint": "eslint --config .eslintrc.js ./src/**/*.js debugging.js",
     "lint:fix": "npm run lint -- --fix"
   },
   "repository": {

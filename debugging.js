@@ -1,9 +1,9 @@
-const http = require('http')
-const url = require('url')
-const fs = require('fs')
-const path = require('path')
+const http = require('http');
+const url = require('url');
+const fs = require('fs');
+const path = require('path');
 
-const port = process.argv[2] || 9000
+const port = process.argv[2] || 9000;
 
 http.createServer(function (req, res) {
   console.log(`${req.method} ${req.url}`);
@@ -27,10 +27,10 @@ http.createServer(function (req, res) {
   };
 
   fs.exists(pathname, (exist) => {
-    if(!exist) {
+    if (!exist) {
       res.statusCode = 404;
       res.end(`File ${pathname} not found!`);
-      return
+      return;
     }
 
     if (fs.statSync(pathname).isDirectory()) pathname += `/index${ext}`;
@@ -43,8 +43,8 @@ http.createServer(function (req, res) {
         res.setHeader('Content-type', map[ext] || 'text/plain');
         res.end(data);
       }
-    })
-  })
+    });
+  });
 }).listen(parseInt(port));
 
 console.log(`Server listening on port ${port}`);
