@@ -1,4 +1,4 @@
-import { appendResource } from '../util/resources.js';
+import { appendResource } from '../util/resources';
 
 describe('appendResource', () => {
   const cbMock = jest.fn();

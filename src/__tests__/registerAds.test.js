@@ -1,8 +1,6 @@
 import { ArcAds } from '../index';
-import * as gptService from '../services/gpt.js';
-import * as prebidService from '../services/prebid.js';
-import * as mobileDetection from '../util/mobile.js';
-
+import * as gptService from '../services/gpt';
+import * as prebidService from '../services/prebid';
 
 describe('registerAds dimensions branches', () => {
   global.pbjs = {

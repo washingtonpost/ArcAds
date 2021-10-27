@@ -1,4 +1,4 @@
-import { expandQueryString } from '../util/query.js';
+import { expandQueryString } from '../util/query';
 
 
 describe('expandQueryString', () => {

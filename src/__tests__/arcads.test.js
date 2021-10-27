@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 import { ArcAds } from '../index';
-import * as gptService from '../services/gpt.js';
-import * as prebidService from '../services/prebid.js';
 
 describe('arcads', () => {
   beforeEach(() => {

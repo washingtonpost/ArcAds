@@ -1,7 +1,7 @@
 import { ArcAds } from '../index';
-import * as gptService from '../services/gpt.js';
-import * as sizemappingService from '../services/sizemapping.js';
-import * as headerBidding from '../services/headerbidding.js';
+import * as gptService from '../services/gpt';
+import * as sizemappingService from '../services/sizemapping';
+import * as headerBidding from '../services/headerbidding';
 
 describe('displayAd ', () => {
   beforeEach(() => {

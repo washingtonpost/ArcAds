@@ -1,10 +1,10 @@
 import anylogger from 'anylogger';
 import 'anylogger-console';
 import { renamePositionKey } from '../util/customTargeting';
-import { debounce } from '../util/debounce.js';
-import { sendLog } from '../util/log.js';
+import { debounce } from '../util/debounce';
+import { sendLog } from '../util/log';
 
-describe('The CustomTargeting.js functions', () => {
+describe('The CustomTargeting functions', () => {
   it('should take targeting and position value, and rename the key as posn', () => {
     const targeting = {
       position: {

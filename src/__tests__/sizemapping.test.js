@@ -1,3 +1,4 @@
+/* eslint-disable no-global-assign */
 import {
   prepareSizeMaps,
   parseSizeMappings,
@@ -5,7 +6,6 @@ import {
   setResizeListener,
   sizemapListeners,
 } from '../services/sizemapping';
-import { fetchBids } from '../services/headerbidding';
 
 const mockSizeMap = [[468, 60], [728, 90]];
 describe('prepareSizeMaps', () => {
@@ -81,8 +81,7 @@ describe('runResizeEvents', () => {
       writable: true,
       value: 1024,
     });
-    const result = runResizeEvents(mockParams);
-    const resultFn = result();
+    runResizeEvents(mockParams)();
     expect(sizemapListeners.abc.correlators[0]).toEqual(true);
   });
 });

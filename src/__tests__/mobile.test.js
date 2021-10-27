@@ -1,5 +1,7 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-restricted-properties */
 
-import { MobileDetection } from '../util/mobile.js';
+import { MobileDetection } from '../util/mobile';
 
 describe('MobileDetection', () => {
   afterAll(() => {
