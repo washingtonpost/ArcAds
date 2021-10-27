@@ -1,7 +1,7 @@
 {
   "name": "arcads",
-  "version": "4.0.1",
-  "description": "ArcAds is a GPT wrapper created by Arc Publishing with publishers in mind.",
+  "version": "6.1.1",
+  "description": "ArcAds is a GPT wrapper created by Arc XP with publishers in mind.",
   "main": "dist/arcads.js",
   "scripts": {
     "test": "jest --config jest.config.js --no-cache --coverage",
@@ -39,7 +39,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
     "esdoc-standard-plugin": "^1.0.0",
-    "esdoc": "^1.0.4",
+    "esdoc": "^1.1.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-import-resolver-webpack": "^0.8.4",
@@ -52,9 +52,9 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
-    "anylogger": "^1.0.10",
+    "anylogger": "^1.0.11",
     "anylogger-console": "^1.0.0",
-    "promise-polyfill": "^8.0.0"
+    "promise-polyfill": "^8.2.0"
   },
   "homepage": "https://github.com/washingtonpost/arcads#readme"
 }
