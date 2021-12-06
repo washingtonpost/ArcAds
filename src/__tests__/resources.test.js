@@ -21,6 +21,7 @@ describe('appendResource', () => {
         appendChild: appendChildMock,
       },
       createElement: jest.fn().mockReturnValue({}),
+      querySelectorAll: jest.fn().mockReturnValue([]),
     };
   });
 
@@ -48,5 +49,11 @@ describe('appendResource', () => {
     const expectedParams = { async: false, defer: false, src: 'www.test.com' };
     expect(appendChildMock).toHaveBeenCalledWith(expectedParams);
     expect(cbMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('if script already exists', () => {
+    global.document.querySelectorAll = jest.fn().mockReturnValue(['Node']);
+    appendResource('script', 'www.test.com');
+    expect(appendChildMock).toHaveBeenCalledTimes(0);
   });
 });

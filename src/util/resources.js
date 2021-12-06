@@ -8,7 +8,8 @@
 **/
 export function appendResource(tagname, url, async, defer, cb) {
   const tag = document.createElement(tagname);
-  if (tagname === 'script') {
+  if (tagname === 'script'
+    && typeof document.querySelectorAll(`script[src="${url}"]`)[0] === 'undefined') {
     tag.src = url;
     tag.async = async || false;
     tag.defer = async || defer || false;
