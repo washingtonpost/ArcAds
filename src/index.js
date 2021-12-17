@@ -188,8 +188,24 @@ export class ArcAds {
   }) {
     const fullSlotName = determineSlotName(this.dfpId, slotName);
     const parsedDimensions = dimensions && !dimensions.length ? null : dimensions;
+
+    const flatDimensions = [];
+
+    const dimensionsDepth = getArrayDepth(dimensions);
+
+    if (dimensions && typeof dimensions !== 'undefined' && dimensionsDepth === 1) {
+      flatDimensions.push(...dimensions);
+    } else if (dimensions && typeof dimensions !== 'undefined' && dimensions.length > 0 && dimensionsDepth === 2) {
+      flatDimensions.push(...dimensions);
+    } else if (dimensions) {
+      dimensions.forEach((set) => {
+        flatDimensions.push(...set);
+      });
+    }
+
+
     const ad = !dimensions ? window.googletag.defineOutOfPageSlot(fullSlotName, id)
-      : window.googletag.defineSlot(fullSlotName, parsedDimensions, id);
+      : window.googletag.defineSlot(fullSlotName, flatDimensions, id);
 
     if (sizemap && sizemap.breakpoints && dimensions) {
       const { mapping, breakpoints, correlators } = prepareSizeMaps(parsedDimensions, sizemap.breakpoints);
